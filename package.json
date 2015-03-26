@@ -1,0 +1,24 @@
+{
+  "name": "wordpress-development",
+  "version": "1.0.0",
+  "description": "This project aims to integrate the latest version of Wordpress with Mashery's API Management Service. It is composed of three parts:",
+  "main": "index.js",
+  "scripts": {
+    "build": "docker build --rm -t mashery/wordpress .",
+    "initial": "npm run build && docker run --name wordpress -d -p 8080:80 -v $PWD/integration:/var/www/wp-content/plugins/mashery-integration -v $PWD/admin:/var/www/wp-content/plugins/mashery-admin -v $PWD/theme:/var/www/wp-content/themes/mashery -t mashery/wordpress",
+    "restart": "docker restart wordpress; echo ''",
+    "stop": "docker stop wordpress",
+    "remove": "docker remove wordpress",
+    "address": "echo \"Running on http://$(boot2docker ip):8080/\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lgomez/wordpress-development.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lgomez/wordpress-development/issues"
+  },
+  "homepage": "https://github.com/lgomez/wordpress-development"
+}

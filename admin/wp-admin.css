@@ -1,0 +1,6 @@
+#wphead {
+  border-bottom: MidnightBlue 1px solid;
+  background-color: #E4F0FE!important;
+  background: -moz-linear-gradient(bottom,#E4F0FE,#B0C4DE);
+  background: -webkit-gradient(linear,left bottom,left top,from(#E4F0FE),to(#B0C4DE));
+}

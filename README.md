@@ -1,4 +1,5 @@
-# Mashery Wordpress Developer Portal & CMS
+# Mashery's New Developer Portal & CMS
+> Proof of Concept powered by Wordpress and The Mashery Platform API
 
 This project aims to integrate the latest version of Wordpress with Mashery's API
 Management Service. It is composed of three parts:

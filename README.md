@@ -1,4 +1,4 @@
-# Mashery Wordpress Integration Project
+# Mashery Wordpress Developer Portal & CMS
 
 This project aims to integrate the latest version of Wordpress with Mashery's API
 Management Service. It is composed of three parts:

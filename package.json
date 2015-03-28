@@ -1,15 +1,22 @@
 {
-  "name": "wordpress-development",
+  "name": "developer-portal",
   "version": "1.0.0",
   "description": "This project aims to integrate the latest version of Wordpress with Mashery's API Management Service. It is composed of three parts:",
-  "main": "index.js",
   "scripts": {
-    "build": "docker build --rm -t mashery/wordpress .",
-    "initial": "npm run build && docker run --name wordpress -d -p 8080:80 -v $PWD/integration:/var/www/wp-content/plugins/mashery-integration -v $PWD/admin:/var/www/wp-content/plugins/mashery-admin -v $PWD/theme:/var/www/wp-content/themes/mashery -t mashery/wordpress",
-    "restart": "docker restart wordpress; echo ''",
-    "stop": "docker stop wordpress",
-    "remove": "docker remove wordpress",
-    "address": "echo \"Running on http://$(boot2docker ip):8080/\""
+    "build": "docker build --rm -t mashery/$npm_package_name .",
+    "run": "docker run --name $npm_package_name -d -p 8080:80 -v $PWD/plugins:/var/www/wp-content/plugins -v $PWD/themes:/var/www/wp-content/themes -t mashery/$npm_package_name",
+    "restart": "docker restart $npm_package_name && npm run location",
+    "stop": "docker stop $npm_package_name",
+    "rm": "npm run stop && docker rm $npm_package_name",
+    "attach": "docker exec -it $npm_package_name bash",
+    "wpinstall": "curl -d \"weblog_title=Mashery Developer Portal&user_name=user&admin_password=pass&admin_password2=pass&admin_email=user@example.com&blog_public=checked&Submit=submit\" \"http://$(boot2docker ip):8080/wp-admin/install.php?step=2\"",
+    "activate-theme": "curl 'http://192.168.59.103:8080/wp-admin/themes.php?action=activate&stylesheet=mashery&_wpnonce=ca32f6f9de'",
+    "open": "open http://$(boot2docker ip):8080",
+    "bootstrap": "npm run wpinstall && npm run activate-theme && npm run open",
+    "mysqldump": "docker exec $npm_package_name mysqldump --add-drop-database --add-drop-table -h localhost -u root -p$(docker exec $npm_package_name cat /mysql-root-pw.txt) wordpress > ./data.sql",
+    "mysql": "docker exec $npm_package_name mysql -h localhost -u root -p$(docker exec $npm_package_name cat /mysql-root-pw.txt) wordpress < ./data.sql",
+    "location": "echo \"Running on http://$(boot2docker ip):8080/\"",
+    "test": "echo $npm_package_name"
   },
   "repository": {
     "type": "git",
@@ -22,3 +29,4 @@
   },
   "homepage": "https://github.com/lgomez/wordpress-development"
 }
+

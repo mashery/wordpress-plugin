@@ -1,2 +1,4 @@
 FROM jbfink/docker-wordpress
-MAINTAINER Luis Gomez <lgomez@gmail.com>
+ADD ./start.sh /start.sh
+RUN chmod 755 /start.sh
+CMD ["/bin/bash", "/start.sh"]

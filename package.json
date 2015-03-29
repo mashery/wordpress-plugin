@@ -1,22 +1,21 @@
 {
   "name": "developer-portal",
   "version": "1.0.0",
+  "private": true,
   "description": "This project aims to integrate the latest version of Wordpress with Mashery's API Management Service. It is composed of three parts:",
+  "port": "8080",
   "scripts": {
-    "build": "docker build --rm -t mashery/$npm_package_name .",
-    "run": "docker run --name $npm_package_name -d -p 8080:80 -v $PWD/data.sql:/data.sql -v $PWD/plugins:/var/www/wp-content/plugins -v $PWD/themes:/var/www/wp-content/themes -t mashery/$npm_package_name",
-    "restart": "docker restart $npm_package_name && npm run location",
+    "create": "docker run --name $npm_package_name -d -p $npm_package_port:80 -v $PWD/plugins:/var/www/wp-content/plugins -v $PWD/themes:/var/www/wp-content/themes -t jbfink/docker-wordpress",
+    "start": "if docker ps -a --filter=\"name=$npm_package_name\" | grep $npm_package_name; then docker restart $npm_package_name; else npm run create; fi",
     "stop": "docker stop $npm_package_name",
     "rm": "npm run stop && docker rm $npm_package_name",
     "attach": "docker exec -it $npm_package_name bash",
+    "ps": "docker ps -a --filter \"name=$npm_package_name\"",
+    "purge": "docker ps -a | grep \"^[^CONTAINER]\" | awk '{print $1}' | xargs docker rm",
     "wp:install": "docker exec -i $npm_package_name mysql -h localhost -u root -p$(docker exec $npm_package_name cat /mysql-root-pw.txt) wordpress < ./data.sql",
-    "activate-theme": "curl 'http://192.168.59.103:8080/wp-admin/themes.php?action=activate&stylesheet=mashery&_wpnonce=ca32f6f9de'",
-    "open": "open http://$(boot2docker ip):8080",
-    "bootstrap": "npm run wpinstall && npm run activate-theme && npm run open",
-    "mysqldump": "docker exec $npm_package_name mysqldump --add-drop-database --add-drop-table -h localhost -u root -p$(docker exec $npm_package_name cat /mysql-root-pw.txt) wordpress > ./data.sql",
-    "mysql": "docker exec $npm_package_name mysql -h localhost -u root -p$(docker exec $npm_package_name cat /mysql-root-pw.txt) wordpress < ./data.sql",
-    "location": "echo \"Running on http://$(boot2docker ip):8080/\"",
-    "test": "echo $npm_package_name"
+    "wp:open": "open http://$(boot2docker ip):$npm_package_port",
+    "wp:dump": "docker exec $npm_package_name mysqldump --add-drop-database --add-drop-table -h localhost -u root -p$(docker exec $npm_package_name cat /mysql-root-pw.txt) wordpress > ./data.sql",
+    "wp:url": "echo \"Running on http://$(boot2docker ip):$npm_package_port/\""
   },
   "repository": {
     "type": "git",
@@ -29,4 +28,3 @@
   },
   "homepage": "https://github.com/lgomez/wordpress-development"
 }
-

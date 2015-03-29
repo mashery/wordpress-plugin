@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Mashery Control Center
+ * Plugin Name: Mashery Developer Portal Integration
  * Plugin URI: http://URI_Of_Page_Describing_Plugin_and_Updates
- * Description: Mashery's Wordpress-powered Control Center
- * Version: 0.0.1
- * Author: Luis G. Gómez
- * Author URI: http://luis.io
- * License: Copyright 2015 Luis G. Gómez - All rights reserved.
+ * Description: Mashery's Wordpress-powered Developer Portal Integration
+ * Version: 0.0.2
+ * Author: Mashery, Inc.
+ * Author URI: http://mashery.com
+ * License: Copyright 2015 Mashery, Inc. - All rights reserved.
  */
 
 /**

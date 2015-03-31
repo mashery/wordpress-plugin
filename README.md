@@ -1,48 +1,24 @@
 # Mashery Developer Portal & CMS
 > Proof of Concept powered by Wordpress and Mashery Platform APIs.
 
-The point of this project is to test wether it is possible and the
-level of difficulty of adopting Wordpress to replace Mashery's current
-Developmer Portal and CMS solutions while at the same time satisfying
-the documented needs Mashery has in these areas. In particular, the
-need to reduce support requests and improve sales and retention.
+Is Wordpress a viable option to replace Mashery's current Developer Portal & CMS product? Read the original dicsussion [here](https://mashery.jira.com/wiki/pages/viewpage.action?pageId=99844396) (requires Jira access). See progress [here](../../issues).
 
-A separate analysis has already taken place to produce a list of
-requirements that would satisfy the needs normally addressed by a
-modern and competitive Portal and CMS solution. One of the possible
-solutions to our current problem may be adopting an existing content
-management system like Wordpress.
+## Questions
 
-## Goal
+1. Is it technically possible? See [requirements](../issues?utf8=✓&q=label%3Arequirement).
+2. How long would it take? See [milestones](/milestones).
+3. What are the blockers? See [blockers](../issues?utf8=✓&q=label%3Aplatform+label%3Ablocker).
 
-This project aims to proove that Wordpress can satisfy our needs and
-tests that:
+## Local Setup
 
-1. Integration to Control Center can be seamless:
-    1. Theme is reasonably close to Control Center's.
-    2. No need for double-authentication (ie: Shared realm).
-2. Feature parity with current portal solution. In particular:
-    1. Self-service registration and account management.
-    2. Self-service key provisioning and management.
+This is a PHP project but, to make things easier, we are running things in a [Docker](https://www.docker.com/) container and using Node's NPM tool to manage a number of commands/scripts you'll use to get started, build, run, etc. You'll need:
 
-Other features such as wether the CMS functionality is covered, wether
-theeming is supported, popular third-party integrations, etc. are all
-known to be provided by Wordpress and we may not attempt to cover those
-here.
+1. [Node.js](https://nodejs.org/)
+2. [VirtualBox](https://www.virtualbox.org/)
+3. [Vagrant](https://www.vagrantup.com/)
+4. [Boot2Docker](http://boot2docker.io/)
 
-## Run Locally
-
-This project runs the latest version of Wordpress within a Docker
-container to simplify development so you must have an environment setup
-that supports this. If you know what you are doing and/or already have
-local support for docker containers and the docker client, feel free to
-skip the *Environment Setup* section.
-
-### Environment Setup
-
-The simplest and fastest way to set your sistem up for this is to use
-Brew and Cask to install VirtualBox, Vagrant and boot2docker. Here's
-a set of commands to get that done.
+You may already heve these installed. If not, here's a suggested set of steps you can use to set up your system. If you don't know what you are doing or what these mean, you should probably not just run these blindly.
 
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install caskroom/cask/brew-cask
@@ -52,14 +28,14 @@ a set of commands to get that done.
     brew cask install boot2docker
     boot2docker up
 
-You should now have everything you need to go to the next section.
+You should now have everything you need to set up the project.
 
-### Project Setup
+## Project Setup
 
     git clone git@github.com:lgomez/mashery-developer-portal.git
     cd mashery-developer-portal
 
-### Usage & Commands
+## Usage & Commands
 
 There are several `npm` commands that'll make it much simpler for you to build,
 run and work with this POC. Please take a look at the `scripts` attribute in `package.json`
@@ -79,15 +55,15 @@ Which will either restart or create (and start) the container.
 
 Will open your default browser to the address where all this is running at.
 
-### Contributing
+## Contributing
 
 Contributions will only be accepted via pull requests. Please fork, do your thing and PR me.
 
-### Basic Structure
+## Basic Structure
 
 The main file you should be looking at is [main.php](main.php). Easy enough. From there, you shuold be able to infer what's going on. If not yet, soon enough.
 
-### Useful Links
+## Useful Links
 
 * https://codex.wordpress.org/Creating_Admin_Themes
 * https://codex.wordpress.org/Must_Use_Plugins

@@ -18,16 +18,16 @@
 
 
 // Hook for adding admin menus
-add_action('admin_menu', 'mashery_add_pages');
+// add_action('admin_menu', 'mashery_add_pages');
 
-function mashery_add_pages() {
-    add_menu_page(__('Mashery','menu-test'), __('Mashery','menu-test'), 'manage_options', 'mashery-top-level-handle', 'mashery_toplevel_page' );
-}
+// function mashery_add_pages() {
+//     add_menu_page(__('Mashery','menu-test'), __('Mashery','menu-test'), 'manage_options', 'mashery-top-level-handle', 'mashery_toplevel_page' );
+// }
 
-// mt_toplevel_page() displays the page content for the custom Test Toplevel menu
-function mashery_toplevel_page() {
-    echo "<h2>" . __( 'Mashery', 'menu-test' ) . "</h2>";
-}
+// // mt_toplevel_page() displays the page content for the custom Test Toplevel menu
+// function mashery_toplevel_page() {
+//     echo "<h2>" . __( 'Mashery', 'menu-test' ) . "</h2>";
+// }
 
 // add_menu_page('Page title', 'Top-level menu title', 'manage_options', 'my-top-level-handle', 'my_magic_function');
 // add_submenu_page( 'my-top-level-handle', 'Page title', 'Sub-menu title', 'manage_options', 'my-submenu-handle', 'my_magic_function');

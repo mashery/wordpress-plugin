@@ -5,9 +5,9 @@ Is Wordpress a viable option to replace Mashery's current Developer Portal & CMS
 
 ## Questions
 
-1. Is it technically possible? See [requirements](../issues?utf8=✓&q=label%3Arequirement).
-2. How long would it take? See [milestones](/milestones).
-3. What are the blockers? See [blockers](../issues?utf8=✓&q=label%3Aplatform+label%3Ablocker).
+1. Is it technically possible? See [requirements](../../issues?utf8=✓&q=label%3Arequirement).
+2. How long would it take? See [milestones](../../milestones).
+3. What are the blockers? See [blockers](../../issues?utf8=✓&q=label%3Aplatform+label%3Ablocker).
 
 ## Local Setup
 

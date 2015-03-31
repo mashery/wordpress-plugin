@@ -1,7 +1,7 @@
 # Mashery Developer Portal & CMS
 > Proof of Concept powered by Wordpress and Mashery Platform APIs.
 
-Is Wordpress a viable option to replace Mashery's current Developer Portal & CMS product? Read the original dicsussion [here](https://mashery.jira.com/wiki/pages/viewpage.action?pageId=99844396) (requires Jira access). See progress [here](../../issues).
+Is Wordpress a viable option to replace Mashery's current Developer Portal & CMS product? Read the original dicsussion [here](https://mashery.jira.com/wiki/pages/viewpage.action?pageId=99844396) (requires Jira access). See progress [here](../../milestones).
 
 ## Questions
 

@@ -54,16 +54,29 @@ a set of commands to get that done.
 
 You should now have everything you need to go to the next section.
 
-### Setup
+### Project Setup
 
-    git clone git@github.com:lgomez/wordpress-development.git
-    cd wordpress-development
-    npm run initial
+    git clone git@github.com:lgomez/mashery-developer-portal.git
+    cd mashery-developer-portal
 
-You should now be able to access your docker container instance by
-going to the address displayed by the and of the `npm run initial`
-command. If you need to see that again, simply run:
+### Usage & Commands
 
-    npm run address
+There are several `npm` commands that'll make it much simpler for you to build,
+run and work with this POC. Please take a look at the `scripts` attribute in `package.json`
+to see a full list of what's available.
+
+To quickly get started you can just run:
+
+    npm run build
+
+Which will build a fresh image off of which we'll be basing our container from and then:
+
+    npm start
+
+Which will either restart or create (and start) the container.
+
+    npm run wp:open
+
+Will open your default browser to the address where all this is running at.
 
 

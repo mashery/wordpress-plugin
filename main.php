@@ -9,14 +9,6 @@
  * License: Copyright 2015 Mashery, Inc. - All rights reserved.
  */
 
-/**
- * https://codex.wordpress.org/Creating_Admin_Themes
- * https://codex.wordpress.org/Must_Use_Plugins
- * https://codex.wordpress.org/Writing_a_Plugin
- */
-
-
-
 // Hook for adding admin menus
 // add_action('admin_menu', 'mashery_add_pages');
 

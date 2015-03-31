@@ -79,4 +79,16 @@ Which will either restart or create (and start) the container.
 
 Will open your default browser to the address where all this is running at.
 
+### Contributing
 
+Contributions will only be accepted via pull requests. Please fork, do your thing and PR me.
+
+### Basic Structure
+
+The main file you should be looking at is main.php. Easy enough. From there, you shuold be able to infer what's going on. If not yet, soon enough.
+
+### Useful Links
+
+* https://codex.wordpress.org/Creating_Admin_Themes
+* https://codex.wordpress.org/Must_Use_Plugins
+* https://codex.wordpress.org/Writing_a_Plugin

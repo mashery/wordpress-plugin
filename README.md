@@ -85,7 +85,7 @@ Contributions will only be accepted via pull requests. Please fork, do your thin
 
 ### Basic Structure
 
-The main file you should be looking at is main.php. Easy enough. From there, you shuold be able to infer what's going on. If not yet, soon enough.
+The main file you should be looking at is [main.php](main.php). Easy enough. From there, you shuold be able to infer what's going on. If not yet, soon enough.
 
 ### Useful Links
 

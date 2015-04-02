@@ -3,7 +3,7 @@
  * Plugin Name: Mashery Developer Portal Integration
  * Plugin URI: http://URI_Of_Page_Describing_Plugin_and_Updates
  * Description: Mashery's Wordpress-powered Developer Portal Integration
- * Version: 0.0.3
+ * Version: 1.0.0
  * Author: Mashery, Inc.
  * Author URI: http://mashery.com
  * License: Copyright 2015 Mashery, Inc. - All rights reserved.

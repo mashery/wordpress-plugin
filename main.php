@@ -7,6 +7,8 @@
  * Author: Mashery, Inc.
  * Author URI: http://mashery.com
  * License: Copyright 2015 Mashery, Inc. - All rights reserved.
+ * GitHub Plugin URI: https://github.com/lgomez/mashery-developer-portal
+ * GitHub Branch: master
  */
 
 // Hook for adding admin menus

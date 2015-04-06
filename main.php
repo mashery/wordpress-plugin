@@ -24,7 +24,9 @@ class Mashery {
         add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
         add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
 
-        add_options_page( 'Mashery', 'Mashery', 'manage_options', 'mashery', array($this, 'options_page') );
+        add_submenu_page( 'settings', 'Mashery', 'Mashery', 'manage_options', 'mashery', array(__CLASS__, 'options_page'));
+
+        // add_options_page( 'Mashery', 'Mashery', 'manage_options', 'mashery', array($this, 'options_page') );
 
         // self::$settings = get_option( 'mashery_settings' );
 
@@ -43,9 +45,7 @@ class Mashery {
     }
 
     function options_page() {
-        ?>
-        <h2>Mashery Settings</h2>
-        <?php
+        echo "<h2>Mashery</h2>";
     }
 
     function deactivation() {

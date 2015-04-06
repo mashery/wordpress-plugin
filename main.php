@@ -15,8 +15,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 class Mashery {
 
-    protected $settings = get_option( 'mashery_settings' );
-
     function __construct() {
 
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
@@ -27,6 +25,8 @@ class Mashery {
         add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
 
         add_options_page( 'Mashery', 'Mashery', 'manage_options', 'mashery', 'mashery_options_page' );
+
+        self::$settings = get_option( 'mashery_settings' );
 
         if ( self::$settings == false ) {
             add_option( 'mashery_settings', array('key' => null, 'email' => '' ) );

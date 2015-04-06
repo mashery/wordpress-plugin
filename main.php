@@ -18,7 +18,7 @@ class Mashery {
     }
 
     function activation() {
-        add_role( 'developer', 'Developer' );
+        add_role( 'developer', 'Developer', array( 'read' => true, 'level_0' => true ) );
         $role = get_role( 'developer' );
         $role->add_cap( 'manage_developer_data' );
     }

@@ -15,7 +15,9 @@ class Mashery {
     function __construct() {
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
-        add_shortcode( 'mashtest', array(__CLASS__, 'mashtest_func') );
+        add_shortcode( 'mashery:applications', array(__CLASS__, 'applications') );
+        add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
+        add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
     }
 
     function activation() {
@@ -31,8 +33,16 @@ class Mashery {
     }
 
 
-    function mashtest_func( $atts ){
-        return "mashery shortcode executed!";
+    function applications(){
+        return "[Render applications list here]";
+    }
+
+    function keys(){
+        return "[Render key list here]";
+    }
+
+    function profile(){
+        return "[Render user profile here]";
     }
 
 

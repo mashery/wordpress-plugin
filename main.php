@@ -15,6 +15,7 @@ class Mashery {
     function __construct() {
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
+        add_shortcode( 'mashtest', array(__CLASS__, 'mashtest_func') );
     }
 
     function activation() {
@@ -28,6 +29,12 @@ class Mashery {
         $role->remove_cap( 'manage_developer_data' );
         remove_role( 'developer' );
     }
+
+
+    function mashtest_func( $atts ){
+        return "mashery shortcode executed!";
+    }
+
 
 }
 

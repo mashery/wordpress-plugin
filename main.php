@@ -12,11 +12,13 @@
 
 class Mashery {
 
+    /*
     protected $option_name = 'mashery_integration_key';
 
     protected $data = array(
         'key' => null
     );
+    */
 
     function __construct() {
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
@@ -25,8 +27,10 @@ class Mashery {
         add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
         add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
 
+        /*
         add_options_page('Mashery', 'Mashery', 'manage_options', 'mashery', array($this, 'options_page'));
         register_setting('mashery_integration_key', $this->option_name, array($this, 'validate_mashery_integration_key'));
+        */
 
     }
 
@@ -34,7 +38,7 @@ class Mashery {
         add_role( 'developer', 'Developer', array( 'level_1' => true ) );
         $role = get_role( 'developer' );
         $role->add_cap( 'manage_developer_data' );
-        update_option($this->option_name, $this->data);
+        /* update_option($this->option_name, $this->data); */
     }
 
     function deactivation() {
@@ -55,6 +59,7 @@ class Mashery {
         return "[Render user profile here]";
     }
 
+    /*
     public function validate_mashery_integration_key($input) {
         $valid = array();
         $valid['key'] = sanitize_text_field($input['key']);
@@ -89,6 +94,7 @@ class Mashery {
         </div>
         <?php
     }
+    */
 
 }
 

@@ -42,7 +42,7 @@ class Mashery {
 
         // Set up the plugin admin menu
         add_menu_page('Menu', 'Menu', 'THE_NEW_CAP', ...);
-        add_submenu_page('Mashery', 'Submenu', 'Submenu', 'THE_NEW_CAP', ...);
+        add_submenu_page('Mashery', 'Submenu', 'Submenu', 'THE_NEW_CAP');
     } // function admin_menu
     function deactivation() {
         self::remove_cap();

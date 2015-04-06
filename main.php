@@ -26,12 +26,12 @@ class Mashery {
 
         add_options_page( 'Mashery', 'Mashery', 'manage_options', 'mashery', 'mashery_options_page' );
 
-        self::$settings = get_option( 'mashery_settings' );
+        // self::$settings = get_option( 'mashery_settings' );
 
-        if ( self::$settings == false ) {
-            add_option( 'mashery_settings', array('key' => null, 'email' => '' ) );
-            self::$settings = get_option( 'mashery_settings' );
-        }
+        // if ( self::$settings == false ) {
+        //     add_option( 'mashery_settings', array('key' => null, 'email' => '' ) );
+        //     self::$settings = get_option( 'mashery_settings' );
+        // }
 
     }
 
@@ -45,7 +45,7 @@ class Mashery {
     function mashery_options_page() {
         ?>
         <form action='options.php' method='post'>
-            <h2>MailChimp Webhooks</h2>
+            <h2>Mashery Settings</h2>
             <?php
             // settings_fields( 'mcwh' );
             // do_settings_sections( 'mcwh' );

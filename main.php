@@ -24,7 +24,7 @@ class Mashery {
         add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
         add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
 
-        // add_options_page( 'Mashery', 'Mashery', 'manage_options', 'mashery', array(__CLASS__, 'options_page') );
+        add_options_page( 'Mashery', 'Mashery', 'manage_options', 'mashery', array($this, 'options_page') );
 
         // self::$settings = get_option( 'mashery_settings' );
 
@@ -44,14 +44,7 @@ class Mashery {
 
     function options_page() {
         ?>
-        <form action='options.php' method='post'>
-            <h2>Mashery Settings</h2>
-            <?php
-            // settings_fields( 'mcwh' );
-            // do_settings_sections( 'mcwh' );
-            // submit_button();
-            ?>
-        </form>
+        <h2>Mashery Settings</h2>
         <?php
     }
 

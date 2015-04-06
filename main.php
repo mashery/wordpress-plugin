@@ -31,4 +31,6 @@ class Mashery {
 
 }
 
+$mashery = new Mashery;
+
 ?>

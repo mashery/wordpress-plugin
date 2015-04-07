@@ -14,8 +14,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 class Mashery {
+    private $options;
 
-    function __construct() {
+    public function __construct() {
 
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
@@ -24,28 +25,17 @@ class Mashery {
         add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
         add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
 
-        // add_submenu_page( 'settings', 'Mashery', 'Mashery', 'manage_options', 'mashery', array(__CLASS__, 'options_page'));
+        add_filter('plugin_action_links', array( $this, 'settings_link' ));
 
-        // add_options_page( 'Mashery', 'Mashery', 'manage_options', 'mashery', array($this, 'options_page') );
-
-        // self::$settings = get_option( 'mashery_settings' );
-
-        // if ( self::$settings == false ) {
-        //     add_option( 'mashery_settings', array('key' => null, 'email' => '' ) );
-        //     self::$settings = get_option( 'mashery_settings' );
-        // }
-
+        add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+        add_action( 'admin_init', array( $this, 'page_init' ) );
     }
 
     function activation() {
         add_role( 'developer', 'Developer', array( 'level_1' => true ) );
         $role = get_role( 'developer' );
         $role->add_cap( 'manage_developer_data' );
-        /* update_option($this->option_name, $this->data); */
-    }
-
-    function options_page() {
-        echo "<h2>Mashery</h2>";
+        // update_option($this->option_name, $this->data);
     }
 
     function deactivation() {
@@ -66,8 +56,68 @@ class Mashery {
         return "[Render user profile here]";
     }
 
+    function settings_link($links) {
+        $mylinks = array('<a href="' . admin_url( 'options-general.php?page=mashery' ) . '">Settings</a>');
+        return array_merge( $links, $mylinks );
+    }
+
+    public function add_plugin_page() {
+        add_options_page('Mashery', 'Mashery', 'manage_options', 'mashery', array( $this, 'create_admin_page' ) );
+    }
+
+    public function create_admin_page() {
+        $this->options = get_option( 'my_option_name' );
+        ?>
+        <div class="wrap">
+            <h2>Mashery</h2>
+            <form method="post" action="options.php">
+            <?php
+                settings_fields( 'my_option_group' );
+                do_settings_sections( 'mashery' );
+                submit_button();
+            ?>
+            </form>
+        </div>
+        <?php
+    }
+
+    public function page_init() {
+        register_setting( 'my_option_group', 'my_option_name', array( $this, 'sanitize' ) );
+        add_settings_section( 'mashery-settings-form', 'Developer Portal Integration Settings', array( $this, 'print_section_info' ), 'mashery' );
+        add_settings_field( 'mashery_customer_id', 'Customer ID', array( $this, 'mashery_customer_id_callback' ), 'mashery', 'mashery-settings-form' );
+        add_settings_field( 'mashery_access_key', 'Access Key', array( $this, 'mashery_access_key_callback' ), 'mashery', 'mashery-settings-form' );
+    }
+
+    public function sanitize( $input ) {
+        $new_input = array();
+        if( isset( $input['mashery_customer_id'] ) ) {
+            $new_input['mashery_customer_id'] = absint( $input['mashery_customer_id'] );
+        }
+        if( isset( $input['mashery_access_key'] ) ) {
+            $new_input['mashery_access_key'] = sanitize_text_field( $input['mashery_access_key'] );
+        }
+        return $new_input;
+    }
+
+    public function print_section_info() {
+        print 'Enter your Mashery-provided authentication information here:';
+    }
+
+    public function mashery_customer_id_callback() {
+        printf(
+            '<input type="text" id="mashery_customer_id" name="my_option_name[mashery_customer_id]" value="%s" />',
+            isset( $this->options['mashery_customer_id'] ) ? esc_attr( $this->options['mashery_customer_id']) : ''
+        );
+    }
+
+    public function mashery_access_key_callback() {
+        printf(
+            '<input type="text" id="mashery_access_key" name="my_option_name[mashery_access_key]" value="%s" />',
+            isset( $this->options['mashery_access_key'] ) ? esc_attr( $this->options['mashery_access_key']) : ''
+        );
+    }
 }
 
-$mashery = new Mashery;
-
-?>
+if( is_admin() ) {
+    $mashery_settings_page = new Mashery();
+}

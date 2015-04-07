@@ -3,6 +3,19 @@
 
 Is Wordpress a viable option to replace Mashery's current Developer Portal & CMS product? Read the original dicsussion [here](https://mashery.jira.com/wiki/pages/viewpage.action?pageId=99844396) (requires Jira access). See progress [here](../../milestones).
 
+## Demo
+
+I've installed a demo of this on one of my own personal servers.
+
+- Developer Portal Demo: http://198.199.94.141/
+- Admin Demo: http://198.199.94.141/wp-admin/
+- User: admin
+- Password: hbSv93CH3C
+
+You'll need to [register first](http://198.199.94.141/wp-login.php?action=register) and I will need to manually give you admin rights. You *WILL NOT GET AN EMAIL* so please email me directly to grant you access.
+
+*Note*: No proprietary data or code is included in any of this so there's no need to worry about this being on my personal server. If anything, it'll help further proove integration is possible.
+
 ## Questions
 
 1. Is it technically possible? See [requirements](../../issues?utf8=✓&q=label%3Arequirement).

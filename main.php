@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Mashery Developer Portal Integration
- * Plugin URI: http://URI_Of_Page_Describing_Plugin_and_Updates
+ * Plugin URI: https://github.com/lgomez/mashery-developer-portal
  * Description: Mashery's Wordpress-powered Developer Portal Integration
  * Version: 1.0.0
  * Author: Mashery, Inc.

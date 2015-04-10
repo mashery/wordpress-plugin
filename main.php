@@ -18,13 +18,19 @@ class Mashery {
 
     public function __construct() {
 
+        add_shortcode( 'mashery:applications', array(__CLASS__, 'applications') );
+        add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
+        add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
+
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
 
-        add_filter('plugin_action_links', array( $this, 'settings_link' ));
+        if ( is_admin() ) {
+            add_filter('plugin_action_links', array( $this, 'settings_link' ));
+            add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+            add_action( 'admin_init', array( $this, 'page_init' ) );
+        }
 
-        add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
-        add_action( 'admin_init', array( $this, 'page_init' ) );
     }
 
     function activation() {
@@ -32,10 +38,6 @@ class Mashery {
         $role = get_role( 'developer' );
         $role->add_cap( 'manage_developer_data' );
         // update_option($this->option_name, $this->data);
-
-        add_shortcode( 'mashery:applications', array(__CLASS__, 'applications') );
-        add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
-        add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
     }
 
     function deactivation() {
@@ -116,8 +118,7 @@ class Mashery {
             isset( $this->options['mashery_access_key'] ) ? esc_attr( $this->options['mashery_access_key']) : ''
         );
     }
+
 }
 
-if( is_admin() ) {
-    $mashery_settings_page = new Mashery();
-}
+new Mashery();

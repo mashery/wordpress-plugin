@@ -69,7 +69,7 @@ class Mashery {
         $this->options = get_option( 'my_option_name' );
         ?>
         <div class="wrap">
-            <h2>Mashery</h2>
+            <h2>Mashery Updated</h2>
             <form method="post" action="options.php">
             <?php
                 settings_fields( 'my_option_group' );

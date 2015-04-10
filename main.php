@@ -21,10 +21,6 @@ class Mashery {
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
 
-        add_shortcode( 'mashery:applications', array(__CLASS__, 'applications') );
-        add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
-        add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
-
         add_filter('plugin_action_links', array( $this, 'settings_link' ));
 
         add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
@@ -36,6 +32,10 @@ class Mashery {
         $role = get_role( 'developer' );
         $role->add_cap( 'manage_developer_data' );
         // update_option($this->option_name, $this->data);
+
+        add_shortcode( 'mashery:applications', array(__CLASS__, 'applications') );
+        add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
+        add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
     }
 
     function deactivation() {

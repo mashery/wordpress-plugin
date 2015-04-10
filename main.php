@@ -44,15 +44,15 @@ class Mashery {
         remove_role( 'developer' );
     }
 
-    function applications(){
+    public function applications(){
         return "[Render applications list here]";
     }
 
-    function keys(){
+    public function keys(){
         return "[Render key list here]";
     }
 
-    function profile(){
+    public function profile(){
         return "[Render user profile here]";
     }
 

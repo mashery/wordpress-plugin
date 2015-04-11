@@ -47,7 +47,19 @@ class Mashery {
     }
 
     public function applications(){
-        return "[Render applications list here]";
+        $templatefile = dirname(__FILE__) . "/templates/applications.php";
+        $data = array(
+            array("name" => "Awesome App", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
+            array("name" => "Another App", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
+            array("name" => "Best App", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
+        );
+        if(file_exists($templatefile)){
+            ob_start();
+            include($templatefile);
+            return ob_get_clean();
+        } else {
+            return "template not implemented please add one to plugin/templates/";
+        }
     }
 
     public function keys(){

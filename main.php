@@ -63,7 +63,19 @@ class Mashery {
     }
 
     public function keys(){
-        return "[Render key list here]";
+        $templatefile = dirname(__FILE__) . "/templates/keys.php";
+        $data = array(
+            array("name" => "Personal Key", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
+            array("name" => "Work Key", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
+            array("name" => "Test Key", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
+        );
+        if(file_exists($templatefile)){
+            ob_start();
+            include($templatefile);
+            return ob_get_clean();
+        } else {
+            return "template not implemented please add one to plugin/templates/";
+        }
     }
 
     public function profile(){

@@ -79,7 +79,21 @@ class Mashery {
     }
 
     public function profile(){
-        return "[Render user profile here]";
+        $templatefile = dirname(__FILE__) . "/templates/profile.php";
+        $user = array(
+            "first_name" => "John",
+            "last_name" => "Smith",
+            "email" => "user@mashery.com",
+            "twitter" => "@mashery",
+            "phone" => "(555) 123-4567"
+        );
+        if(file_exists($templatefile)){
+            ob_start();
+            include($templatefile);
+            return ob_get_clean();
+        } else {
+            return "template not implemented please add one to plugin/templates/";
+        }
     }
 
     function settings_link($links) {

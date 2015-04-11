@@ -1,7 +1,6 @@
 <table>
     <thead>
         <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Key</th>
         </tr>
@@ -10,7 +9,6 @@
         <?php foreach ($data as $key => $application) {
             ?>
             <tr>
-                <td><?= $key ?></td>
                 <td><?= $application["name"] ?></td>
                 <td><?= $application["key"] ?></td>
             </tr>

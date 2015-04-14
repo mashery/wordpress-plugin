@@ -146,7 +146,7 @@ class Mashery {
     public function sanitize( $input ) {
         $new_input = array();
         if( isset( $input['mashery_customer_id'] ) ) {
-            $new_input['mashery_customer_id'] = absint( $input['mashery_customer_id'] );
+            $new_input['mashery_customer_id'] = sanitize_text_field( $input['mashery_customer_id'] );
         }
         if( isset( $input['mashery_access_key'] ) ) {
             $new_input['mashery_access_key'] = sanitize_text_field( $input['mashery_access_key'] );

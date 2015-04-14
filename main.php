@@ -21,6 +21,7 @@ class Mashery {
         add_shortcode( 'mashery:applications', array(__CLASS__, 'applications') );
         add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
         add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
+        add_shortcode( 'mashery:iodocs', array(__CLASS__, 'iodocs') );
 
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
@@ -96,6 +97,18 @@ class Mashery {
         }
     }
 
+    public function iodocs(){
+        $templatefile = dirname(__FILE__) . "/templates/iodocs.php";
+        $api = array("key" => "765rfgi8765rdfg8765rtdfgh76rdtcf");
+        if(file_exists($templatefile)){
+            ob_start();
+            include($templatefile);
+            return ob_get_clean();
+        } else {
+            return "template not implemented please add one to plugin/templates/";
+        }
+    }
+
     function settings_link($links) {
         $mylinks = array('<a href="' . admin_url( 'options-general.php?page=mashery' ) . '">Settings</a>');
         return array_merge( $links, $mylinks );
@@ -126,6 +139,7 @@ class Mashery {
         add_settings_section( 'mashery-settings-form', 'Developer Portal Integration Settings', array( $this, 'print_section_info' ), 'mashery' );
         add_settings_field( 'mashery_customer_id', 'Customer ID', array( $this, 'mashery_customer_id_callback' ), 'mashery', 'mashery-settings-form' );
         add_settings_field( 'mashery_access_key', 'Access Key', array( $this, 'mashery_access_key_callback' ), 'mashery', 'mashery-settings-form' );
+        add_settings_field( 'mashery_enable_iodocs', 'Enable I/O Docs', array( $this, 'mashery_enable_iodocs_callback' ), 'mashery', 'mashery-settings-form' );
     }
 
     public function sanitize( $input ) {
@@ -135,6 +149,9 @@ class Mashery {
         }
         if( isset( $input['mashery_access_key'] ) ) {
             $new_input['mashery_access_key'] = sanitize_text_field( $input['mashery_access_key'] );
+        }
+        if( isset( $input['mashery_enable_iodocs'] ) ) {
+            $new_input['mashery_enable_iodocs'] = absint( $input['mashery_enable_iodocs'] );
         }
         return $new_input;
     }
@@ -155,6 +172,10 @@ class Mashery {
             '<input type="text" id="mashery_access_key" name="my_option_name[mashery_access_key]" value="%s" />',
             isset( $this->options['mashery_access_key'] ) ? esc_attr( $this->options['mashery_access_key']) : ''
         );
+    }
+
+    public function mashery_enable_iodocs_callback() {
+        echo '<input type="checkbox" id="mashery_enable_iodocs" name="my_option_name[mashery_enable_iodocs]" value="1"' . checked( 1, $this->options['mashery_enable_iodocs'], false ) . ' />';
     }
 
 }

@@ -140,6 +140,7 @@ class Mashery {
         add_settings_field( 'mashery_customer_id', 'Customer ID', array( $this, 'mashery_customer_id_callback' ), 'mashery', 'mashery-settings-form' );
         add_settings_field( 'mashery_access_key', 'Access Key', array( $this, 'mashery_access_key_callback' ), 'mashery', 'mashery-settings-form' );
         add_settings_field( 'mashery_enable_iodocs', 'Enable I/O Docs', array( $this, 'mashery_enable_iodocs_callback' ), 'mashery', 'mashery-settings-form' );
+        add_settings_field( 'mashery_enable_documentation', 'Enable Documentation', array( $this, 'mashery_enable_documentation_callback' ), 'mashery', 'mashery-settings-form' );
     }
 
     public function sanitize( $input ) {
@@ -152,6 +153,9 @@ class Mashery {
         }
         if( isset( $input['mashery_enable_iodocs'] ) ) {
             $new_input['mashery_enable_iodocs'] = absint( $input['mashery_enable_iodocs'] );
+        }
+        if( isset( $input['mashery_enable_documentation'] ) ) {
+            $new_input['mashery_enable_documentation'] = absint( $input['mashery_enable_documentation'] );
         }
         return $new_input;
     }
@@ -176,6 +180,10 @@ class Mashery {
 
     public function mashery_enable_iodocs_callback() {
         echo '<input type="checkbox" id="mashery_enable_iodocs" name="my_option_name[mashery_enable_iodocs]" value="1"' . checked( 1, $this->options['mashery_enable_iodocs'], false ) . ' />';
+    }
+
+    public function mashery_enable_documentation_callback() {
+        echo '<input type="checkbox" id="mashery_enable_documentation" name="my_option_name[mashery_enable_documentation]" value="1"' . checked( 1, $this->options['mashery_enable_documentation'], false ) . ' />';
     }
 
 }

@@ -64,7 +64,7 @@ Which will build a fresh image off of which we'll be basing our container from a
 
 Which will either restart or create (and start) the container.
 
-    npm run wp:open
+    npm run open
 
 Will open your default browser to the address where all this is running at.
 

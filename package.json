@@ -15,9 +15,9 @@
     "purge": "docker ps -a | grep \"^[^CONTAINER]\" | awk '{print $1}' | xargs docker rm",
     "rmia": "docker images | grep \"^[^REPO]\" | awk '{print $3}' | xargs docker rmi -f",
     "wp:install": "docker exec -i $npm_package_name mysql -h localhost -u root -p$(docker exec $npm_package_name cat /mysql-root-pw.txt) wordpress < ./data.sql",
-    "wp:open": "open http://$(boot2docker ip):$npm_package_port",
     "wp:dump": "docker exec $npm_package_name mysqldump --add-drop-database --add-drop-table -h localhost -u root -p$(docker exec $npm_package_name cat /mysql-root-pw.txt) wordpress > ./data.sql",
     "wp:url": "echo \"Running on http://$(boot2docker ip):$npm_package_port/\""
+    "open": "open http://$(boot2docker ip):$npm_package_port"
   },
   "repository": {
     "type": "git",

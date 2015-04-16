@@ -31,7 +31,7 @@ This is a PHP project but, to make things easier, we are running things in a [Do
 3. [Vagrant](https://www.vagrantup.com/)
 4. [Boot2Docker](http://boot2docker.io/)
 
-You may already heve these installed. If not, here's a suggested set of steps you can use to set up your system. If you don't know what you are doing or what these mean, you should probably not just run these blindly.
+You may already heve these installed. If not, here's a **suggested** set of steps you can use to set up your system. If you don't know what you are doing or what these mean, you should probably not just run these blindly.
 
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install caskroom/cask/brew-cask

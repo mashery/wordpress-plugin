@@ -10,6 +10,7 @@
     "prestart": "boot2docker up",
     "start": "if docker ps -a --filter=\"name=$npm_package_name\" | grep $npm_package_name; then docker restart $npm_package_name; else npm run create; fi",
     "stop": "docker stop $npm_package_name",
+    "poststop": "boot2docker stop",
     "rm": "npm run stop && docker rm $npm_package_name",
     "attach": "docker exec -it $npm_package_name bash",
     "ps": "docker ps -a --filter \"name=$npm_package_name\"",

@@ -3,78 +3,44 @@
 
 Is Wordpress a viable option to replace Mashery's current Developer Portal & CMS product? Read the original dicsussion [here](https://mashery.jira.com/wiki/pages/viewpage.action?pageId=99844396) (requires Jira access). See progress [here](../../milestones).
 
-## Demo
+## Setup
 
-I've installed a demo of this on one of my own personal servers.
+This is a PHP project but, to make things easier, we are running things in a [Docker](https://www.docker.com/) container. To get started, build, run, etc. You'll need:
 
-- Developer Portal Demo: http://mdp.luis.io/
-- Admin Demo: http://mdp.luis.io/wp-admin/
-- User: admin
-- Password: hbSv93CH3C
-
-You'll need to [register first](http://mdp.luis.io/wp-login.php?action=register) and I will need to manually give you admin rights. You *WILL NOT GET AN EMAIL* so please email me directly to grant you access.
-
-*Note*: No proprietary data or code is included in any of this so there's no need to worry about this being on my personal server. If anything, it'll help further proove integration is possible.
-
-## Questions
-
-1. Is it technically possible? See [requirements](../../issues?utf8=✓&q=label%3Arequirement).
-2. How long would it take? See [milestones](../../milestones).
-3. What are the blockers? See [blockers](../../issues?utf8=✓&q=label%3Aplatform+label%3Ablocker).
-
-## Local Setup
-
-This is a PHP project but, to make things easier, we are running things in a [Docker](https://www.docker.com/) container and using Node's NPM tool to manage a number of commands/scripts you'll use to get started, build, run, etc. You'll need:
-
-1. [Node.js](https://nodejs.org/)
-2. [VirtualBox](https://www.virtualbox.org/)
-3. [Vagrant](https://www.vagrantup.com/)
-4. [Boot2Docker](http://boot2docker.io/)
-
-You may already heve these installed. If not, here's a **suggested** set of steps you can use to set up your system. If you don't know what you are doing or what these mean, you should probably not just run these blindly.
-
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install caskroom/cask/brew-cask
-    brew cask install node
-    brew cask install virtualbox
-    brew cask install vagrant
-    brew cask install boot2docker
-    boot2docker up
-
-You should now have everything you need to set up the project.
-
-## Project Setup
-
-    git clone git@github.com:lgomez/mashery-developer-portal.git
-    cd mashery-developer-portal
+1. Install [VirtualBox](https://www.virtualbox.org/)
+2. Install [Vagrant](https://www.vagrantup.com/)
+3. Install the `docker` Client
+3. Install `docker-compose`
+4. `git clone git@github.com:mashery/wordpress-plugin.git`
+5. `cd <your local clone>`
 
 ## Usage & Commands
 
-There are several `npm` commands that'll make it much simpler for you to build,
-run and work with this POC. Please take a look at the `scripts` attribute in `package.json`
-to see a full list of what's available.
+* Start the environment: `vagrant up` (only required once - this will take a few minutes)
+* `export DOCKER_HOST=tcp://172.17.8.150:2375` to ensure `docker` points to the correct daemon. Note the IP can be changed in the vagrantfile.
+* Build and run the containers: `docker-compose up` (only required once - this will take a few minutes)
+* `docker-compose ps` to see the running containers.
+* `docker-compose stop` to stop the running containers.
+* `docker-compose kill` to kill the running containers.
+* `vagrant ssh` to ssh into the VM.
+* `docker exec -it <container id> /bin/bash` to go into the running container.
+* `vagrant suspend` to suspend the VM. You should do this if you are not working on this to save resources. Also, try using this instead of `vagrant destroy` or else you'll have to go through the wordpress admin setup and you will have lost your data.
+* `vagrant destroy` to destroy the VM.
 
-To quickly get started you can just run:
-
-    npm run build
-
-Which will build a fresh image off of which we'll be basing our container from and then:
-
-    npm start
-
-Which will either restart or create (and start) the container.
-
-    npm run open
-
-Will open your default browser to the address where all this is running at.
+Once you are up and running, you should be able to go to http://172.17.8.150:8080/ and see the page. Note that the first time you will be taken through the wordpress setup wizard.
 
 ## Contributing
 
-Contributions will only be accepted via pull requests. Please fork, do your thing and PR me.
+1. Fork: https://github.com/mashery/wordpress-plugin
+2. `git clone <your fork address>`
+3. `cd <your local clone>`
+4. Make changes
+5. Commit to your fork
+6. Send a Pull Request (PR)
 
 ## Basic Structure
 
-The main file you should be looking at is [main.php](main.php). Easy enough. From there, you shuold be able to infer what's going on. If not yet, soon enough.
+The main file you should be looking at is [main.php](main.php). Easy enough. From there, you should be able to infer what's going on. Open an issue at https://github.com/mashery/wordpress-plugin/issues if you have any questions.
 
 ## Useful Links
 

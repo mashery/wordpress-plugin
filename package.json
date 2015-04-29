@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lgomez/wordpress-development.git"
+    "url": "https://github.com/mashery/wordpress-plugin.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lgomez/wordpress-development/issues"
+    "url": "https://github.com/mashery/wordpress-plugin/issues"
   },
-  "homepage": "https://github.com/lgomez/wordpress-development"
+  "homepage": "https://github.com/mashery/wordpress-plugin"
 }

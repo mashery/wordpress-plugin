@@ -48,13 +48,9 @@ class Mashery {
         remove_role( 'developer' );
     }
 
-    public function applications(){
-        $templatefile = dirname(__FILE__) . "/templates/applications.php";
-        $data = array(
-            array("name" => "Awesome App", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
-            array("name" => "Another App", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
-            array("name" => "Best App", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
-        );
+    public function shortcode($shortcode, $data){
+        $templatefile = dirname(__FILE__) . "/templates/" . $shortcode . ".php";
+        $data = $data;
         if(file_exists($templatefile)){
             ob_start();
             include($templatefile);
@@ -62,64 +58,40 @@ class Mashery {
         } else {
             return "template not implemented please add one to plugin/templates/";
         }
+    }
+
+    public function applications(){
+        return self::shortcode(__FUNCTION__, array(
+            array("name" => "Application 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
+            array("name" => "Application 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
+            array("name" => "Application 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
+        ));
     }
 
     public function keys(){
-        $templatefile = dirname(__FILE__) . "/templates/keys.php";
-        $data = array(
-            array("name" => "Personal Key", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
-            array("name" => "Work Key", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
-            array("name" => "Test Key", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
-        );
-        if(file_exists($templatefile)){
-            ob_start();
-            include($templatefile);
-            return ob_get_clean();
-        } else {
-            return "template not implemented please add one to plugin/templates/";
-        }
+        return self::shortcode(__FUNCTION__, array(
+            array("name" => "Key 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
+            array("name" => "Key 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
+            array("name" => "Key 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
+        ));
     }
 
     public function profile(){
-        $templatefile = dirname(__FILE__) . "/templates/profile.php";
-        $user = array(
-            "first_name" => "John",
-            "last_name" => "Smith",
-            "email" => "user@mashery.com",
-            "twitter" => "@mashery",
-            "phone" => "(555) 123-4567"
-        );
-        if(file_exists($templatefile)){
-            ob_start();
-            include($templatefile);
-            return ob_get_clean();
-        } else {
-            return "template not implemented please add one to plugin/templates/";
-        }
+        return self::shortcode(__FUNCTION__, array(
+            "first_name" => "Stephen",
+            "last_name" => "Colbert",
+            "email" => "scolbert@mashery.com",
+            "twitter" => "@scolbert",
+            "phone" => "(415) 555-1212"
+        ));
     }
 
     public function iodocs(){
-        $templatefile = dirname(__FILE__) . "/templates/iodocs.php";
-        $api = array("key" => "765rfgi8765rdfg8765rtdfgh76rdtcf");
-        if(file_exists($templatefile)){
-            ob_start();
-            include($templatefile);
-            return ob_get_clean();
-        } else {
-            return "template not implemented please add one to plugin/templates/";
-        }
+        return self::shortcode(__FUNCTION__, array("key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"));
     }
 
     public function documentation(){
-        $templatefile = dirname(__FILE__) . "/templates/documentation.php";
-        $api = array("key" => "765rfgi8765rdfg8765rtdfgh76rdtcf");
-        if(file_exists($templatefile)){
-            ob_start();
-            include($templatefile);
-            return ob_get_clean();
-        } else {
-            return "template not implemented please add one to plugin/templates/";
-        }
+        return self::shortcode(__FUNCTION__, array("key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"));
     }
 
     function settings_link($links) {

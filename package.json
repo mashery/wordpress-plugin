@@ -1,6 +1,6 @@
 {
   "name": "developer-portal",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "This project aims to integrate the latest version of Wordpress with Mashery's API Management Service. It is composed of three parts:",
   "port": "8080",

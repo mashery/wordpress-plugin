@@ -7,12 +7,11 @@ Is Wordpress a viable option to replace Mashery's current Developer Portal & CMS
 
 This is a PHP project but, to make things easier, we are running things in a [Docker](https://www.docker.com/) container. To get started, build, run, etc. You'll need:
 
-1. Install [VirtualBox](https://www.virtualbox.org/)
-2. Install [Vagrant](https://www.vagrantup.com/)
-3. Install the `docker` Client
-3. Install `docker-compose`
-4. `git clone git@github.com:mashery/wordpress-plugin.git`
-5. `cd <your local clone>`
+0. Install [VirtualBox](https://www.virtualbox.org/)
+0. Install [Vagrant](https://www.vagrantup.com/)
+0. Install the `docker` Client. I recommend you use `brew install docker` for this or go to the Docker site for instructions.
+0. `git clone git@github.com:mashery/wordpress-plugin.git`
+0. `cd <your local clone>`
 
 ## Usage & Commands
 

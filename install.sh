@@ -44,9 +44,19 @@ echo ""
 docker ps --filter="name=$npm_package_fullname"
 echo ""
 echo "Installation is now complete."
-echo "You can access the running instance at http://$npm_package_host"
-
-
+echo "====================================================="
+echo ""
+echo "  $npm_package_fullname is now running and reachable at http://$npm_package_host"
+echo "  To stop run \"npm stop\"."
+echo "  To start run \"npm start\"."
+echo "  To uninstall run \"npm uninstall\"."
+echo ""
+echo "  Access the Wordpress admin at: http://$npm_package_host/wp-admin/"
+echo "     User: admin_user"
+echo "     Password: secret"
+echo ""
+echo "====================================================="
+echo ""
 
 ############# REFERENCE
 

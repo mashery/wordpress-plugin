@@ -1,3 +1,14 @@
+echo "Starting installation of $npm_package_fullname"
+echo "====================================================="
+echo "Provisioning CoreOS VM..."
+echo ""
+echo "Note: If you get an error mounting NFS volumes, try the following:"
+echo ""
+echo "      sudo vim /etc/exports"
+echo "      # delete the lines for this VM and then..."
+echo "      sudo nfsd restart"
+echo "      # See: https://github.com/Integralist/Docker-Examples#work-around"
+echo ""
 # echo $npm_package_name
 # echo $npm_package_version
 npm_package_fullname=$npm_package_name-$npm_package_version

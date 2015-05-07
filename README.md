@@ -31,12 +31,7 @@ Once you are up and running, you should be able to go to http://172.17.8.150:808
 
 ## Contributing
 
-1. Fork: https://github.com/mashery/wordpress-plugin
-2. `git clone <your fork address>`
-3. `cd <your local clone>`
-4. Make changes
-5. Commit to your fork
-6. Send a Pull Request (PR)
+See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting patches and the contribution workflow.
 
 ## Basic Structure
 

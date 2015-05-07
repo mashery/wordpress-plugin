@@ -5,18 +5,6 @@
   "description": "This project aims to integrate the latest version of Wordpress with Mashery's API Management Service. It is composed of three parts:",
   "port": "8080",
   "scripts": {
-    "build": "docker build --rm -t mashery/developer-portal github.com/jbfink/docker-wordpress",
-    "create": "docker run --name $npm_package_name -d -p $npm_package_port:80 -v $PWD:/var/www/wp-content/plugins/mashery -t mashery/developer-portal",
-    "prestart": "boot2docker up",
-    "start": "if docker ps -a --filter=\"name=$npm_package_name\" | grep $npm_package_name; then docker restart $npm_package_name; else npm run create; fi",
-    "stop": "docker stop $npm_package_name",
-    "poststop": "boot2docker stop",
-    "rm": "npm run stop && docker rm $npm_package_name",
-    "attach": "docker exec -it $npm_package_name bash",
-    "ps": "docker ps -a --filter \"name=$npm_package_name\"",
-    "purge": "docker ps -a | grep \"^[^CONTAINER]\" | awk '{print $1}' | xargs docker rm",
-    "rmia": "docker images | grep \"^[^REPO]\" | awk '{print $3}' | xargs docker rmi -f",
-    "open": "open http://$(boot2docker ip):$npm_package_port"
   },
   "repository": {
     "type": "git",

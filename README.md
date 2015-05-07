@@ -15,18 +15,13 @@ This is a PHP project but, to make things easier, we are running things in a [Do
 
 ## Usage & Commands
 
-* Start the environment: `vagrant up` (only required once - this will take a few minutes)
-* `export DOCKER_HOST=tcp://172.17.8.150:2375` to ensure `docker` points to the correct daemon. Note the IP can be changed in the vagrantfile.
-* Build and run the containers: `docker-compose up` (only required once - this will take a few minutes)
-* `docker-compose ps` to see the running containers.
-* `docker-compose stop` to stop the running containers.
-* `docker-compose kill` to kill the running containers.
-* `vagrant ssh` to ssh into the VM.
-* `docker exec -it <container id> /bin/bash` to go into the running container.
-* `vagrant suspend` to suspend the VM. You should do this if you are not working on this to save resources. Also, try using this instead of `vagrant destroy` or else you'll have to go through the wordpress admin setup and you will have lost your data.
-* `vagrant destroy` to destroy the VM.
+0. Start the environment: `vagrant up` (only required once - this will take a few minutes)
+0. `export DOCKER_HOST=tcp://172.17.8.150:2375` to ensure `docker` points to the correct daemon. Note the IP can be changed in the vagrantfile.
+0. `npm i` to set up the container and bootstrap the wordpress installation.
+0. `npm stop` to stop the container.
+0. `npm start` to start the container.
 
-Once you are up and running, you should be able to go to http://172.17.8.150:8080/ and see the page. Note that the first time you will be taken through the wordpress setup wizard.
+Once you are up and running, you should be able to go to http://172.17.8.150:8080/ and see the page.
 
 ## Contributing
 

@@ -10,6 +10,7 @@ echo "      sudo nfsd restart"
 echo "      # See: https://github.com/Integralist/Docker-Examples#work-around"
 echo ""
 vagrant up
+DOCKER_HOST=$npm_package_docker_host
 # echo $npm_package_name
 # echo $npm_package_version
 npm_package_fullname=$npm_package_name-$npm_package_version
@@ -18,6 +19,7 @@ echo "Using $npm_package_fullname as the container name."
 # echo $npm_package_ip
 npm_package_host=$npm_package_ip:$npm_package_port
 echo "Using http://$npm_package_host as host."
+echo "DOCKER_HOST set to $DOCKER_HOST"
 # echo $(pwd)
 echo "Attempting to stop and remove any previous instances of $npm_package_fullname"
 docker stop $npm_package_fullname > /dev/null 2>&1

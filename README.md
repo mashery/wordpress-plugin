@@ -3,78 +3,42 @@
 
 Is Wordpress a viable option to replace Mashery's current Developer Portal & CMS product? Read the original dicsussion [here](https://mashery.jira.com/wiki/pages/viewpage.action?pageId=99844396) (requires Jira access). See progress [here](../../milestones).
 
-## Demo
+## Setup
 
-I've installed a demo of this on one of my own personal servers.
+This is a PHP project but, to make things easier, we are running things in a [Docker](https://www.docker.com/) container. To get started, build, run, etc. You'll need:
 
-- Developer Portal Demo: http://mdp.luis.io/
-- Admin Demo: http://mdp.luis.io/wp-admin/
-- User: admin
-- Password: hbSv93CH3C
-
-You'll need to [register first](http://mdp.luis.io/wp-login.php?action=register) and I will need to manually give you admin rights. You *WILL NOT GET AN EMAIL* so please email me directly to grant you access.
-
-*Note*: No proprietary data or code is included in any of this so there's no need to worry about this being on my personal server. If anything, it'll help further proove integration is possible.
-
-## Questions
-
-1. Is it technically possible? See [requirements](../../issues?utf8=✓&q=label%3Arequirement).
-2. How long would it take? See [milestones](../../milestones).
-3. What are the blockers? See [blockers](../../issues?utf8=✓&q=label%3Aplatform+label%3Ablocker).
-
-## Local Setup
-
-This is a PHP project but, to make things easier, we are running things in a [Docker](https://www.docker.com/) container and using Node's NPM tool to manage a number of commands/scripts you'll use to get started, build, run, etc. You'll need:
-
-1. [Node.js](https://nodejs.org/)
-2. [VirtualBox](https://www.virtualbox.org/)
-3. [Vagrant](https://www.vagrantup.com/)
-4. [Boot2Docker](http://boot2docker.io/)
-
-You may already heve these installed. If not, here's a **suggested** set of steps you can use to set up your system. If you don't know what you are doing or what these mean, you should probably not just run these blindly.
-
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install caskroom/cask/brew-cask
-    brew cask install node
-    brew cask install virtualbox
-    brew cask install vagrant
-    brew cask install boot2docker
-    boot2docker up
-
-You should now have everything you need to set up the project.
-
-## Project Setup
-
-    git clone git@github.com:lgomez/mashery-developer-portal.git
-    cd mashery-developer-portal
+0. Install [VirtualBox](https://www.virtualbox.org/)
+0. Install [Vagrant](https://www.vagrantup.com/)
+0. Install the `docker` Client. I recommend you use `brew install docker` for this or go to the Docker site for instructions.
+0. `git clone git@github.com:mashery/wordpress-plugin.git`
+0. `cd <your local clone>`
 
 ## Usage & Commands
 
-There are several `npm` commands that'll make it much simpler for you to build,
-run and work with this POC. Please take a look at the `scripts` attribute in `package.json`
-to see a full list of what's available.
+0. Start the environment: `vagrant up` (only required once - this will take a few minutes)
+0. `export DOCKER_HOST=tcp://172.17.8.150:2375` to ensure `docker` points to the correct daemon. Note the IP can be changed in the vagrantfile.
+0. `npm i` to set up the container and bootstrap the wordpress installation.
+0. `npm stop` to stop the container.
+0. `npm start` to start the container.
 
-To quickly get started you can just run:
-
-    npm run build
-
-Which will build a fresh image off of which we'll be basing our container from and then:
-
-    npm start
-
-Which will either restart or create (and start) the container.
-
-    npm run open
-
-Will open your default browser to the address where all this is running at.
+Once you are up and running, you should be able to go to http://172.17.8.150:8080/ and see the page.
 
 ## Contributing
 
-Contributions will only be accepted via pull requests. Please fork, do your thing and PR me.
+See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting patches and the contribution workflow.
 
 ## Basic Structure
 
-The main file you should be looking at is [main.php](main.php). Easy enough. From there, you shuold be able to infer what's going on. If not yet, soon enough.
+* `templates/*` contains the templates used by each shortcode.
+* `CONTRIBUTING.md` contains instructions for contributors.
+* `install.sh` is the installation script used when executing `npm i`.
+* `main.php` the main entrypoint for the plugin.
+* `package.json` is the configuration file for this package.
+* `README.md` this file.
+* `user-data.yml` contains service definitions for CoreOS (specifically the Docker processes).
+* `Vagrantfile` is what provisions the VM. You could change the IP used to serve the site here.
+
+The main file you should be looking at is [main.php](main.php). From there, you should be able to infer what's going on. Open an issue at https://github.com/mashery/wordpress-plugin/issues if you have any questions.
 
 ## Useful Links
 

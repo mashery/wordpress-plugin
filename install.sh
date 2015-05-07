@@ -9,6 +9,7 @@ echo "      # delete the lines for this VM and then..."
 echo "      sudo nfsd restart"
 echo "      # See: https://github.com/Integralist/Docker-Examples#work-around"
 echo ""
+vagrant up
 # echo $npm_package_name
 # echo $npm_package_version
 npm_package_fullname=$npm_package_name-$npm_package_version

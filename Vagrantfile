@@ -2,6 +2,11 @@ Vagrant.configure('2') do |config|
     config.ssh.insert_key = false
     config.vm.provider :virtualbox do |vb|
         vb.name = "Mashery Wordpress Plugin"
+        vb.check_guest_additions = false
+        vb.functional_vboxsf = false
+        vb.gui = false
+        vb.memory = 1024
+        vb.cpus = 1
     end
     config.vm.box = "coreos-alpha"
     config.vm.box_version = ">= 308.0.1"

@@ -1,4 +1,5 @@
 Vagrant.configure('2') do |config|
+    config.ssh.insert_key = false
     config.vm.provider :virtualbox do |vb|
         vb.name = "Mashery Wordpress Plugin"
     end

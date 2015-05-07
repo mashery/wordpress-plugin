@@ -29,7 +29,16 @@ See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting patches and the co
 
 ## Basic Structure
 
-The main file you should be looking at is [main.php](main.php). Easy enough. From there, you should be able to infer what's going on. Open an issue at https://github.com/mashery/wordpress-plugin/issues if you have any questions.
+* `templates/*` contains the templates used by each shortcode.
+* `CONTRIBUTING.md` contains instructions for contributors.
+* `install.sh` is the installation script used when executing `npm i`.
+* `main.php` the main entrypoint for the plugin.
+* `package.json` is the configuration file for this package.
+* `README.md` this file.
+* `user-data.yml` contains service definitions for CoreOS (specifically the Docker processes).
+* `Vagrantfile` is what provisions the VM. You could change the IP used to serve the site here.
+
+The main file you should be looking at is [main.php](main.php). From there, you should be able to infer what's going on. Open an issue at https://github.com/mashery/wordpress-plugin/issues if you have any questions.
 
 ## Useful Links
 

@@ -1,14 +1,14 @@
 {
   "name": "developer-portal",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "description": "This project aims to integrate the latest version of Wordpress with Mashery's API Management Service. It is composed of three parts:",
   "port": "8080",
   "ip": "172.17.8.150",
   "scripts": {
-      "install": "/bin/bash ./install.sh",
-      "start": "docker start $npm_package_name-$npm_package_version && sleep 5 && docker ps -a --filter=\"name=$npm_package_name-$npm_package_version\"",
-      "stop": "docker stop $npm_package_name-$npm_package_version && sleep 5 && docker ps -a --filter=\"name=$npm_package_name-$npm_package_version\""
+    "install": "/bin/bash ./install.sh",
+    "start": "docker start $npm_package_name-$npm_package_version && sleep 5 && docker ps -a --filter=\"name=$npm_package_name-$npm_package_version\"",
+    "stop": "docker stop $npm_package_name-$npm_package_version && sleep 5 && docker ps -a --filter=\"name=$npm_package_name-$npm_package_version\""
   },
   "repository": {
     "type": "git",

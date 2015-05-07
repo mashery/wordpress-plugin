@@ -8,8 +8,8 @@
   "docker_host": "tcp://172.17.8.150:2375",
   "scripts": {
     "install": "/bin/bash ./install.sh",
-    "stop": "docker stop $npm_package_name-$npm_package_version && sleep 5 && docker ps -a --filter=\"name=$npm_package_name-$npm_package_version\""
     "start": "vagrant resume && docker -H $npm_package_docker_host start $npm_package_name-$npm_package_version && sleep 5 && docker ps -a --filter=\"name=$npm_package_name-$npm_package_version\"",
+    "stop": "docker -H $npm_package_docker_host stop $npm_package_name-$npm_package_version && sleep 5 && docker ps -a --filter=\"name=$npm_package_name-$npm_package_version\" && vagrant suspend",
   },
   "repository": {
     "type": "git",

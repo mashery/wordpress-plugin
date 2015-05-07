@@ -1,3 +1,16 @@
+echo "Starting installation of $npm_package_fullname"
+echo "====================================================="
+echo "Provisioning CoreOS VM..."
+echo ""
+echo "Note: If you get an error mounting NFS volumes, try the following:"
+echo ""
+echo "      sudo vim /etc/exports"
+echo "      # delete the lines for this VM and then..."
+echo "      sudo nfsd restart"
+echo "      # See: https://github.com/Integralist/Docker-Examples#work-around"
+echo ""
+vagrant up
+DOCKER_HOST=$npm_package_docker_host
 # echo $npm_package_name
 # echo $npm_package_version
 npm_package_fullname=$npm_package_name-$npm_package_version
@@ -6,6 +19,7 @@ echo "Using $npm_package_fullname as the container name."
 # echo $npm_package_ip
 npm_package_host=$npm_package_ip:$npm_package_port
 echo "Using http://$npm_package_host as host."
+echo "DOCKER_HOST set to $DOCKER_HOST"
 # echo $(pwd)
 echo "Attempting to stop and remove any previous instances of $npm_package_fullname"
 docker stop $npm_package_fullname > /dev/null 2>&1
@@ -44,9 +58,19 @@ echo ""
 docker ps --filter="name=$npm_package_fullname"
 echo ""
 echo "Installation is now complete."
-echo "You can access the running instance at http://$npm_package_host"
-
-
+echo "====================================================="
+echo ""
+echo "  $npm_package_fullname is now running and reachable at http://$npm_package_host"
+echo "  To stop run \"npm stop\"."
+echo "  To start run \"npm start\"."
+echo "  To uninstall run \"npm uninstall\"."
+echo ""
+echo "  Access the Wordpress admin at: http://$npm_package_host/wp-admin/"
+echo "     User: admin_user"
+echo "     Password: secret"
+echo ""
+echo "====================================================="
+echo ""
 
 ############# REFERENCE
 

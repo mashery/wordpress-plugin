@@ -10,6 +10,7 @@ echo "      sudo nfsd restart"
 echo "      # See: https://github.com/Integralist/Docker-Examples#work-around"
 echo ""
 vagrant up
+sleep 10
 DOCKER_HOST=$npm_package_docker_host
 # echo $npm_package_name
 # echo $npm_package_version

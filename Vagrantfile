@@ -1,12 +1,13 @@
 Vagrant.configure('2') do |config|
     config.ssh.insert_key = false
     config.vm.provider :virtualbox do |vb|
-        vb.name = "#{ENV['npm_package_name']}-#{ENV['npm_package_version']}"
+        vb.name = ENV['npm_package_name']
         vb.check_guest_additions = false
         vb.functional_vboxsf = false
         vb.gui = false
         vb.memory = 1024
         vb.cpus = 1
+        vb.customize ["modifyvm", :id, "--groups", "/Mashery"]
     end
     config.vm.box = "coreos-alpha"
     config.vm.box_version = ">= 308.0.1"

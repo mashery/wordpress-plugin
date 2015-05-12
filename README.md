@@ -22,10 +22,6 @@ The plugin provides a set of shortcodes that can be used in any post or page wit
 * `[mashery:keys]`: inserts the user's key list.
 * `[mashery:iodocs]`: inserts an iodocs instance.
 
-## Contributing
-
-See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting patches and the contribution workflow.
-
 ## Basic Structure
 
 * `templates/*` contains the templates used by each shortcode.
@@ -34,6 +30,10 @@ See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting patches and the co
 * `README.md` this file.
 
 The main file you should be looking at is [main.php](main.php). From there, you should be able to infer what's going on. Open an issue at https://github.com/mashery/wordpress-plugin/issues if you have any questions.
+
+## Contributing
+
+See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting patches and the contribution workflow.
 
 ## Authors
 

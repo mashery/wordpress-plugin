@@ -35,6 +35,10 @@ See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting patches and the co
 
 The main file you should be looking at is [main.php](main.php). From there, you should be able to infer what's going on. Open an issue at https://github.com/mashery/wordpress-plugin/issues if you have any questions.
 
+## License
+
+See [LICENSE](LICENSE).
+
 ## Useful Links
 
 * https://codex.wordpress.org/Creating_Admin_Themes

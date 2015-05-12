@@ -35,6 +35,10 @@ See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting patches and the co
 
 The main file you should be looking at is [main.php](main.php). From there, you should be able to infer what's going on. Open an issue at https://github.com/mashery/wordpress-plugin/issues if you have any questions.
 
+## Authors
+
+See [AUTHORS](AUTHORS) for details on who's contributing. Feel free to add your name when submitting PRs.
+
 ## License
 
 See [LICENSE](LICENSE).

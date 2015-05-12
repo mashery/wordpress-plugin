@@ -1,27 +1,26 @@
-# Mashery Developer Portal & CMS
-> Proof of Concept powered by Wordpress and Mashery Platform APIs.
+# Mashery Wordpress Developer Portal Integration Plugin
+> Mashery Developer Portal integration plugin for Wordpress.
 
-Is Wordpress a viable option to replace Mashery's current Developer Portal & CMS product? Read the original dicsussion [here](https://mashery.jira.com/wiki/pages/viewpage.action?pageId=99844396) (requires Jira access). See progress [here](../../milestones).
+Plugin for integrating Mashery Developer Portal features into a Wordpress-managed site.
 
 ## Setup
 
-This is a PHP project but, to make things easier, we are running things in a [Docker](https://www.docker.com/) container. To get started, build, run, etc. You'll need:
+Originally we were bundling installation recipes but these have been removed in favor of keeping this repo strictly about the plugin.
 
-0. Install [VirtualBox](https://www.virtualbox.org/)
-0. Install [Vagrant](https://www.vagrantup.com/)
-0. Install the `docker` Client. I recommend you use `brew install docker` for this or go to the Docker site for instructions.
-0. `git clone git@github.com:mashery/wordpress-plugin.git`
-0. `cd <your local clone>`
+0. Ensure you have an instance of Wordpress installed locally or on some server where you have permissions to install plugins.
+0. Clone this repository and ensure you install the contents into a folder under the wp-content/plugins directory.
+0. Go to the admin section of your Wordpress installation. you should see the plugin in the plugins list. Activate it.
 
-## Usage & Commands
+You should now be ready to develop and use the plugin.
 
-0. Start the environment: `vagrant up` (only required once - this will take a few minutes)
-0. `export DOCKER_HOST=tcp://172.17.8.150:2375` to ensure `docker` points to the correct daemon. Note the IP can be changed in the vagrantfile.
-0. `npm i` to set up the container and bootstrap the wordpress installation.
-0. `npm stop` to stop the container.
-0. `npm start` to start the container.
+## Usage
 
-Once you are up and running, you should be able to go to http://172.17.8.150:8080/ and see the page.
+The plugin provides a set of shortcodes that can be used in any post or page within a Wordpress installation. To use them, simply add them inline while editing content. The available shortcodes are:
+
+* `[mashery:profile]`: inserts the user's profile form.
+* `[mashery:applications]`: inserts the user's applications list.
+* `[mashery:keys]`: inserts the user's key list.
+* `[mashery:iodocs]`: inserts an iodocs instance.
 
 ## Contributing
 
@@ -31,12 +30,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting patches and the co
 
 * `templates/*` contains the templates used by each shortcode.
 * `CONTRIBUTING.md` contains instructions for contributors.
-* `install.sh` is the installation script used when executing `npm i`.
 * `main.php` the main entrypoint for the plugin.
-* `package.json` is the configuration file for this package.
 * `README.md` this file.
-* `user-data.yml` contains service definitions for CoreOS (specifically the Docker processes).
-* `Vagrantfile` is what provisions the VM. You could change the IP used to serve the site here.
 
 The main file you should be looking at is [main.php](main.php). From there, you should be able to infer what's going on. Open an issue at https://github.com/mashery/wordpress-plugin/issues if you have any questions.
 

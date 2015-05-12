@@ -1,4 +1,4 @@
-# Mashery Wordpress Developer Portal Integration Plugin
+# Wordpress Plugin
 > Mashery Developer Portal integration plugin for Wordpress.
 
 Plugin for integrating Mashery Developer Portal features into a Wordpress-managed site.

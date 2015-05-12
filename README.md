@@ -5,7 +5,7 @@ Plugin for integrating Mashery Developer Portal features into a Wordpress-manage
 
 ## Setup
 
-Originally we were bundling installation recipes but these have been removed in favor of keeping this repo strictly about the plugin.
+Originally we were bundling installation recipes but these have been removed in favor of keeping this repo strictly about the plugin. There are several ways to run a Docker service and these vary depending on your platform. On MAC, you can use boot2docker. I have my own, preferred setup which you can clone [here](https://github.com/lgomez/docker-service).
 
 0. Ensure you have an instance of Wordpress installed locally or on some server where you have permissions to install plugins.
 0. Clone this repository and ensure you install the contents into a folder under the wp-content/plugins directory.

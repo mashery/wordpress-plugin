@@ -22,7 +22,7 @@ The plugin provides a set of shortcodes that can be used in any post or page wit
 * `[mashery:keys]`: inserts the user's key list.
 * `[mashery:iodocs]`: inserts an iodocs instance.
 
-## Basic Structure
+## File Summary
 
 * `templates/*` contains the templates used by each shortcode.
 * `CONTRIBUTING.md` contains instructions for contributors.

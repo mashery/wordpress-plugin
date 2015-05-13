@@ -45,6 +45,35 @@ class Mashery {
         $role = get_role( 'developer' );
         $role->remove_cap( 'manage_developer_data' );
         remove_role( 'developer' );
+
+    public function generate_page($title, $name, $content, $parent=0){
+        // https://wordpress.org/support/topic/how-do-i-create-a-new-page-with-the-plugin-im-building
+        // delete_option("mashery_" . $name . "_page_title");
+        // delete_option("mashery_" . $name . "_page_name");
+        // delete_option("mashery_" . $name . "_page_id");
+        // add_option("mashery_" . $name . "_page_title", $title, '', 'yes');
+        // add_option("mashery_" . $name . "_page_name", $name, '', 'yes');
+        // add_option("mashery_" . $name . "_page_id", '0', '', 'yes');
+        $page = get_page_by_title( $title );
+        if (!$page) {
+            $page = array(
+                'post_title'     => $title,
+                'post_content'   => $content,
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+                'comment_status' => 'closed',
+                'ping_status'    => 'closed',
+                'post_parent'    => $parent
+            );
+            $id = wp_insert_post( $page );
+            add_option("mashery_" . $name . "_page_id", $id );
+        } else {
+            $id = $page->ID;
+            $page->post_status = 'publish';
+            $id = wp_update_post( $page );
+        }
+        return $id;
+    }
     }
 
     public function shortcode($shortcode, $data){

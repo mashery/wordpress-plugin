@@ -18,11 +18,10 @@ class Mashery {
 
     public function __construct() {
 
+        add_shortcode( 'mashery:account', array(__CLASS__, 'account') );
+        add_shortcode( 'mashery:apis', array(__CLASS__, 'apis') );
         add_shortcode( 'mashery:applications', array(__CLASS__, 'applications') );
         add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
-        add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
-        add_shortcode( 'mashery:iodocs', array(__CLASS__, 'iodocs') );
-        add_shortcode( 'mashery:documentation', array(__CLASS__, 'documentation') );
 
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
@@ -60,6 +59,24 @@ class Mashery {
         }
     }
 
+    public function account(){
+        return self::shortcode(__FUNCTION__, array(
+            "first_name" => "Stephen",
+            "last_name" => "Colbert",
+            "email" => "scolbert@mashery.com",
+            "twitter" => "@scolbert",
+            "phone" => "(415) 555-1212"
+        ));
+    }
+
+    public function apis(){
+        return self::shortcode(__FUNCTION__, array(
+            array("name" => "Application 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
+            array("name" => "Application 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
+            array("name" => "Application 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
+        ));
+    }
+
     public function applications(){
         return self::shortcode(__FUNCTION__, array(
             array("name" => "Application 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
@@ -74,24 +91,6 @@ class Mashery {
             array("name" => "Key 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
             array("name" => "Key 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
         ));
-    }
-
-    public function profile(){
-        return self::shortcode(__FUNCTION__, array(
-            "first_name" => "Stephen",
-            "last_name" => "Colbert",
-            "email" => "scolbert@mashery.com",
-            "twitter" => "@scolbert",
-            "phone" => "(415) 555-1212"
-        ));
-    }
-
-    public function iodocs(){
-        return self::shortcode(__FUNCTION__, array("key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"));
-    }
-
-    public function documentation(){
-        return self::shortcode(__FUNCTION__, array("key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"));
     }
 
     function settings_link($links) {

@@ -42,6 +42,7 @@ class Mashery {
         $parent = self::generate_page("Account", "account", "[mashery:account]");
         self::generate_page("APIs", "apis", "[mashery:apis]", $parent);
         self::generate_page("Applications", "applications", "[mashery:applications]", $parent);
+        self::generate_page("Keys", "keys", "[mashery:keys]", $parent);
     }
 
     function deactivation() {
@@ -52,6 +53,9 @@ class Mashery {
         self::trash_page("account");
         self::trash_page("apis");
         self::trash_page("applications");
+        self::trash_page("keys");
+    }
+
     public function generate_page($title, $name, $content, $parent=0){
         // https://wordpress.org/support/topic/how-do-i-create-a-new-page-with-the-plugin-im-building
         // delete_option("mashery_" . $name . "_page_title");

@@ -31,6 +31,14 @@ The plugin provides a set of shortcodes that can be used in any post or page wit
 
 The main file you should be looking at is [main.php](main.php). From there, you should be able to infer what's going on. Open an issue at https://github.com/mashery/wordpress-plugin/issues if you have any questions.
 
+## Containerized (optional)
+
+If you'd like to run this plugin in a Docker container, here's one simple way to run it. Setting up Docker is beyond the scope of this plugin. Please visit [Docker](http://docker.com) for setup instructions and more info.
+
+    docker run -p 8080:80 --name wordpress -v $(pwd):/var/www/html/wp-content/plugins/mashery -e WP_URL=172.17.8.150:8080 -d kaihofstetter/wordpress-cli
+
+Note that `8080` and `172.17.8.150:8080` may vary (likely) depending on your Docker setup.
+
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting patches and the contribution workflow.

@@ -76,6 +76,16 @@ class Mashery {
         }
         return $id;
     }
+
+    public function trash_page($name){
+        // https://wordpress.org/support/topic/how-do-i-create-a-new-page-with-the-plugin-im-building
+        $id = get_option( "mashery_" . $name . "_page_id" );
+        if( $id ) {
+            wp_delete_post( $id );
+        }
+        // delete_option("mashery_" . $name . "_page_title");
+        // delete_option("mashery_" . $name . "_page_name");
+        delete_option("mashery_" . $name . "_page_id");
     }
 
     public function shortcode($shortcode, $data){

@@ -39,6 +39,7 @@ class Mashery {
         $role = get_role( 'developer' );
         $role->add_cap( 'manage_developer_data' );
         // update_option($this->option_name, $this->data);
+        $parent = self::generate_page("Account", "account", "[mashery:account]");
     }
 
     function deactivation() {
@@ -46,6 +47,7 @@ class Mashery {
         $role->remove_cap( 'manage_developer_data' );
         remove_role( 'developer' );
 
+        self::trash_page("account");
     public function generate_page($title, $name, $content, $parent=0){
         // https://wordpress.org/support/topic/how-do-i-create-a-new-page-with-the-plugin-im-building
         // delete_option("mashery_" . $name . "_page_title");

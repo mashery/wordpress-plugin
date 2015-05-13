@@ -21,7 +21,6 @@ class Mashery {
         add_shortcode( 'mashery:applications', array(__CLASS__, 'applications') );
         add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
         add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
-        add_shortcode( 'mashery:iodocs', array(__CLASS__, 'iodocs') );
 
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
@@ -83,10 +82,6 @@ class Mashery {
             "twitter" => "@scolbert",
             "phone" => "(415) 555-1212"
         ));
-    }
-
-    public function iodocs(){
-        return self::shortcode(__FUNCTION__, array("key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"));
     }
 
     function settings_link($links) {

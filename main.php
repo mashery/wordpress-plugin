@@ -22,7 +22,6 @@ class Mashery {
         add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
         add_shortcode( 'mashery:profile', array(__CLASS__, 'profile') );
         add_shortcode( 'mashery:iodocs', array(__CLASS__, 'iodocs') );
-        add_shortcode( 'mashery:documentation', array(__CLASS__, 'documentation') );
 
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
@@ -87,10 +86,6 @@ class Mashery {
     }
 
     public function iodocs(){
-        return self::shortcode(__FUNCTION__, array("key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"));
-    }
-
-    public function documentation(){
         return self::shortcode(__FUNCTION__, array("key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"));
     }
 

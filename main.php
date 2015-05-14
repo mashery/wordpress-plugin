@@ -170,10 +170,12 @@ class Mashery {
     public function page_init() {
         register_setting( 'my_option_group', 'my_option_name', array( $this, 'sanitize' ) );
         add_settings_section( 'mashery-settings-form', 'Developer Portal Integration Settings', array( $this, 'print_section_info' ), 'mashery' );
-        add_settings_field( 'mashery_customer_id', 'Customer ID', array( $this, 'mashery_customer_id_callback' ), 'mashery', 'mashery-settings-form' );
-        add_settings_field( 'mashery_access_key', 'Access Key', array( $this, 'mashery_access_key_callback' ), 'mashery', 'mashery-settings-form' );
-        add_settings_field( 'mashery_enable_iodocs', 'Enable I/O Docs', array( $this, 'mashery_enable_iodocs_callback' ), 'mashery', 'mashery-settings-form' );
-        add_settings_field( 'mashery_enable_documentation', 'Enable Documentation', array( $this, 'mashery_enable_documentation_callback' ), 'mashery', 'mashery-settings-form' );
+        add_settings_field( 'mashery_customer_id', 'Area ID', array( $this, 'mashery_customer_id_callback' ), 'mashery', 'mashery-settings-form' );
+        add_settings_field( 'mashery_customer_uuid', 'Area UUID', array( $this, 'mashery_customer_uuid_callback' ), 'mashery', 'mashery-settings-form' );
+        add_settings_field( 'mashery_access_key', 'Admin API Key', array( $this, 'mashery_access_key_callback' ), 'mashery', 'mashery-settings-form' );
+        add_settings_field( 'mashery_access_secret', 'Admin API Secret', array( $this, 'mashery_access_secret_callback' ), 'mashery', 'mashery-settings-form' );
+        add_settings_field( 'mashery_access_username', 'Admin Username', array( $this, 'mashery_access_username_callback' ), 'mashery', 'mashery-settings-form' );
+        add_settings_field( 'mashery_access_password', 'Admin Password', array( $this, 'mashery_access_password_callback' ), 'mashery', 'mashery-settings-form' );
     }
 
     public function sanitize( $input ) {
@@ -181,14 +183,20 @@ class Mashery {
         if( isset( $input['mashery_customer_id'] ) ) {
             $new_input['mashery_customer_id'] = sanitize_text_field( $input['mashery_customer_id'] );
         }
+        if( isset( $input['mashery_customer_uuid'] ) ) {
+            $new_input['mashery_customer_uuid'] = sanitize_text_field( $input['mashery_customer_uuid'] );
+        }
         if( isset( $input['mashery_access_key'] ) ) {
             $new_input['mashery_access_key'] = sanitize_text_field( $input['mashery_access_key'] );
         }
-        if( isset( $input['mashery_enable_iodocs'] ) ) {
-            $new_input['mashery_enable_iodocs'] = absint( $input['mashery_enable_iodocs'] );
+        if( isset( $input['mashery_access_secret'] ) ) {
+            $new_input['mashery_access_secret'] = sanitize_text_field( $input['mashery_access_secret'] );
         }
-        if( isset( $input['mashery_enable_documentation'] ) ) {
-            $new_input['mashery_enable_documentation'] = absint( $input['mashery_enable_documentation'] );
+        if( isset( $input['mashery_access_username'] ) ) {
+            $new_input['mashery_access_username'] = sanitize_text_field( $input['mashery_access_username'] );
+        }
+        if( isset( $input['mashery_access_password'] ) ) {
+            $new_input['mashery_access_password'] = sanitize_text_field( $input['mashery_access_password'] );
         }
         return $new_input;
     }
@@ -204,6 +212,13 @@ class Mashery {
         );
     }
 
+    public function mashery_customer_uuid_callback() {
+        printf(
+            '<input type="text" id="mashery_customer_uuid" name="my_option_name[mashery_customer_uuid]" value="%s" />',
+            isset( $this->options['mashery_customer_uuid'] ) ? esc_attr( $this->options['mashery_customer_uuid']) : ''
+        );
+    }
+
     public function mashery_access_key_callback() {
         printf(
             '<input type="text" id="mashery_access_key" name="my_option_name[mashery_access_key]" value="%s" />',
@@ -211,12 +226,25 @@ class Mashery {
         );
     }
 
-    public function mashery_enable_iodocs_callback() {
-        echo '<input type="checkbox" id="mashery_enable_iodocs" name="my_option_name[mashery_enable_iodocs]" value="1"' . checked( 1, $this->options['mashery_enable_iodocs'], false ) . ' />';
+    public function mashery_access_secret_callback() {
+        printf(
+            '<input type="text" id="mashery_access_secret" name="my_option_name[mashery_access_secret]" value="%s" />',
+            isset( $this->options['mashery_access_secret'] ) ? esc_attr( $this->options['mashery_access_secret']) : ''
+        );
     }
 
-    public function mashery_enable_documentation_callback() {
-        echo '<input type="checkbox" id="mashery_enable_documentation" name="my_option_name[mashery_enable_documentation]" value="1"' . checked( 1, $this->options['mashery_enable_documentation'], false ) . ' />';
+    public function mashery_access_username_callback() {
+        printf(
+            '<input type="text" id="mashery_access_username" name="my_option_name[mashery_access_username]" value="%s" />',
+            isset( $this->options['mashery_access_username'] ) ? esc_attr( $this->options['mashery_access_username']) : ''
+        );
+    }
+
+    public function mashery_access_password_callback() {
+        printf(
+            '<input type="text" id="mashery_access_password" name="my_option_name[mashery_access_password]" value="%s" />',
+            isset( $this->options['mashery_access_password'] ) ? esc_attr( $this->options['mashery_access_password']) : ''
+        );
     }
 
 }

@@ -42,10 +42,12 @@ class Mashery {
         $role = get_role( 'developer' );
         $role->add_cap( 'manage_developer_data' );
         // update_option($this->option_name, $this->data);
-        $parent = self::generate_page("Account", "account", "[mashery:account]");
-        self::generate_page("APIs", "apis", "[mashery:apis]", $parent);
-        self::generate_page("Applications", "applications", "[mashery:applications]", $parent);
-        self::generate_page("Keys", "keys", "[mashery:keys]", $parent);
+        $top = self::generate_page("Account", "account", "[mashery:account]");
+        $apis_page_id = self::generate_page("APIs", "apis", "[mashery:apis]", $top);
+        self::generate_page("Request Access", "apis_request", "[mashery:apis_request]", $apis_page_id);
+        $applications_page_id = self::generate_page("Applications", "applications", "[mashery:applications_new]", $top);
+        self::generate_page("New Application", "applications", "[mashery:applications]", $applications_page_id);
+        self::generate_page("Keys", "keys", "[mashery:keys]", $top);
     }
 
     function deactivation() {

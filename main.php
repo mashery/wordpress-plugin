@@ -97,8 +97,8 @@ class Mashery {
         delete_option("mashery_" . $name . "_page_id");
     }
 
-    public function shortcode($shortcode, $data){
-        $templatefile = dirname(__FILE__) . "/templates/" . $shortcode . ".php";
+    public function render($template, $data){
+        $templatefile = dirname(__FILE__) . "/templates/" . $template . ".php";
         $data = $data;
         if(file_exists($templatefile)){
             ob_start();
@@ -110,37 +110,21 @@ class Mashery {
     }
 
     public function account(){
-        return self::shortcode(__FUNCTION__, array(
-            "first_name" => "Stephen",
-            "last_name" => "Colbert",
-            "email" => "scolbert@mashery.com",
-            "twitter" => "@scolbert",
-            "phone" => "(415) 555-1212"
-        ));
+        return $this->render('account', $this->data["account"]);
     }
 
     public function apis(){
-        return self::shortcode(__FUNCTION__, array(
-            array("name" => "Application 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
-            array("name" => "Application 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
-            array("name" => "Application 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
+        return $this->render('apis/index', $this->data["apis"]);
         ));
     }
 
     public function applications(){
-        return self::shortcode(__FUNCTION__, array(
-            array("name" => "Application 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
-            array("name" => "Application 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
-            array("name" => "Application 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
+        return $this->render('applications/index', $this->data["applications"]);
         ));
     }
 
     public function keys(){
-        return self::shortcode(__FUNCTION__, array(
-            array("name" => "Key 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
-            array("name" => "Key 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
-            array("name" => "Key 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
-        ));
+        return $this->render('keys/index', $this->data["keys"]);
     }
 
     function settings_link($links) {

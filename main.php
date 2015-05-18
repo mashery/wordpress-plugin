@@ -24,6 +24,7 @@ class Mashery {
         add_shortcode( 'mashery:apis', array($this, 'apis') );
         add_shortcode( 'mashery:apis_request', array($this, 'apis_request') );
         add_shortcode( 'mashery:applications', array($this, 'applications') );
+        add_shortcode( 'mashery:applications_new', array($this, 'applications_new') );
         add_shortcode( 'mashery:keys', array($this, 'keys') );
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
@@ -56,6 +57,7 @@ class Mashery {
         self::trash_page("apis");
         self::trash_page("apis_request");
         self::trash_page("applications");
+        self::trash_page("applications_new");
         self::trash_page("keys");
     }
 
@@ -128,6 +130,11 @@ class Mashery {
 
     public function applications(){
         return $this->render('applications/index', $this->data["applications"]);
+    }
+
+    public function applications_new(){
+        return $this->render('applications/new', array(
+            "apis" => $this->data["apis"]
         ));
     }
 

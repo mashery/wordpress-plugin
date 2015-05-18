@@ -26,6 +26,7 @@ class Mashery {
         add_shortcode( 'mashery:applications', array($this, 'applications') );
         add_shortcode( 'mashery:applications_new', array($this, 'applications_new') );
         add_shortcode( 'mashery:keys', array($this, 'keys') );
+
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
 

@@ -16,12 +16,16 @@ if ( ! defined( 'WPINC' ) ) {
 class Mashery {
     private $options;
 
-    public function __construct() {
+    public function __construct($fixtures = array()) {
 
-        add_shortcode( 'mashery:account', array(__CLASS__, 'account') );
-        add_shortcode( 'mashery:apis', array(__CLASS__, 'apis') );
-        add_shortcode( 'mashery:applications', array(__CLASS__, 'applications') );
-        add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
+        $this->data = $fixtures;
+
+        add_shortcode( 'mashery:account', array($this, 'account') );
+        add_shortcode( 'mashery:apis', array($this, 'apis') );
+        add_shortcode( 'mashery:apis_request', array($this, 'apis_request') );
+        add_shortcode( 'mashery:applications', array($this, 'applications') );
+        add_shortcode( 'mashery:applications_new', array($this, 'applications_new') );
+        add_shortcode( 'mashery:keys', array($this, 'keys') );
 
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
@@ -39,10 +43,12 @@ class Mashery {
         $role = get_role( 'developer' );
         $role->add_cap( 'manage_developer_data' );
         // update_option($this->option_name, $this->data);
-        $parent = self::generate_page("Account", "account", "[mashery:account]");
-        self::generate_page("APIs", "apis", "[mashery:apis]", $parent);
-        self::generate_page("Applications", "applications", "[mashery:applications]", $parent);
-        self::generate_page("Keys", "keys", "[mashery:keys]", $parent);
+        $top = self::generate_page("Account", "account", "[mashery:account]");
+        $apis_page_id = self::generate_page("APIs", "apis", "[mashery:apis]", $top);
+        self::generate_page("Request Access", "apis_request", "[mashery:apis_request]", $apis_page_id);
+        $applications_page_id = self::generate_page("Applications", "applications", "[mashery:applications_new]", $top);
+        self::generate_page("New Application", "applications", "[mashery:applications]", $applications_page_id);
+        self::generate_page("Keys", "keys", "[mashery:keys]", $top);
     }
 
     function deactivation() {
@@ -52,7 +58,9 @@ class Mashery {
 
         self::trash_page("account");
         self::trash_page("apis");
+        self::trash_page("apis_request");
         self::trash_page("applications");
+        self::trash_page("applications_new");
         self::trash_page("keys");
     }
 
@@ -96,8 +104,8 @@ class Mashery {
         delete_option("mashery_" . $name . "_page_id");
     }
 
-    public function shortcode($shortcode, $data){
-        $templatefile = dirname(__FILE__) . "/templates/" . $shortcode . ".php";
+    public function render($template, $data){
+        $templatefile = dirname(__FILE__) . "/templates/" . $template . ".php";
         $data = $data;
         if(file_exists($templatefile)){
             ob_start();
@@ -109,37 +117,32 @@ class Mashery {
     }
 
     public function account(){
-        return self::shortcode(__FUNCTION__, array(
-            "first_name" => "Stephen",
-            "last_name" => "Colbert",
-            "email" => "scolbert@mashery.com",
-            "twitter" => "@scolbert",
-            "phone" => "(415) 555-1212"
-        ));
+        return $this->render('account', $this->data["account"]);
     }
 
     public function apis(){
-        return self::shortcode(__FUNCTION__, array(
-            array("name" => "Application 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
-            array("name" => "Application 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
-            array("name" => "Application 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
+        return $this->render('apis/index', $this->data["apis"]);
+    }
+
+    public function apis_request(){
+        return $this->render('apis/request', array(
+            "account" => $this->data["account"],
+            "api" => $this->data["apis"][0]
         ));
     }
 
     public function applications(){
-        return self::shortcode(__FUNCTION__, array(
-            array("name" => "Application 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
-            array("name" => "Application 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
-            array("name" => "Application 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
+        return $this->render('applications/index', $this->data["applications"]);
+    }
+
+    public function applications_new(){
+        return $this->render('applications/new', array(
+            "apis" => $this->data["apis"]
         ));
     }
 
     public function keys(){
-        return self::shortcode(__FUNCTION__, array(
-            array("name" => "Key 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
-            array("name" => "Key 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
-            array("name" => "Key 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
-        ));
+        return $this->render('keys/index', $this->data["keys"]);
     }
 
     function settings_link($links) {
@@ -249,4 +252,57 @@ class Mashery {
 
 }
 
-new Mashery();
+$fixtures = array(
+    "account" => array(
+        "name" => array(
+            "first" => "Oren",
+            "last" => "Michaels"
+        ),
+        "username" => "oren",
+        "web" => "http://www.mashery.com",
+        "blog" => "http://www.mashery.com/blog",
+        "phone" => "(415) 555-1212",
+        "email" => "omichaels@mashery.com",
+        "twitter" => "@oren",
+        "company" => "Mashery, Inc.",
+        "password" => ""
+    ),
+    "apis" => array(
+        array(
+            "name" => "DemoPapi Package: DemoPapi Plan",
+            "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
+            "limits" => array(
+                "cps" => 2,
+                "cpd" => 5000
+            )
+        ),
+        array(
+            "name" => "Informatica Package1: Test Plan1",
+            "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r",
+            "limits" => array(
+                "cps" => 2,
+                "cpd" => 5000
+            )
+        ),
+        array(
+            "name" => "Internal Business Applications: Architect",
+            "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d",
+            "limits" => array(
+                "cps" => 2,
+                "cpd" => 5000
+            )
+        )
+    ),
+    "keys" => array(
+        array("name" => "Key 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
+        array("name" => "Key 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
+        array("name" => "Key 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
+    ),
+    "applications" => array(
+        array("name" => "Application 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
+        array("name" => "Application 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
+        array("name" => "Application 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
+    )
+);
+
+new Mashery($fixtures);

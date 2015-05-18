@@ -18,12 +18,12 @@ class Mashery {
 
     public function __construct($fixtures = array()) {
 
-        add_shortcode( 'mashery:account', array(__CLASS__, 'account') );
-        add_shortcode( 'mashery:apis', array(__CLASS__, 'apis') );
-        add_shortcode( 'mashery:applications', array(__CLASS__, 'applications') );
-        add_shortcode( 'mashery:keys', array(__CLASS__, 'keys') );
         $this->data = $fixtures;
 
+        add_shortcode( 'mashery:account', array($this, 'account') );
+        add_shortcode( 'mashery:apis', array($this, 'apis') );
+        add_shortcode( 'mashery:applications', array($this, 'applications') );
+        add_shortcode( 'mashery:keys', array($this, 'keys') );
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
 

@@ -13,6 +13,12 @@ if ( ! defined( 'WPINC' ) ) {
     die;
 }
 
+
+define('MASHERYPORTAL_ROOT',dirname(__FILE__)); // JPP
+require_once( constant('MASHERYPORTAL_ROOT') . '/services/Applications.php' ); // JPP
+require_once( constant('MASHERYPORTAL_ROOT') . '/services/Keys.php' ); // JPP
+require_once( constant('MASHERYPORTAL_ROOT') . '/services/ApiPlans.php' ); // JPP
+
 class Mashery {
     private $options;
 
@@ -132,17 +138,30 @@ class Mashery {
     }
 
     public function applications(){
-        return $this->render('applications/index', $this->data["applications"]);
+        $applications = new Applications();
+        return $this->render('applications/index', $applications->fetch());
+        ///$path_parts=explode('/', $_SERVER['REQUEST_URI']);
+        /*if (is_numeric($path_parts[count($path_parts)-1])
+            return self::shortcode(__FUNCTION__, $applications->fetch($path_parts[count($path_parts)-1]));
+        } else {*/
+//            return self::shortcode(__FUNCTION__, $applications->fetch());
+        //}
+
     }
 
     public function applications_new(){
-        return $this->render('applications/new', array(
-            "apis" => $this->data["apis"]
-        ));
+        error_log('applications_new::' . print_r($_POST,1));
+
+        if ( sizeof($_POST['application']) > 0) {
+            return $this->render('applications/new', $apiPlans->fetch());
+        }
+        $apiPlans = new ApiPlans();
+        return $this->render('applications/new', $apiPlans->fetch());
     }
 
     public function keys(){
-        return $this->render('keys/index', $this->data["keys"]);
+        $keys = new Keys();
+        return $this->render('keys/index', $keys->fetch());
     }
 
     function settings_link($links) {

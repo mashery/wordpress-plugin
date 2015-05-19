@@ -1,8 +1,16 @@
-<table>
+<?php if (sizeof($data) == 0) {
+    ?>
+<p>Click here to create your first application!</p>    
+
+    <?php
+    } else {
+    ?>
+    <table>
     <thead>
         <tr>
             <th>Name</th>
-            <th>Key</th>
+            <th>Created</th>
+            <th># of Keys</th>
         </tr>
     </thead>
     <tbody>
@@ -10,9 +18,12 @@
             ?>
             <tr>
                 <td><?= $application["name"] ?></td>
-                <td><?= $application["key"] ?></td>
+                <td><?= $application["created"] ?></td>
+                <td><?= sizeof($application["package_keys"]) ?></td>
             </tr>
             <?php
         } ?>
     </tbody>
 </table>
+    <?php
+    } ?>

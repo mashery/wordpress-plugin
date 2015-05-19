@@ -1,16 +1,16 @@
 <table>
     <thead>
         <tr>
-            <th>Name</th>
             <th>Key</th>
+            <th>Created</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($data as $index => $key) {
             ?>
             <tr>
-                <td><?= $key["name"] ?></td>
-                <td><?= $key["key"] ?></td>
+                <td><?= $key["apikey"] ?></td>
+                <td><?= $key["created"] ?></td>
             </tr>
             <?php
         } ?>

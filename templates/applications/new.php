@@ -1,4 +1,4 @@
-<form action="" id="application" name="application">
+<form action="" id="application" name="application" method="post">
 
     <fieldset form="application" name="info">
         <legend>Register a new application:</legend>
@@ -6,7 +6,7 @@
         <ol>
             <li>
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="My Awesome Applicaiton" value="<?= $data["name"] ?>">
+                <input type="text" id="appname" name="appname" placeholder="My Awesome Applicaiton" value="<?= $data["name"] ?>">
             </li>
             <li>
                 <label for="web">Website URL:</label>
@@ -14,7 +14,7 @@
             </li>
             <li>
                 <label for="description">Description:</label>
-                <textarea name="Description" rows="" cols=""><?= $data["blog"] ?></textarea>
+                <textarea name="description" rows="" cols=""><?= $data["blog"] ?></textarea>
             </li>
             <li>
                 <label for="callback">Callback URL:</label>
@@ -28,13 +28,21 @@
         <legend>Select APIs for this application:</legend>
 
         <ol>
-            <?php foreach ($data['apis'] as $key => $api) {
+            <?php foreach ($data as $key => $package) {
                 ?>
                 <li>
-                    <label for="api_<?= $data['apis'][$key] ?>_included">
+                    <!--<label for="api_<?= $data['apis'][$key] ?>_included">
                         <input type="checkbox" id="api_<?= $data['apis'][$key] ?>_included" name="api[<?= $data['apis'][$key] ?>][included]" value="<?= $data["apis"][$key]["included"] ?>">
                         <?= $data["apis"][$key]["name"] ?>
-                    </label>
+                    </label>-->
+                    <?= $package['name'] ?>
+                    <ol>
+                        <?php foreach ($package['plans'] as $plan) {
+                            ?>
+                            <?= $plan['name'] ?>
+                        <?php
+                        } ?>
+                    </ol>
                     <!-- List of plans available for this api -->
                 </li>
                 <?php

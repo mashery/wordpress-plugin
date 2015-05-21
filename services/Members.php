@@ -30,6 +30,11 @@ Class Members extends BaseService
         return $user;
     }
 
+    public function delete($username)
+    {
+        return $this->_delete('member', $username);
+    }
+
     private function userAlreadyInWpDatabase($user_login)
     {
         error_log('userAlreadyInWpDatabase::'.username_exists($user_login));

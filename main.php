@@ -37,7 +37,8 @@ class Mashery {
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
 
-        add_action('register_post', array( $this, 'register_user' ), 10, 3); // http://stackoverflow.com/questions/12258263/what-are-the-parameters-for-wordpress-register-post-action
+        add_action( 'register_post', array( $this, 'register_user' ));
+        add_action( 'delete_user', array( $this, 'delete_user' ));
 
         if ( is_admin() ) {
             // add_filter('plugin_action_links', array( $this, 'settings_link' ));
@@ -131,6 +132,13 @@ class Mashery {
         if(is_wp_error($member)) {
             $errors->add( 'mashery_member_registration_error', $member->get_error_message() );  
         }
+    }
+
+    public function delete_user($user_id) {
+        $members = new Members();
+        $user_obj = get_userdata( $user_id );
+        $username = $user_obj->user_login;
+        $members->delete($username);
     }
 
     public function account(){

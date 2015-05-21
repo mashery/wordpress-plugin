@@ -42,6 +42,23 @@ Class BaseService
 
     }
 
+    protected function _delete($object, $id)
+    {
+        $result = null;
+        if ($object == 'packages') {
+            $result = $this->masheryV3Api->fetch($object, $fields);
+        } else {
+            $result = $this->masheryV2Api->delete($object, $id);
+        }
+        if ($result['error'] != null)
+        {
+            return new WP_Error( 'ERROR', __( $result['error']['data']) );
+        } else
+        {
+            return $result;
+        }
+
+    }
 
     protected function _fetchOne($object_id, $object, $fields)
     {

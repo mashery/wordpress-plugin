@@ -20,6 +20,22 @@ class MasheryV2
         
     }
 
+    public function delete($object, $id)
+    {
+        if ( $object == 'member' )
+        {
+            $id = '"' . $id . '"';
+        }
+        $data_string = '{"method":"' . $object . '.delete","id":1,"params":[' . $id . ']}';
+
+        $url = 'https://api.mashery.com/v2/json-rpc/' . $this->areaId  . '?' . $this->getApiAuthenticationData();
+
+        $content = $this->curlPost($url, $data_string);
+
+        return $content;
+        
+    }
+
     public function fetch($username, $object, $fields)
     {
         $data_string = '{"method":"object.query","id":1,"params":["SELECT ' . $fields . ' FROM ' . $object;
@@ -89,6 +105,13 @@ class MasheryV2
         ); 
         $response = curl_exec($ch);
 
+        if ( true === WP_DEBUG ) {
+            if ( is_array( $log ) || is_object( $log ) ) {
+                error_log( print_r( $response, true ) );
+            } else {
+                error_log( $response );
+            }
+        }
         $content = json_decode($response, true);
 
         return $content;

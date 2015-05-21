@@ -7,9 +7,9 @@ Class ApiPlans extends BaseService
 {
     public function fetch()
     {
-        $currentUserKeys = $this->_fetch('package_keys', '*,package,plan');
-        $currentUserRoles = $this->_fetch('members', 'roles');
-        $packages = $this->_fetch('packages', 'id,name,plans,plans.roles');
+        $currentUserKeys = $this->_fetchAll('package_keys', '*,package,plan');
+        $currentUserRoles = $this->_fetchAll('members', 'roles');
+        $packages = $this->_fetchAll('packages', 'id,name,plans,plans.roles');
 
         $registerableApiPackages = array();
         foreach ($packages as $package) {

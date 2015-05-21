@@ -17,7 +17,7 @@
         <?php foreach ($data as $key => $application) {
             ?>
             <tr>
-                <td><?= $application["name"] ?></td>
+                <td><a href="<?= $application["id"] ?>"><?= $application["name"] ?></td>
                 <td><?= $application["created"] ?></td>
                 <td><?= sizeof($application["package_keys"]) ?></td>
             </tr>

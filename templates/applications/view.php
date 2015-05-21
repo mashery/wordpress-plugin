@@ -1,3 +1,4 @@
+<h1><?= $data['name'] ?></h1>
 <table>
     <thead>
         <tr>
@@ -6,7 +7,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($data as $index => $key) {
+        <?php foreach ($data['package_keys'] as $index => $key) {
             ?>
             <tr>
                 <td><a href="http://localhost/wordpress/keys/<?= $key["id"] ?>"><?= $key["apikey"] ?></td>

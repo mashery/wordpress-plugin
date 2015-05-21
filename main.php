@@ -14,10 +14,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 
-define('MASHERYPORTAL_ROOT',dirname(__FILE__)); // JPP
-require_once( constant('MASHERYPORTAL_ROOT') . '/services/Applications.php' ); // JPP
-require_once( constant('MASHERYPORTAL_ROOT') . '/services/Keys.php' ); // JPP
-require_once( constant('MASHERYPORTAL_ROOT') . '/services/ApiPlans.php' ); // JPP
+define('MASHERYPORTAL_ROOT',dirname(__FILE__));
+require_once( constant('MASHERYPORTAL_ROOT') . '/services/Applications.php' );
+require_once( constant('MASHERYPORTAL_ROOT') . '/services/Keys.php' );
+require_once( constant('MASHERYPORTAL_ROOT') . '/services/ApiPlans.php' );
+require_once( constant('MASHERYPORTAL_ROOT') . '/services/Members.php' );
 
 class Mashery {
     private $options;
@@ -36,12 +37,22 @@ class Mashery {
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
 
+        add_action('register_post', array( $this, 'register_user' ), 10, 3); // http://stackoverflow.com/questions/12258263/what-are-the-parameters-for-wordpress-register-post-action
+
         if ( is_admin() ) {
             // add_filter('plugin_action_links', array( $this, 'settings_link' ));
             add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
             add_action( 'admin_init', array( $this, 'page_init' ) );
         }
 
+    }
+
+    public function register_user($user_login, $user_email, $errors) {
+        $members = new Members();
+        $member = $members->create($user_login, $user_email);
+        if(is_wp_error($member)) {
+            $errors->add( 'mashery_member_registration_error', $member->get_error_message() );  
+        }
     }
 
     function activation() {
@@ -139,7 +150,17 @@ class Mashery {
 
     public function applications(){
         $applications = new Applications();
-        return $this->render('applications/index', $applications->fetch());
+        $path_only = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $path_parts = explode('/', trim($path_only, '/'));
+        
+        if (is_numeric($path_parts[count($path_parts)-1]))
+        {
+            return $this->render('applications/view', $applications->fetch($path_parts[count($path_parts)-1]));
+        } else {
+            return $this->render('applications/index', $applications->fetch());
+        }
+
+        
         ///$path_parts=explode('/', $_SERVER['REQUEST_URI']);
         /*if (is_numeric($path_parts[count($path_parts)-1])
             return self::shortcode(__FUNCTION__, $applications->fetch($path_parts[count($path_parts)-1]));
@@ -161,7 +182,16 @@ class Mashery {
 
     public function keys(){
         $keys = new Keys();
-        return $this->render('keys/index', $keys->fetch());
+        $path_only = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $path_parts = explode('/', trim($path_only, '/'));
+
+        if (is_numeric($path_parts[count($path_parts)-1]))
+        {
+            return $this->render('keys/view', $keys->fetch($path_parts[count($path_parts)-1]));
+        } else {
+            return $this->render('keys/index', $keys->fetch());
+        }
+
     }
 
     function settings_link($links) {

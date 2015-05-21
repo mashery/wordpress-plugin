@@ -106,7 +106,7 @@ class MasheryV2
         $response = curl_exec($ch);
 
         if ( true === WP_DEBUG ) {
-            if ( is_array( $log ) || is_object( $log ) ) {
+            if ( is_array( $response ) || is_object( $response ) ) {
                 error_log( print_r( $response, true ) );
             } else {
                 error_log( $response );

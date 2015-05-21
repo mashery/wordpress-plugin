@@ -3,20 +3,7 @@ class MasheryV3
 {
     private $token = null;
 
-    private static $instance = null;
-
-    public static function get_instance() {
- 
-        if ( null == self::$instance ) {
-            error_log('get_instance::creating');
-            self::$instance = new self;
-        }
- 
-        return self::$instance;
- 
-    }
-
-    private function __construct() {
+    public function __construct() {
     } 
 
     public function fetch($resource, $fields)

@@ -2,28 +2,16 @@
 class MasheryV2
 {
 
-    private static $instance = null;
-
     private $areaId;
 
-    public static function get_instance() {
- 
-        if ( null == self::$instance ) {
-            self::$instance = new self;
-        }
- 
-        return self::$instance;
- 
-    }
-
-    private function __construct() {
+    public function __construct() {
         $this->areaId = get_option('my_option_name')['mashery_customer_id'];
     } 
 
     public function create($object, $data)
     {
-        $data_string = '{"method":"member.create","id":1,"params":[' . json_encode($data, JSON_FORCE_OBJECT) . ']}';
-        error_log($data_string);
+        $data_string = '{"method":"' . $object . '.create","id":1,"params":[' . json_encode($data, JSON_FORCE_OBJECT) . ']}';
+
         $url = 'https://api.mashery.com/v2/json-rpc/' . $this->areaId  . '?' . $this->getApiAuthenticationData();
 
         $content = $this->curlPost($url, $data_string);
@@ -100,7 +88,7 @@ class MasheryV2
             'Content-Length: ' . strlen($data_string))                                                                       
         ); 
         $response = curl_exec($ch);
-        error_log($response);
+
         $content = json_decode($response, true);
 
         return $content;

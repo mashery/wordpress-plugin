@@ -6,11 +6,11 @@ require_once( constant('MASHERYPORTAL_ROOT') . '/lib/MasheryV3.php' );
 Class BaseService
 {
     public function __construct() {
-        $this->masheryV3Api = MasheryV3::get_instance();
-        $this->masheryV2Api = MasheryV2::get_instance();
+        $this->masheryV3Api = new MasheryV3();
+        $this->masheryV2Api = new MasheryV2();
     }
 
-    private function currentUser()
+    protected function currentUser()
     {
         global $current_user;
         $ul = '';

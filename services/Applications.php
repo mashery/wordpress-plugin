@@ -16,6 +16,18 @@ Class Applications extends BaseService
         }
         
     }
+
+    public function create($data)
+    {
+        $data['member'] = array (
+            'username' => $this->currentUser()
+        );
+
+        $data['name'] = $data['appname'];
+        unset($data['appname']);
+        $application = $this->_create('application', $data);
+        return $application;
+    }
 }
 
 

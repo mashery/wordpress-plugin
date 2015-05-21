@@ -5,6 +5,7 @@
     <?php
     } else {
     ?>
+<p>Click <a href="new-application">here</a> to create an application!</p>        
     <table>
     <thead>
         <tr>

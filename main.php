@@ -165,20 +165,18 @@ class Mashery {
         {
             return $this->render('applications/view', $applications->fetch($path_parts[count($path_parts)-1]));
         } else {
-            return $this->render('applications/index', $applications->fetch());
+            return $this->render('applications/index', $applications->fetch(null));
         }        
     }
 
     public function applications_new(){
-        error_log('applications_new::' . print_r($_POST,1));
-
         if ( sizeof($_POST) > 0) {
             $applications = new Applications();
             $application = $applications->create($_POST);
             return $this->render('applications/view', $application);
         }
         $apiPlans = new ApiPlans();
-        return $this->render('applications/new', $apiPlans->fetch());
+        return $this->render('applications/new', $apiPlans->fetch(null));
     }
 
     public function keys(){
@@ -190,7 +188,7 @@ class Mashery {
         {
             return $this->render('keys/view', $keys->fetch($path_parts[count($path_parts)-1]));
         } else {
-            return $this->render('keys/index', $keys->fetch());
+            return $this->render('keys/index', $keys->fetch(null));
         }
 
     }

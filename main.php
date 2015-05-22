@@ -128,7 +128,8 @@ class Mashery {
 
     public function register_user($user_login, $user_email, $errors) {
         $members = new Members();
-        $member = $members->create($user_login, $user_email);
+        $new_password = wp_generate_password( 10, true, true );
+        $member = $members->create($user_login, $user_email, $new_password);
         if(is_wp_error($member)) {
             $errors->add( 'mashery_member_registration_error', $member->get_error_message() );  
         }
@@ -163,9 +164,25 @@ class Mashery {
         
         if (is_numeric($path_parts[count($path_parts)-1]))
         {
-            return $this->render('applications/view', $applications->fetch($path_parts[count($path_parts)-1]));
+            $applications = $applications->fetch($path_parts[count($path_parts)-1]);
+            if(is_wp_error($applications))
+            {
+                return $this->render('errors/view', $applications);
+            } else 
+            {
+                return $this->render('applications/view', $applications);
+            }
+            
         } else {
-            return $this->render('applications/index', $applications->fetch(null));
+            $applications = $applications->fetch(null);
+            if(is_wp_error($applications))
+            {
+                return $this->render('errors/view', $applications);
+            } else 
+            {
+                return $this->render('applications/index', $applications);
+            }
+
         }        
     }
 
@@ -173,7 +190,14 @@ class Mashery {
         if ( sizeof($_POST) > 0) {
             $applications = new Applications();
             $application = $applications->create($_POST);
-            return $this->render('applications/view', $application);
+            if(is_wp_error($application))
+            {
+                return $this->render('errors/view', $applications);
+            } else 
+            {
+                return $this->render('applications/view', $application);    
+            }
+            
         }
         $apiPlans = new ApiPlans();
         return $this->render('applications/new', $apiPlans->fetch(null));

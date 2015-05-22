@@ -1,5 +1,5 @@
 <?php
-class MasheryV3
+class Mashery_Api_MasheryV3
 {
     private $token = null;
 
@@ -19,9 +19,8 @@ class MasheryV3
             'Authorization: Bearer ' . get_transient('v3token'))
         ); 
         $response = curl_exec($ch);
-        $content = json_decode($response, true);
-
-        return $content;
+        
+        return $response;
         
     }
 

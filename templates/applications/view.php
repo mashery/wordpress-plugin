@@ -10,10 +10,11 @@
         <?php foreach ($data['package_keys'] as $index => $key) {
             ?>
             <tr>
-                <td><a href="http://localhost/wordpress/keys/<?= $key["id"] ?>"><?= $key["apikey"] ?></td>
+                <td><a href="/wordpress/keys/<?= $key["id"] ?>"><?= $key["apikey"] ?></td>
                 <td><?= $key["created"] ?></td>
             </tr>
             <?php
         } ?>
     </tbody>
 </table>
+<a href="/wordpress/applications/<?= $data['id'] ?>/delete" >Delete Application</a>

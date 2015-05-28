@@ -35,7 +35,7 @@ The main file you should be looking at is [main.php](main.php). From there, you 
 
 If you'd like to run this plugin in a Docker container, here's one simple way to run it. Setting up Docker is beyond the scope of this plugin. Please visit [Docker](http://docker.com) for setup instructions and more info.
 
-    docker run -p 8080:80 --name wordpress -v $(pwd):/var/www/html/wp-content/plugins/mashery -e WP_URL=172.17.8.150:8080 -d kaihofstetter/wordpress-cli
+    docker run -p 8080:80 --name wordpress -v $(pwd)/wordpress-plugin:/app/wp-content/plugins/mashery -v /app:$(pwd)/wordpress -d tutum/wordpress
 
 Note that `8080` and `172.17.8.150:8080` may vary (likely) depending on your Docker setup.
 

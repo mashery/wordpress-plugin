@@ -13,6 +13,13 @@ if ( ! defined( 'WPINC' ) ) {
     die;
 }
 
+
+define('MASHERYPORTAL_ROOT',dirname(__FILE__));
+require_once( constant('MASHERYPORTAL_ROOT') . '/services/Applications.php' );
+require_once( constant('MASHERYPORTAL_ROOT') . '/services/Keys.php' );
+require_once( constant('MASHERYPORTAL_ROOT') . '/services/ApiPlans.php' );
+require_once( constant('MASHERYPORTAL_ROOT') . '/services/Members.php' );
+
 class Mashery {
     private $options;
 
@@ -29,6 +36,9 @@ class Mashery {
 
         register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
         register_deactivation_hook(__FILE__, array(__CLASS__, 'deactivation'));
+
+        add_action( 'register_post', array( $this, 'register_user' ));
+        add_action( 'delete_user', array( $this, 'delete_user' ));
 
         if ( is_admin() ) {
             // add_filter('plugin_action_links', array( $this, 'settings_link' ));
@@ -116,6 +126,21 @@ class Mashery {
         }
     }
 
+    public function register_user($user_login, $user_email, $errors) {
+        $members = new Members();
+        $member = $members->create($user_login, $user_email);
+        if(is_wp_error($member)) {
+            $errors->add( 'mashery_member_registration_error', $member->get_error_message() );  
+        }
+    }
+
+    public function delete_user($user_id) {
+        $members = new Members();
+        $user_obj = get_userdata( $user_id );
+        $username = $user_obj->user_login;
+        $members->delete($username);
+    }
+
     public function account(){
         return $this->render('account', $this->data["account"]);
     }
@@ -132,17 +157,40 @@ class Mashery {
     }
 
     public function applications(){
-        return $this->render('applications/index', $this->data["applications"]);
+        $applications = new Applications();
+        $path_only = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $path_parts = explode('/', trim($path_only, '/'));
+        
+        if (is_numeric($path_parts[count($path_parts)-1]))
+        {
+            return $this->render('applications/view', $applications->fetch($path_parts[count($path_parts)-1]));
+        } else {
+            return $this->render('applications/index', $applications->fetch(null));
+        }        
     }
 
     public function applications_new(){
-        return $this->render('applications/new', array(
-            "apis" => $this->data["apis"]
-        ));
+        if ( sizeof($_POST) > 0) {
+            $applications = new Applications();
+            $application = $applications->create($_POST);
+            return $this->render('applications/view', $application);
+        }
+        $apiPlans = new ApiPlans();
+        return $this->render('applications/new', $apiPlans->fetch(null));
     }
 
     public function keys(){
-        return $this->render('keys/index', $this->data["keys"]);
+        $keys = new Keys();
+        $path_only = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $path_parts = explode('/', trim($path_only, '/'));
+
+        if (is_numeric($path_parts[count($path_parts)-1]))
+        {
+            return $this->render('keys/view', $keys->fetch($path_parts[count($path_parts)-1]));
+        } else {
+            return $this->render('keys/index', $keys->fetch(null));
+        }
+
     }
 
     function settings_link($links) {

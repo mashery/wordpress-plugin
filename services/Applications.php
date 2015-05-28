@@ -12,6 +12,11 @@ Class Applications extends BaseService
 
     public function fetch($app_id)
     {
+        if ($this->currentUser() == '')
+        {
+            return new WP_Error( 'ERROR', __( 'Not logged in' ));
+        }
+
         $response = $this->service->fetch($this->currentUser(), $app_id);
 
         $content = json_decode($response, true);

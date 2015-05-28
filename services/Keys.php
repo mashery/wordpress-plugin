@@ -7,7 +7,9 @@ Class Keys extends BaseService
 {
 
     public function __construct() {
-        $this->service = new Mashery_Services_Keys();
+        parent::__construct();
+        $this->service = new Mashery_Services_Keys($this->area_id, $this->area_uuid, $this->apikey, $this->secret, $this->username, $this->password);
+
     }
 
     public function fetch($key_id)

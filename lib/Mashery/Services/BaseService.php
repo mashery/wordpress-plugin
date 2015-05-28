@@ -1,15 +1,19 @@
 <?php
 
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Api/MasheryV2.php' );
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Api/MasheryV3.php' );
+require_once( __DIR__. '/../Api/V2.php' );
+require_once( __DIR__. '/../Api/V3.php' );
 
 Class Mashery_Services_BaseService
 {
-    public function __construct() {
-        $this->masheryV3Api = new Mashery_Api_MasheryV3();
-        $this->masheryV2Api = new Mashery_Api_MasheryV2();
+    public function __construct($area_id, $area_uuid, $apikey, $secret, $username, $password) {
+        $this->masheryV3Api = new Mashery_Api_V3($area_uuid, $apikey, $secret, $username, $password);
+        $this->masheryV2Api = new Mashery_Api_V2($area_id, $apikey, $secret);
     }
 
+    public function v3Authenticate()
+    {
+        return $this->masheryV3Api->authenticate();
+    }
 
     protected function _create($object, $data)
     {
@@ -38,24 +42,16 @@ Class Mashery_Services_BaseService
 
     }
 
-
-    protected function _fetchAll($object, $fields, $where)
+    protected function _fetchAll($token, $object, $fields, $where, $require_related)
     {
         $response = null;
         if ($object == 'packages') {
-            $response = $this->masheryV3Api->fetch($object, $fields);
+            $response = $this->masheryV3Api->fetch($token, $object, $fields);
         } else {
-            $response = $this->masheryV2Api->fetch('object.query', $object, $fields, $where, null);
+            $response = $this->masheryV2Api->fetch('object.query', $object, $fields, $where, $require_related);
         }
         return $response;
     }
-
-    protected function _report($resource, $service_key, $service_dev_key, $start_date, $end_date)
-    {
-        $results = $this->masheryV2Api->report($resource, $service_key, $service_dev_key, $start_date, $end_date);
-        return $results;
-    }
-
 
     protected function matchedRoles($objectRoles, $userRoles)
     {
@@ -69,4 +65,6 @@ Class Mashery_Services_BaseService
 
         return false;
     }
+
+
 }

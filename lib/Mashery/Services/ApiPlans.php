@@ -1,14 +1,14 @@
 <?php
 
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Services/BaseService.php' );
+require_once( 'BaseService.php' );
 
 Class Mashery_Services_ApiPlans extends Mashery_Services_BaseService
 {
-    public function fetch($username)
+    public function fetch($token, $username)
     {
-        $currentUserKeys = $this->_fetchAll('package_keys', '*,package,plan', 'WHERE username =\'' . $username . '\'');
-        $currentUserRoles = $this->_fetchAll('members', 'roles', 'WHERE username =\'' . $username . '\'');
-        $packages = $this->_fetchAll('packages', 'id,name,plans,plans.roles', null);
+        $currentUserKeys = $this->_fetchAll(null, 'package_keys', '*,package,plan', null, 'REQUIRE RELATED member WITH username =\'' . $username . '\'');
+        $currentUserRoles = $this->_fetchAll(null, 'members', 'roles', 'WHERE username =\'' . $username . '\'', null);
+        $packages = $this->_fetchAll($token, 'packages', 'id,name,plans,plans.roles', null, null);
 
         $currentUserKeys = json_decode($currentUserKeys);
         $currentUserRoles = json_decode($currentUserRoles);

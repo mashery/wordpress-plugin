@@ -7,7 +7,8 @@ Class Applications extends BaseService
 {
 
     public function __construct() {
-        $this->service = new Mashery_Services_Applications();
+        parent::__construct();
+        $this->service = new Mashery_Services_Applications($this->area_id, $this->area_uuid, $this->apikey, $this->secret, $this->username, $this->password);
     }
 
     public function fetch($app_id)
@@ -47,7 +48,7 @@ Class Applications extends BaseService
         $data['name'] = $data['appname'];
         unset($data['appname']);
         $response = $this->service->create($data);
-        error_log($response);        
+
         $content = json_decode($response, true);
 
         if ($content['error'] != null)

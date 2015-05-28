@@ -1,12 +1,14 @@
 <?php
 
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Services/BaseService.php' );
+require_once( 'BaseService.php' );
 
 Class Mashery_Services_Applications extends Mashery_Services_BaseService
 {
     public function fetch($username, $app_id)
     {
         $where = null;
+        $require_related = null;
+
         if ($app_id)
         {
             $where = 'WHERE id = ' . $app_id;
@@ -16,7 +18,7 @@ Class Mashery_Services_Applications extends Mashery_Services_BaseService
             
         }
         
-        return $this->_fetchAll('applications', '*, package_keys', $where);
+        return $this->_fetchAll('', 'applications', '*, package_keys', $where, $require_related);
     }
 
     public function create($data)

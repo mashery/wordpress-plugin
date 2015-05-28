@@ -1,6 +1,6 @@
 <?php
 
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Services/BaseService.php' );
+require_once( 'BaseService.php' );
 
 Class Mashery_Services_Members extends Mashery_Services_BaseService 
 {
@@ -10,7 +10,7 @@ Class Mashery_Services_Members extends Mashery_Services_BaseService
         if ($user_login) {
             return $this->_fetchOne($user_login, 'members', '*');   
         } else {
-            return $this->_fetchAll('members', '*');
+            return $this->_fetchAll('', 'members', '*');
         }
     }
 
@@ -37,7 +37,6 @@ Class Mashery_Services_Members extends Mashery_Services_BaseService
 
     private function userAlreadyInWpDatabase($user_login)
     {
-        error_log('userAlreadyInWpDatabase::'.username_exists($user_login));
         if (username_exists($user_login))
         {
             return true;    

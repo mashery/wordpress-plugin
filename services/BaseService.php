@@ -1,13 +1,30 @@
 <?php
 
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/MasheryV2.php' );
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/MasheryV3.php' );
+require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Services/Keys.php' );
 
-Class BaseService
+Class BaseService 
 {
+
+    protected $area_id;
+
+    protected $area_uuid;
+
+    protected $apikey;
+
+    protected $secret;
+
+    protected $username;
+
+    protected $password;
+
+
     public function __construct() {
-        $this->masheryV3Api = new MasheryV3();
-        $this->masheryV2Api = new MasheryV2();
+        $this->area_id = get_option('my_option_name')['mashery_customer_id'];
+        $this->area_uuid = get_option('my_option_name')['mashery_customer_uuid'];
+        $this->apikey = get_option('my_option_name')['mashery_access_key'];
+        $this->secret  = get_option('my_option_name')['mashery_access_secret'];        
+        $this->username = get_option('my_option_name')['mashery_access_username'];
+        $this->password  = get_option('my_option_name')['mashery_access_password'];
     }
 
     protected function currentUser()
@@ -24,77 +41,4 @@ Class BaseService
         return $ul;
     }
 
-    protected function _create($object, $data)
-    {
-        $result = null;
-        if ($object == 'packages') {
-            $result = $this->masheryV3Api->fetch($object, $fields);
-        } else {
-            $result = $this->masheryV2Api->create($object, $data);
-        }
-        if ($result['error'] != null)
-        {
-            return new WP_Error( 'ERROR', __( $result['error']['data']) );
-        } else
-        {
-            return $result;
-        }
-
-    }
-
-    protected function _delete($object, $id)
-    {
-        $result = null;
-        if ($object == 'packages') {
-            $result = $this->masheryV3Api->fetch($object, $fields);
-        } else {
-            $result = $this->masheryV2Api->delete($object, $id);
-        }
-        if ($result['error'] != null)
-        {
-            return new WP_Error( 'ERROR', __( $result['error']['data']) );
-        } else
-        {
-            return $result;
-        }
-
-    }
-
-    protected function _fetchOne($object_id, $object, $fields)
-    {
-        $items = null;
-        if ($object == 'packages') {
-            $items = $this->masheryV3Api->fetch($object, $fields);
-        } else {
-            $results = $this->masheryV2Api->fetchOne($this->currentUser(), $object_id, $object, $fields);
-                 
-        }
-        if ($results['error'] != null)
-        {
-            return new WP_Error( 'broke', __( "I've fallen and can't get up", "my_textdomain" ) );
-        } else
-        {
-            $items = $results['result']['items'];   
-
-            return $items[0];
-        }
-    }
-
-    protected function _fetchAll($object, $fields)
-    {
-        $items = null;
-        if ($object == 'packages') {
-            $items = $this->masheryV3Api->fetch($object, $fields);
-        } else {
-            $results = $this->masheryV2Api->fetch($this->currentUser(), $object, $fields);
-            $items = $results['result']['items'];        
-        }
-        return $items;
-    }
-
-    protected function _report($resource, $service_key, $service_dev_key, $start_date, $end_date)
-    {
-        $results = $this->masheryV2Api->report($resource, $service_key, $service_dev_key, $start_date, $end_date);
-        return $results;
-    }
 }

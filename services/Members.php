@@ -1,49 +1,28 @@
 <?php
 
+require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Services/Members.php' );
 require_once( constant('MASHERYPORTAL_ROOT') . '/services/BaseService.php' );
 
-Class Members extends BaseService 
+Class Members extends BaseService
 {
 
-    public function fetch($user_login)
-    {
-        if ($user_login) {
-            return $this->_fetchOne($user_login, 'members', '*');   
-        } else {
-            return $this->_fetchAll('members', '*');
-        }
+    public function __construct() {
+        parent::__construct();
+        $this->service = new Mashery_Services_Members($this->area_id, $this->area_uuid, $this->apikey, $this->secret, $this->username, $this->password);
     }
 
-    public function create($user_login, $user_email)
+    public function fetch()
     {
-        $user = null;
-        if (!$this->userAlreadyInWpDatabase($user_login))
+        $items = $this->service->fetch();
+    }
+
+/*
+        if ($result['error'] != null)
         {
-            $data = array (
-                'username' => $user_login,
-                'email' => $user_email,
-                'display_name' => 'test'
-            );
-            $user = $this->_create('member', $data);
-        }
-        
-        return $user;
-    }
-
-    public function delete($username)
-    {
-        return $this->_delete('member', $username);
-    }
-
-    private function userAlreadyInWpDatabase($user_login)
-    {
-        error_log('userAlreadyInWpDatabase::'.username_exists($user_login));
-        if (username_exists($user_login))
+            return new WP_Error( 'ERROR', __( $result['error']['data']) );
+        } else
         {
-            return true;    
+            return $result;
         }
-        
-    }
-}
-
-
+*/
+}   

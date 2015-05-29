@@ -1,20 +1,42 @@
 <?php
 
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/MasheryV2.php' );
+require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Services/Applications.php' );
 require_once( constant('MASHERYPORTAL_ROOT') . '/services/BaseService.php' );
 
-Class Applications extends BaseService 
+Class Applications extends BaseService
 {
+
+    public function __construct() {
+        parent::__construct();
+        $this->service = new Mashery_Services_Applications($this->area_id, $this->area_uuid, $this->apikey, $this->secret, $this->username, $this->password);
+    }
+
     public function fetch($app_id)
     {
-        if ($app_id)
+        if ($this->currentUser() == '')
         {
-            return $this->_fetchOne($app_id, 'applications', '*, package_keys');
+            return new WP_Error( 'ERROR', __( 'Not logged in' ));
+        }
+
+        $response = $this->service->fetch($this->currentUser(), $app_id);
+
+        $content = json_decode($response, true);
+
+        if ($content['error'] != null)
+        {
+            return new WP_Error( 'ERROR', __( $result['error']['data']) );
         } else
         {
-            return $this->_fetchAll('applications', '*, package_keys');
+            if ($app_id != null)
+            {
+                return $content['result']['items'][0];
+            } else
+            {
+                return $content['result']['items'];    
+            }
+            
         }
-        
+
     }
 
     public function create($data)
@@ -25,10 +47,17 @@ Class Applications extends BaseService
 
         $data['name'] = $data['appname'];
         unset($data['appname']);
-        $application = $this->_create('application', $data);
-        return $application;
+        $response = $this->service->create($data);
+
+        $content = json_decode($response, true);
+
+        if ($content['error'] != null)
+        {
+            return new WP_Error( 'ERROR', __( $result['error']['data']) );
+        } else
+        {
+            return $content['result'];            
+        }        
     }
 }
-
-
 

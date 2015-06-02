@@ -131,7 +131,7 @@ class Mashery {
         $new_password = wp_generate_password( 10, true, true );
         $member = $members->create($user_login, $user_email, $new_password);
         if(is_wp_error($member)) {
-            $errors->add( 'mashery_member_registration_error', $member->get_error_message() );  
+            $errors->add( 'mashery_member_registration_error', $member->get_error_message() );
         }
     }
 
@@ -161,29 +161,29 @@ class Mashery {
         $applications = new Applications();
         $path_only = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $path_parts = explode('/', trim($path_only, '/'));
-        
+
         if (is_numeric($path_parts[count($path_parts)-1]))
         {
             $applications = $applications->fetch($path_parts[count($path_parts)-1]);
             if(is_wp_error($applications))
             {
                 return $this->render('errors/view', $applications);
-            } else 
+            } else
             {
                 return $this->render('applications/view', $applications);
             }
-            
+
         } else {
             $applications = $applications->fetch(null);
             if(is_wp_error($applications))
             {
                 return $this->render('errors/view', $applications);
-            } else 
+            } else
             {
                 return $this->render('applications/index', $applications);
             }
 
-        }        
+        }
     }
 
     public function applications_new(){
@@ -193,11 +193,11 @@ class Mashery {
             if(is_wp_error($application))
             {
                 return $this->render('errors/view', $applications);
-            } else 
+            } else
             {
-                return $this->render('applications/view', $application);    
+                return $this->render('applications/view', $application);
             }
-            
+
         }
         $apiPlans = new ApiPlans();
         return $this->render('applications/new', $apiPlans->fetch(null));

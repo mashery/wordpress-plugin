@@ -112,6 +112,13 @@ class Mashery {
         // Handle localisation
         $this->load_plugin_textdomain();
         add_action( 'init', array( $this, 'load_localisation' ), 0 );
+
+        $this->shortcodes = array('account', 'apis', 'apis_request', 'applications', 'applications_new', 'keys');
+
+        foreach ($this->shortcodes as $shortcode) {
+            add_shortcode( $this->_token . ':' . $shortcode, array($this, $shortcode . '_shortcode') );
+        }
+
     } // End __construct ()
 
     /**

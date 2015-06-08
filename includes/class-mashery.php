@@ -137,6 +137,25 @@ class Mashery {
         return $output;
     }
 
+    /**
+     */
+    public function account_shortcode () {
+        return $this->render_shortcode('account/form', array(
+            "name" => array(
+                "first" => "John",
+                "last" => "Smith"
+            ),
+            "username" => "jsmith",
+            "web" => "http://www.mashery.com",
+            "blog" => "http://www.mashery.com/blog",
+            "phone" => "(415) 555-1212",
+            "email" => "jsmith@mashery.com",
+            "twitter" => "@j",
+            "company" => "Mashery, Inc.",
+            "password" => ""
+        ));
+    }
+
      * Wrapper function to register a new post type
      * @param  string $post_type   Post type name
      * @param  string $plural      Post type item plural name

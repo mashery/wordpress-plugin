@@ -228,6 +228,31 @@ class Mashery {
         ));
     }
 
+    /**
+     */
+    public function applications_shortcode () {
+        $output = "applications_shortcode";
+        // $applications = new Applications();
+        // $path_only = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        // $path_parts = explode('/', trim($path_only, '/'));
+        // if (is_numeric($path_parts[count($path_parts)-1])) {
+        //     $applications = $applications->fetch($path_parts[count($path_parts)-1]);
+        //     if(is_wp_error($applications)) {
+        //         $output = $this->render_shortcode('errors/view', $applications);
+        //     } else {
+        //         $output = $this->render_shortcode('applications/view', $applications);
+        //     }
+        // } else {
+        //     $applications = $applications->fetch(null);
+        //     if(is_wp_error($applications)) {
+        //         $output = $this->render_shortcode('errors/view', $applications);
+        //     } else {
+        //         $output = $this->render_shortcode('applications/index', $applications);
+        //     }
+        // }
+        return $output;
+    }
+
      * Wrapper function to register a new post type
      * @param  string $post_type   Post type name
      * @param  string $plural      Post type item plural name

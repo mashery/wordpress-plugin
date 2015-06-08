@@ -14,12 +14,6 @@ class Mashery {
         add_action( 'register_post', array( $this, 'register_user' ));
         add_action( 'delete_user', array( $this, 'delete_user' ));
 
-        if ( is_admin() ) {
-            // add_filter('plugin_action_links', array( $this, 'settings_link' ));
-            add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
-            add_action( 'admin_init', array( $this, 'page_init' ) );
-        }
-
     }
 
     function activation() {

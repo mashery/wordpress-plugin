@@ -49,9 +49,6 @@ class Mashery {
     }
 
     function activation() {
-        add_role( 'developer', 'Developer', array( 'level_1' => true ) );
-        $role = get_role( 'developer' );
-        $role->add_cap( 'manage_developer_data' );
         // update_option($this->option_name, $this->data);
         $top = self::generate_page("Account", "account", "[mashery:account]");
         $apis_page_id = self::generate_page("APIs", "apis", "[mashery:apis]", $top);
@@ -62,10 +59,6 @@ class Mashery {
     }
 
     function deactivation() {
-        $role = get_role( 'developer' );
-        $role->remove_cap( 'manage_developer_data' );
-        remove_role( 'developer' );
-
         self::trash_page("account");
         self::trash_page("apis");
         self::trash_page("apis_request");

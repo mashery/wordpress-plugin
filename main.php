@@ -4,12 +4,6 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 
-define('MASHERYPORTAL_ROOT',dirname(__FILE__));
-require_once( constant('MASHERYPORTAL_ROOT') . '/services/Applications.php' );
-require_once( constant('MASHERYPORTAL_ROOT') . '/services/Keys.php' );
-require_once( constant('MASHERYPORTAL_ROOT') . '/services/ApiPlans.php' );
-require_once( constant('MASHERYPORTAL_ROOT') . '/services/Members.php' );
-
 class Mashery {
     private $options;
 

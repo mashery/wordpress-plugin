@@ -253,6 +253,24 @@ class Mashery {
         return $output;
     }
 
+    /**
+     */
+    public function applications_new_shortcode () {
+        $output = "applications_new_shortcode";
+        // if ( sizeof($_POST) > 0) {
+        //     $applications = new Applications();
+        //     $application = $applications->create($_POST);
+        //     if(is_wp_error($application)) {
+        //         $output = $this->render('errors/view', $applications);
+        //     } else {
+        //         $output = $this->render('applications/view', $application);
+        //     }
+        // }
+        // $apiPlans = new ApiPlans();
+        // $output = $this->render('applications/new', $apiPlans->fetch(null));
+        return $output;
+    }
+
      * Wrapper function to register a new post type
      * @param  string $post_type   Post type name
      * @param  string $plural      Post type item plural name

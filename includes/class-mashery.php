@@ -156,6 +156,37 @@ class Mashery {
         ));
     }
 
+    /**
+     */
+    public function apis_shortcode () {
+        return $this->render_shortcode('apis/index', array(
+            array(
+                "name" => "DemoPapi Package: DemoPapi Plan",
+                "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
+                "limits" => array(
+                    "cps" => 2,
+                    "cpd" => 5000
+                )
+            ),
+            array(
+                "name" => "Informatica Package1: Test Plan1",
+                "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r",
+                "limits" => array(
+                    "cps" => 2,
+                    "cpd" => 5000
+                )
+            ),
+            array(
+                "name" => "Internal Business Applications: Architect",
+                "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d",
+                "limits" => array(
+                    "cps" => 2,
+                    "cpd" => 5000
+                )
+            )
+        ));
+    }
+
      * Wrapper function to register a new post type
      * @param  string $post_type   Post type name
      * @param  string $plural      Post type item plural name

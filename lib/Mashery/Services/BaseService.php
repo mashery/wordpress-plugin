@@ -1,8 +1,5 @@
 <?php
 
-require_once( __DIR__. '/../Api/V2.php' );
-require_once( __DIR__. '/../Api/V3.php' );
-
 Class Mashery_Services_BaseService
 {
     public function __construct($area_id, $area_uuid, $apikey, $secret, $username, $password) {
@@ -23,9 +20,9 @@ Class Mashery_Services_BaseService
         } else {
             $response = $this->masheryV2Api->create($object, $data);
         }
-        
+
         return $response;
-        
+
 
     }
 

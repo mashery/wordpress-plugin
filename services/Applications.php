@@ -1,8 +1,5 @@
 <?php
 
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Services/Applications.php' );
-require_once( constant('MASHERYPORTAL_ROOT') . '/services/BaseService.php' );
-
 Class Applications extends BaseService
 {
 
@@ -32,9 +29,9 @@ Class Applications extends BaseService
                 return $content['result']['items'][0];
             } else
             {
-                return $content['result']['items'];    
+                return $content['result']['items'];
             }
-            
+
         }
 
     }
@@ -56,8 +53,7 @@ Class Applications extends BaseService
             return new WP_Error( 'ERROR', __( $result['error']['data']) );
         } else
         {
-            return $content['result'];            
-        }        
+            return $content['result'];
+        }
     }
 }
-

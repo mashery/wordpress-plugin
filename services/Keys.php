@@ -1,8 +1,5 @@
 <?php
 
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Services/Keys.php' );
-require_once( constant('MASHERYPORTAL_ROOT') . '/services/BaseService.php' );
-
 Class Keys extends BaseService
 {
 
@@ -28,9 +25,9 @@ Class Keys extends BaseService
                 return $content['result']['items'][0];
             } else
             {
-                return $content['result']['items'];    
+                return $content['result']['items'];
             }
-            
+
         }
 
     }

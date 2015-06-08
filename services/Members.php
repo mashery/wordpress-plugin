@@ -1,8 +1,5 @@
 <?php
 
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Services/Members.php' );
-require_once( constant('MASHERYPORTAL_ROOT') . '/services/BaseService.php' );
-
 Class Members extends BaseService
 {
 
@@ -25,4 +22,4 @@ Class Members extends BaseService
             return $result;
         }
 */
-}   
+}

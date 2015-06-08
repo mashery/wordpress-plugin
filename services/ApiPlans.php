@@ -1,8 +1,5 @@
 <?php
 
-require_once( constant('MASHERYPORTAL_ROOT') . '/lib/Mashery/Services/ApiPlans.php' );
-require_once( constant('MASHERYPORTAL_ROOT') . '/services/BaseService.php' );
-
 Class ApiPlans extends BaseService
 {
 
@@ -29,7 +26,7 @@ Class ApiPlans extends BaseService
         } else
         {
             return $content;
-            
+
         }
 
     }

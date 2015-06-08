@@ -1,6 +1,4 @@
 <?php
-require_once( 'Mashery.php' );
-
 Class Mashery_Api_V2 extends Mashery_Api_Mashery
 {
 
@@ -10,19 +8,19 @@ Class Mashery_Api_V2 extends Mashery_Api_Mashery
         $this->area_id = $area_id;
         $this->apikey = $apikey;
         $this->secret = $secret;
-    } 
+    }
 
     private function curlPost($url, $data_string)
     {
         $ch = curl_init($url);
 
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-            'Content-Type: application/json',                                                                                
-            'Content-Length: ' . strlen($data_string))                                                                       
-        ); 
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($data_string))
+        );
         $response = curl_exec($ch);
 
         return $response;
@@ -79,7 +77,7 @@ Class Mashery_Api_V2 extends Mashery_Api_Mashery
         return $response;
 
     }
-        
+
     private function getApiAuthenticationData()
     {
 

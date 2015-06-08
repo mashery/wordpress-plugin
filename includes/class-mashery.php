@@ -115,6 +115,21 @@ class Mashery {
     } // End __construct ()
 
     /**
+     */
+    public function render_shortcode ( $template, $data ) {
+        $templatefile = $this->dir . "/lib/shortcodes/" . $template . ".php";
+        $data = $data;
+        $output = '';
+        if(file_exists($templatefile)){
+            ob_start();
+            include($templatefile);
+            $output = ob_get_clean();
+        } else {
+            $output = "template not implemented please add one to plugin/templates/";
+        }
+        return $output;
+    }
+
      * Wrapper function to register a new post type
      * @param  string $post_type   Post type name
      * @param  string $plural      Post type item plural name

@@ -107,18 +107,6 @@ class Mashery {
         delete_option("mashery_" . $name . "_page_id");
     }
 
-    public function render($template, $data){
-        $templatefile = dirname(__FILE__) . "/templates/" . $template . ".php";
-        $data = $data;
-        if(file_exists($templatefile)){
-            ob_start();
-            include($templatefile);
-            return ob_get_clean();
-        } else {
-            return "template not implemented please add one to plugin/templates/";
-        }
-    }
-
     public function register_user($user_login, $user_email, $errors) {
         $members = new Members();
         $new_password = wp_generate_password( 10, true, true );

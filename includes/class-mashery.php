@@ -122,7 +122,30 @@ class Mashery {
         register_activation_hook( $this->file, array( $this, 'generate_pages' ) );
         register_deactivation_hook( $this->file, array( $this, 'trash_pages' ) );
 
+        // add_action( 'register_post', array( $this, 'register_user' ));
+        // add_action( 'delete_user', array( $this, 'delete_user' ));
+
     } // End __construct ()
+
+    /**
+     */
+    public function register_user($user_login, $user_email, $errors) {
+        // $members = new Members();
+        // $new_password = wp_generate_password( 10, true, true );
+        // $member = $members->create($user_login, $user_email, $new_password);
+        // if(is_wp_error($member)) {
+        //     $errors->add( 'mashery_member_registration_error', $member->get_error_message() );
+        // }
+    }
+
+    /**
+     */
+    public function delete_user($user_id) {
+        // $members = new Members();
+        // $user_obj = get_userdata( $user_id );
+        // $username = $user_obj->user_login;
+        // $members->delete($username);
+    }
 
     /**
      */

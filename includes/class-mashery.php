@@ -119,7 +119,76 @@ class Mashery {
             add_shortcode( $this->_token . ':' . $shortcode, array($this, $shortcode . '_shortcode') );
         }
 
+        register_activation_hook( $this->file, array( $this, 'generate_pages' ) );
+        register_deactivation_hook( $this->file, array( $this, 'trash_pages' ) );
+
     } // End __construct ()
+
+    /**
+     */
+    public function trash_pages (){
+        $this->trash_page("account");
+        $this->trash_page("apis");
+        $this->trash_page("apis_request");
+        $this->trash_page("applications");
+        $this->trash_page("applications_new");
+        $this->trash_page("keys");
+    }
+
+    /**
+     */
+    public function generate_pages (){
+        $top = $this->generate_page("Account", "account", "[" . $this->_token . ":account]");
+        $apis_page_id = $this->generate_page("APIs", "apis", "[" . $this->_token . ":apis]", $top);
+        $this->generate_page("Request Access", "apis_request", "[" . $this->_token . ":apis_request]", $apis_page_id);
+        $applications_page_id = $this->generate_page("Applications", "applications", "[" . $this->_token . ":applications]", $top);
+        $this->generate_page("New Application", "applications_new", "[" . $this->_token . ":applications_new]", $applications_page_id);
+        $this->generate_page("Keys", "keys", "[" . $this->_token . ":keys]", $top);
+    }
+
+    /**
+     */
+    public function generate_page ($title, $name, $content, $parent=0){
+        // https://wordpress.org/support/topic/how-do-i-create-a-new-page-with-the-plugin-im-building
+        // delete_option("mashery_" . $name . "_page_title");
+        // delete_option("mashery_" . $name . "_page_name");
+        // delete_option("mashery_" . $name . "_page_id");
+        // add_option("mashery_" . $name . "_page_title", $title, '', 'yes');
+        // add_option("mashery_" . $name . "_page_name", $name, '', 'yes');
+        // add_option("mashery_" . $name . "_page_id", '0', '', 'yes');
+        $page = get_page_by_title( $title );
+        if (!$page) {
+            $page = array(
+                'post_title'     => $title,
+                'post_content'   => $content,
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+                'comment_status' => 'closed',
+                'ping_status'    => 'closed',
+                'post_parent'    => $parent
+            );
+            $id = wp_insert_post( $page );
+            add_option($this->_token . '_' . $name . "_page_id", $id );
+        } else {
+            $id = $page->ID;
+            $page->post_status = 'publish';
+            $id = wp_update_post( $page );
+        }
+        return $id;
+    }
+
+    /**
+     */
+    public function trash_page ($name){
+        // https://wordpress.org/support/topic/how-do-i-create-a-new-page-with-the-plugin-im-building
+        $id = get_option( $this->_token . '_' . $name . "_page_id" );
+        if( $id ) {
+            wp_delete_post( $id );
+        }
+        // delete_option("mashery_" . $name . "_page_title");
+        // delete_option("mashery_" . $name . "_page_name");
+        delete_option($this->_token . '_' . $name . "_page_id");
+    }
 
     /**
      */

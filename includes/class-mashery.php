@@ -271,6 +271,22 @@ class Mashery {
         return $output;
     }
 
+    /**
+     */
+    public function keys_shortcode () {
+        $output = "keys_shortcode";
+        // $keys = new Keys();
+        // $path_only = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        // $path_parts = explode('/', trim($path_only, '/'));
+        // if (is_numeric($path_parts[count($path_parts)-1])) {
+        //     $output = $this->render('keys/view', $keys->fetch($path_parts[count($path_parts)-1]));
+        // } else {
+        //     $output = $this->render('keys/index', $keys->fetch(null));
+        // }
+        return $output;
+    }
+
+    /**
      * Wrapper function to register a new post type
      * @param  string $post_type   Post type name
      * @param  string $plural      Post type item plural name

@@ -7,9 +7,6 @@ if ( ! defined( 'WPINC' ) ) {
 class Mashery {
     private $options;
 
-    public function __construct($fixtures = array()) {
-
-        $this->data = $fixtures;
 
         add_shortcode( 'mashery:account', array($this, 'account') );
         add_shortcode( 'mashery:apis', array($this, 'apis') );
@@ -213,58 +210,4 @@ class Mashery {
     }
 
 }
-
-$fixtures = array(
-    "account" => array(
-        "name" => array(
-            "first" => "Oren",
-            "last" => "Michaels"
-        ),
-        "username" => "oren",
-        "web" => "http://www.mashery.com",
-        "blog" => "http://www.mashery.com/blog",
-        "phone" => "(415) 555-1212",
-        "email" => "omichaels@mashery.com",
-        "twitter" => "@oren",
-        "company" => "Mashery, Inc.",
-        "password" => ""
-    ),
-    "apis" => array(
-        array(
-            "name" => "DemoPapi Package: DemoPapi Plan",
-            "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
-            "limits" => array(
-                "cps" => 2,
-                "cpd" => 5000
-            )
-        ),
-        array(
-            "name" => "Informatica Package1: Test Plan1",
-            "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r",
-            "limits" => array(
-                "cps" => 2,
-                "cpd" => 5000
-            )
-        ),
-        array(
-            "name" => "Internal Business Applications: Architect",
-            "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d",
-            "limits" => array(
-                "cps" => 2,
-                "cpd" => 5000
-            )
-        )
-    ),
-    "keys" => array(
-        array("name" => "Key 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
-        array("name" => "Key 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
-        array("name" => "Key 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
-    ),
-    "applications" => array(
-        array("name" => "Application 1", "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf"),
-        array("name" => "Application 2", "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r"),
-        array("name" => "Application 3", "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d")
-    )
-);
-
 new Mashery($fixtures);

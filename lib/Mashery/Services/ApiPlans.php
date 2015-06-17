@@ -1,6 +1,6 @@
 <?php
 
-require_once( 'BaseService.php' );
+require_once dirname(__FILE__) . "/BaseService.php";
 
 Class Mashery_Services_ApiPlans extends Mashery_Services_BaseService
 {
@@ -26,7 +26,7 @@ Class Mashery_Services_ApiPlans extends Mashery_Services_BaseService
             foreach ($package->plans as $plan) {
                 if ($this->registerable($plan, $currentUserKeys, $currentUserRoles->result->items[0]->roles))
                 {
-                    $new_plan =  array( 
+                    $new_plan =  array(
                         "id" => $plan->id,
                         "name" => $plan->name,
                         "description" => $plan->description
@@ -47,7 +47,7 @@ Class Mashery_Services_ApiPlans extends Mashery_Services_BaseService
 
     private function registerable($plan, $currentUserKeys, $currentUserRoles)
     {
-        if ($plan->selfServiceKeyProvisioningEnabled == 1 
+        if ($plan->selfServiceKeyProvisioningEnabled == 1
             && $this->matchedRoles($plan->roles, $currentUserRoles)
             && $this->moreKeysAllowed($plan, $currentUserKeys)) {
             return true;
@@ -72,6 +72,3 @@ Class Mashery_Services_ApiPlans extends Mashery_Services_BaseService
     }
 
 }
-
-
-

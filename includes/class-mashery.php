@@ -2,6 +2,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+require dirname(__FILE__) . '/../lib/Mashery/API.php';
+use \Mashery\API;
+
 class Mashery {
 
     /**
@@ -215,7 +218,7 @@ class Mashery {
 
     /**
      */
-    public function render_shortcode ( $template, $data ) {
+    public function render_shortcode ( $template, $data = array() ) {
         $templatefile = $this->dir . "/lib/shortcodes/" . $template . ".php";
         $data = $data;
         $output = '';
@@ -232,103 +235,110 @@ class Mashery {
     /**
      */
     public function account_shortcode () {
-        return $this->render_shortcode('account/form', array(
-            "name" => array(
-                "first" => "John",
-                "last" => "Smith"
-            ),
-            "username" => "jsmith",
-            "web" => "http://www.mashery.com",
-            "blog" => "http://www.mashery.com/blog",
-            "phone" => "(415) 555-1212",
-            "email" => "jsmith@mashery.com",
-            "twitter" => "@j",
-            "company" => "Mashery, Inc.",
-            "password" => ""
-        ));
+        $output = "account_shortcode";
+        // return $this->render_shortcode('account/form', array(
+        //     "name" => array(
+        //         "first" => "John",
+        //         "last" => "Smith"
+        //     ),
+        //     "username" => "jsmith",
+        //     "web" => "http://www.mashery.com",
+        //     "blog" => "http://www.mashery.com/blog",
+        //     "phone" => "(415) 555-1212",
+        //     "email" => "jsmith@mashery.com",
+        //     "twitter" => "@j",
+        //     "company" => "Mashery, Inc.",
+        //     "password" => ""
+        // ));
+        return $output;
     }
 
     /**
      */
     public function apis_shortcode () {
-        return $this->render_shortcode('apis/index', array(
-            array(
-                "name" => "DemoPapi Package: DemoPapi Plan",
-                "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
-                "limits" => array(
-                    "cps" => 2,
-                    "cpd" => 5000
-                )
-            ),
-            array(
-                "name" => "Informatica Package1: Test Plan1",
-                "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r",
-                "limits" => array(
-                    "cps" => 2,
-                    "cpd" => 5000
-                )
-            ),
-            array(
-                "name" => "Internal Business Applications: Architect",
-                "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d",
-                "limits" => array(
-                    "cps" => 2,
-                    "cpd" => 5000
-                )
-            )
-        ));
+        $output = "apis_shortcode";
+        // return $this->render_shortcode('apis/index', array(
+        //     array(
+        //         "name" => "DemoPapi Package: DemoPapi Plan",
+        //         "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
+        //         "limits" => array(
+        //             "cps" => 2,
+        //             "cpd" => 5000
+        //         )
+        //     ),
+        //     array(
+        //         "name" => "Informatica Package1: Test Plan1",
+        //         "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r",
+        //         "limits" => array(
+        //             "cps" => 2,
+        //             "cpd" => 5000
+        //         )
+        //     ),
+        //     array(
+        //         "name" => "Internal Business Applications: Architect",
+        //         "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d",
+        //         "limits" => array(
+        //             "cps" => 2,
+        //             "cpd" => 5000
+        //         )
+        //     )
+        // ));
+        return $output;
     }
 
     /**
      */
     public function apis_request_shortcode () {
-        return $this->render_shortcode('apis/request', array(
-            "account" => array(
-                array(
-                    "name" => "DemoPapi Package: DemoPapi Plan",
-                    "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
-                    "limits" => array(
-                        "cps" => 2,
-                        "cpd" => 5000
-                    )
-                ),
-                array(
-                    "name" => "Informatica Package1: Test Plan1",
-                    "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r",
-                    "limits" => array(
-                        "cps" => 2,
-                        "cpd" => 5000
-                    )
-                ),
-                array(
-                    "name" => "Internal Business Applications: Architect",
-                    "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d",
-                    "limits" => array(
-                        "cps" => 2,
-                        "cpd" => 5000
-                    )
-                )
-            ),
-            "api" => array(
-                "name" => "DemoPapi Package: DemoPapi Plan",
-                "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
-                "limits" => array(
-                    "cps" => 2,
-                    "cpd" => 5000
-                )
-            )
-        ));
+        $output = "apis_request_shortcode";
+        // return $this->render_shortcode('apis/request', array(
+        //     "account" => array(
+        //         array(
+        //             "name" => "DemoPapi Package: DemoPapi Plan",
+        //             "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
+        //             "limits" => array(
+        //                 "cps" => 2,
+        //                 "cpd" => 5000
+        //             )
+        //         ),
+        //         array(
+        //             "name" => "Informatica Package1: Test Plan1",
+        //             "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r",
+        //             "limits" => array(
+        //                 "cps" => 2,
+        //                 "cpd" => 5000
+        //             )
+        //         ),
+        //         array(
+        //             "name" => "Internal Business Applications: Architect",
+        //             "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d",
+        //             "limits" => array(
+        //                 "cps" => 2,
+        //                 "cpd" => 5000
+        //             )
+        //         )
+        //     ),
+        //     "api" => array(
+        //         "name" => "DemoPapi Package: DemoPapi Plan",
+        //         "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
+        //         "limits" => array(
+        //             "cps" => 2,
+        //             "cpd" => 5000
+        //         )
+        //     )
+        // ));
+        return $output;
     }
 
     /**
      */
     public function applications_shortcode () {
         $output = "applications_shortcode";
+        $output = $this->render_shortcode('applications/index');
         // $applications = new Applications();
         // $path_only = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         // $path_parts = explode('/', trim($path_only, '/'));
         // if (is_numeric($path_parts[count($path_parts)-1])) {
-        //     $applications = $applications->fetch($path_parts[count($path_parts)-1]);
+        //     // $applications = $applications->fetch($path_parts[count($path_parts)-1]);
         //     if(is_wp_error($applications)) {
         //         $output = $this->render_shortcode('errors/view', $applications);
         //     } else {
@@ -366,7 +376,36 @@ class Mashery {
     /**
      */
     public function keys_shortcode () {
-        $output = "keys_shortcode";
+
+        $area_id   = "425";
+        $area_uuid = "acbb134e-c2f4-4203-b15b-9343e9ad031c";
+        $apikey    = "sbub7dmvheh4gw8dusx8a38d";
+        $secret    = "MBxqKP8wfs";
+        $username  = "demo3_jpollock";
+        $password  = "mashery2015";
+        $user      = "jpollock";
+
+        $mashery = new API(
+            $area_id,
+            $area_uuid,
+            $apikey,
+            $secret,
+            $username,
+            $password,
+            $user
+        );
+
+        // $response = $mashery->V2('package_keys', '*') . "\n";
+
+        $keys = $mashery->keys();
+        // foreach ($keys as $index => $key) {
+        //     echo "ID  : " . $key["id"] . "\n";
+        //     echo "KEY : " . $key["apikey"] . "\n\n";
+        // }
+
+        $output = $this->render_shortcode('keys/index', $keys);
+        // $output = "KEYS GO HERE";
+
         // $keys = new Keys();
         // $path_only = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         // $path_parts = explode('/', trim($path_only, '/'));

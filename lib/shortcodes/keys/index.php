@@ -9,7 +9,7 @@
         <?php foreach ($data as $index => $key) {
             ?>
             <tr>
-                <td><a href="http://localhost/wordpress/keys/<?= $key["id"] ?>"><?= $key["apikey"] ?></td>
+                <td><a href="<?= $key["id"] ?>"><?= $key["apikey"] ?></td>
                 <td><?= $key["created"] ?></td>
             </tr>
             <?php

@@ -1,4 +1,5 @@
 <?php
+require_once dirname(__FILE__) . "/Mashery.php";
 Class Mashery_Api_V3 extends Mashery_Api_Mashery
 {
 

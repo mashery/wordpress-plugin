@@ -1,5 +1,5 @@
 <?php
-Class BaseService 
+Class BaseService
 {
 
     protected $area_id;
@@ -16,12 +16,12 @@ Class BaseService
 
 
     public function __construct() {
-        $this->area_id = get_option('my_option_name')['mashery_customer_id'];
-        $this->area_uuid = get_option('my_option_name')['mashery_customer_uuid'];
-        $this->apikey = get_option('my_option_name')['mashery_access_key'];
-        $this->secret  = get_option('my_option_name')['mashery_access_secret'];
-        $this->username = get_option('my_option_name')['mashery_access_username'];
-        $this->password  = get_option('my_option_name')['mashery_access_password'];
+        $this->area_id   = get_option('mashery_areaid');
+        $this->area_uuid = get_option('mashery_areauuid');
+        $this->apikey    = get_option('mashery_apikey');
+        $this->secret    = get_option('mashery_apisecret');
+        $this->username  = get_option('mashery_username');
+        $this->password  = get_option('mashery_password');
     }
 
     protected function currentUser()

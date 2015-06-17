@@ -1,5 +1,8 @@
 <?php
 
+require_once dirname(__FILE__) . "/../Api/V3.php";
+require_once dirname(__FILE__) . "/../Api/V2.php";
+
 Class Mashery_Services_BaseService
 {
     public function __construct($area_id, $area_uuid, $apikey, $secret, $username, $password) {

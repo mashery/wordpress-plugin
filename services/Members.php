@@ -1,5 +1,8 @@
 <?php
 
+require_once dirname(__FILE__) . "/BaseService.php";
+require_once dirname(__FILE__) . "/../lib/Mashery/Services/Members.php";
+
 Class Members extends BaseService
 {
 

@@ -42,7 +42,6 @@ require_once( 'services/Keys.php' );
 require_once( 'services/ApiPlans.php' );
 require_once( 'services/Members.php' );
 
-
 /**
  * Returns the main instance of Mashery to prevent the need to use globals.
  *

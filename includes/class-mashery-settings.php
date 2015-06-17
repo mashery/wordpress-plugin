@@ -39,7 +39,7 @@ class Mashery_Settings {
     public function __construct ( $parent ) {
         $this->parent = $parent;
 
-        $this->base = 'wpt_';
+        $this->base = 'mashery_';
 
         // Initialise settings
         add_action( 'init', array( $this, 'init_settings' ), 11 );

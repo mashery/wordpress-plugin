@@ -1,4 +1,5 @@
 <?php
+require_once dirname(__FILE__) . "/Mashery.php";
 Class Mashery_Api_V2 extends Mashery_Api_Mashery
 {
 
@@ -68,9 +69,10 @@ Class Mashery_Api_V2 extends Mashery_Api_Mashery
 
     }
 
-    private function call($request)
-    {
+    private function call($request) {
         $url = $this->api_host . $this->api_endpoint . $this->area_id  . '?' . $this->getApiAuthenticationData();
+
+        var_dump($url);
 
         $response = $this->curlPost($url, json_encode($request));
 

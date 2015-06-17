@@ -1,5 +1,8 @@
 <?php
 
+require_once dirname(__FILE__) . "/BaseService.php";
+require_once dirname(__FILE__) . "/../lib/Mashery/Services/Applications.php";
+
 Class Applications extends BaseService
 {
 
@@ -8,10 +11,8 @@ Class Applications extends BaseService
         $this->service = new Mashery_Services_Applications($this->area_id, $this->area_uuid, $this->apikey, $this->secret, $this->username, $this->password);
     }
 
-    public function fetch($app_id)
-    {
-        if ($this->currentUser() == '')
-        {
+    public function fetch($app_id) {
+        if ($this->currentUser() == '') {
             return new WP_Error( 'ERROR', __( 'Not logged in' ));
         }
 
@@ -19,16 +20,12 @@ Class Applications extends BaseService
 
         $content = json_decode($response, true);
 
-        if ($content['error'] != null)
-        {
+        if ($content['error'] != null) {
             return new WP_Error( 'ERROR', __( $result['error']['data']) );
-        } else
-        {
-            if ($app_id != null)
-            {
+        } else {
+            if ($app_id != null) {
                 return $content['result']['items'][0];
-            } else
-            {
+            } else {
                 return $content['result']['items'];
             }
 
@@ -36,8 +33,7 @@ Class Applications extends BaseService
 
     }
 
-    public function create($data)
-    {
+    public function create($data) {
         $data['member'] = array (
             'username' => $this->currentUser()
         );

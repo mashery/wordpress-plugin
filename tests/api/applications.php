@@ -9,7 +9,7 @@ $params['username']  = getenv('USERNAME');
 $params['password']  = getenv('PASSWORD');
 $params['user']      = getenv('USER');
 
-include "lib/Mashery/Services/Applications.php";
+include dirname(__FILE__) . "/../../lib/Mashery/Services/Applications.php";
 
 $service = new Mashery_Services_Applications(
     $params['area_id'],
@@ -21,8 +21,8 @@ $service = new Mashery_Services_Applications(
 );
 
 $response = $service->fetch($user, null);
-// var_dump($response);
-// die();
+var_dump($response);
+die();
 // $obj = json_decode($response);
 // $json = json_encode($obj, JSON_PRETTY_PRINT);
 // print_r($json);

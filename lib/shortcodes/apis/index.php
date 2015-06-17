@@ -1,9 +1,10 @@
-<table>
+<table class="mashery keys">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Limits</th>
-            <th>Actions</th>
+            <th>API</th>
+            <th>Calls/Second</th>
+            <th>Calls/Day</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -11,14 +12,9 @@
             ?>
             <tr>
                 <td><?= $api["name"] ?></td>
-                <td>
-                    <ol>
-                    <?php foreach ($api["limits"] as $key => $limit) {
-                        ?><li><?= $key ?>: <?= $api["limits"][$key] ?></li><?php
-                    } ?>
-                    </ol>
-                </td>
-                <td><input type="submit" value="Request Access"></td>
+                <td><?= $api["limits"]["cps"]; ?></td>
+                <td><?= $api["limits"]["cpd"]; ?></td>
+                <td><a href="request-access">Request Access</a></td>
             </tr>
             <?php
         } ?>

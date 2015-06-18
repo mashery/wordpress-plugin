@@ -35,6 +35,45 @@ class API {
     }
 
     /**
+     * Get apis
+     *
+     * @access public
+     */
+    public function apis() {
+
+        // $mql = "SELECT * FROM members WHERE username = '$this->user'";
+        // return $this->V2($mql)["result"]["items"][0];
+
+        return array(
+            array(
+                "name" => "DemoPapi Package: DemoPapi Plan",
+                "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
+                "limits" => array(
+                    "cps" => 2,
+                    "cpd" => 5000
+                )
+            ),
+            array(
+                "name" => "Informatica Package1: Test Plan1",
+                "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r",
+                "limits" => array(
+                    "cps" => 2,
+                    "cpd" => 5000
+                )
+            ),
+            array(
+                "name" => "Internal Business Applications: Architect",
+                "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d",
+                "limits" => array(
+                    "cps" => 2,
+                    "cpd" => 5000
+                )
+            )
+        );
+
+    }
+
+    /**
      * Get plans
      *
      * @access public
@@ -43,21 +82,6 @@ class API {
 
         $mql = "SELECT * FROM members WHERE username = '$this->user'";
         return $this->V2($mql)["result"]["items"][0];
-
-        // return array(
-        //     "name" => array(
-        //         "first" => "John",
-        //         "last" => "Smith"
-        //     ),
-        //     "username" => "jsmith",
-        //     "web" => "http://www.mashery.com",
-        //     "blog" => "http://www.mashery.com/blog",
-        //     "phone" => "(415) 555-1212",
-        //     "email" => "jsmith@mashery.com",
-        //     "twitter" => "@j",
-        //     "company" => "Mashery, Inc.",
-        //     "password" => ""
-        // );
 
     }
 

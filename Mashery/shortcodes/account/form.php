@@ -1,4 +1,4 @@
-<form action="" id="account" name="account">
+<form action="" id="account" name="account" class="uk-form">
 
     <style media="screen">
         fieldset {

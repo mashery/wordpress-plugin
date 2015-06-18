@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-require dirname(__FILE__) . '/../lib/Mashery/API.php';
+require dirname(__FILE__) . '/../Mashery/API.php';
 use \Mashery\API;
 
 class Mashery {
@@ -173,28 +173,24 @@ class Mashery {
     /**
      */
     public function trash_pages (){
+        $this->trash_page("developer");
         $this->trash_page("account");
         $this->trash_page("apis");
-        $this->trash_page("apis_request");
-        $this->trash_page("applications");
-        $this->trash_page("applications_new");
         $this->trash_page("keys");
     }
 
     /**
      */
     public function generate_pages (){
-        $top = $this->generate_page("Account", "account", "[" . $this->_token . ":account]");
-        $apis_page_id = $this->generate_page("APIs", "apis", "[" . $this->_token . ":apis]", $top);
-        $this->generate_page("Request Access", "apis_request", "[" . $this->_token . ":apis_request]", $apis_page_id);
-        $applications_page_id = $this->generate_page("Applications", "applications", "[" . $this->_token . ":applications]", $top);
-        $this->generate_page("New Application", "applications_new", "[" . $this->_token . ":applications_new]", $applications_page_id);
-        $this->generate_page("Keys", "keys", "[" . $this->_token . ":keys]", $top);
+        $developer = $this->generate_page("Developer", "developer");
+        $account   = $this->generate_page("Account", "account", "[" . $this->_token . ":account]", $developer);
+        $keys      = $this->generate_page("Keys", "keys", "[" . $this->_token . ":keys]", $developer);
+
     }
 
     /**
      */
-    public function generate_page ($title, $name, $content, $parent=0){
+    public function generate_page ($title, $name, $content="", $parent=0){
         // https://wordpress.org/support/topic/how-do-i-create-a-new-page-with-the-plugin-im-building
         // delete_option("mashery_" . $name . "_page_title");
         // delete_option("mashery_" . $name . "_page_name");
@@ -239,7 +235,7 @@ class Mashery {
     /**
      */
     public function render_shortcode ( $template, $data = array() ) {
-        $templatefile = $this->dir . "/lib/shortcodes/" . $template . ".php";
+        $templatefile = $this->dir . "/Mashery/shortcodes/" . $template . ".php";
         $data = $data;
         $output = '';
         if(file_exists($templatefile)){
@@ -265,34 +261,11 @@ class Mashery {
     /**
      */
     public function apis_shortcode () {
-        $output = "apis_shortcode";
-        // return $this->render_shortcode('apis/index', array(
-        //     array(
-        //         "name" => "DemoPapi Package: DemoPapi Plan",
-        //         "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
-        //         "limits" => array(
-        //             "cps" => 2,
-        //             "cpd" => 5000
-        //         )
-        //     ),
-        //     array(
-        //         "name" => "Informatica Package1: Test Plan1",
-        //         "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r",
-        //         "limits" => array(
-        //             "cps" => 2,
-        //             "cpd" => 5000
-        //         )
-        //     ),
-        //     array(
-        //         "name" => "Internal Business Applications: Architect",
-        //         "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d",
-        //         "limits" => array(
-        //             "cps" => 2,
-        //             "cpd" => 5000
-        //         )
-        //     )
-        // ));
+
+        $apis = $this->mashery->apis();
+        $output = $this->render_shortcode('apis/index', $apis);
         return $output;
+
     }
 
     /**
@@ -417,6 +390,9 @@ class Mashery {
      * @return void
      */
     public function enqueue_styles () {
+        wp_register_style( $this->_token . '-uikit', esc_url( $this->assets_url ) . 'css/uikit.min.css', array(), $this->_version );
+        wp_enqueue_style( $this->_token . '-uikit' );
+
         wp_register_style( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'css/frontend.css', array(), $this->_version );
         wp_enqueue_style( $this->_token . '-frontend' );
     } // End enqueue_styles ()
@@ -428,6 +404,9 @@ class Mashery {
      * @return  void
      */
     public function enqueue_scripts () {
+        wp_register_script( $this->_token . '-uikit', esc_url( $this->assets_url ) . 'js/uikit.min.js', array( 'jquery' ), $this->_version );
+        wp_enqueue_script( $this->_token . '-uikit' );
+
         wp_register_script( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'js/frontend' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version );
         wp_enqueue_script( $this->_token . '-frontend' );
     } // End enqueue_scripts ()

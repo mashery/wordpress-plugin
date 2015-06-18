@@ -122,8 +122,28 @@ class Mashery {
             add_shortcode( $this->_token . ':' . $shortcode, array($this, $shortcode . '_shortcode') );
         }
 
+        if(!function_exists('wp_get_current_user')) {
+            include(ABSPATH . "wp-includes/pluggable.php");
+        }
+        $current_user = wp_get_current_user();
+
+        $this->mashery = new API(
+            get_option($this->_token . '_areaid'),      // "425";
+            get_option($this->_token . '_areauuid'),    // "acbb134e-c2f4-4203-b15b-9343e9ad031c";
+            get_option($this->_token . '_apikey'),      // "sbub7dmvheh4gw8dusx8a38d";
+            get_option($this->_token . '_apisecret'),   // "MBxqKP8wfs";
+            get_option($this->_token . '_username'),    // "demo3_jpollock";
+            get_option($this->_token . '_password'),    // "mashery2015";
+            get_option($this->_token . '_test_user')   // "jpollock";
+            // $current_user->user_login
+        );
+
         register_activation_hook( $this->file, array( $this, 'generate_pages' ) );
         register_deactivation_hook( $this->file, array( $this, 'trash_pages' ) );
+
+        // register_nav_menus( array(
+        //     'primary-logged-in' => __( 'Primary Logged-in Menu', 'alexandria' ),
+        // ) );
 
         // add_action( 'register_post', array( $this, 'register_user' ));
         // add_action( 'delete_user', array( $this, 'delete_user' ));
@@ -235,22 +255,11 @@ class Mashery {
     /**
      */
     public function account_shortcode () {
-        $output = "account_shortcode";
-        // return $this->render_shortcode('account/form', array(
-        //     "name" => array(
-        //         "first" => "John",
-        //         "last" => "Smith"
-        //     ),
-        //     "username" => "jsmith",
-        //     "web" => "http://www.mashery.com",
-        //     "blog" => "http://www.mashery.com/blog",
-        //     "phone" => "(415) 555-1212",
-        //     "email" => "jsmith@mashery.com",
-        //     "twitter" => "@j",
-        //     "company" => "Mashery, Inc.",
-        //     "password" => ""
-        // ));
+
+        $user = $this->mashery->user();
+        $output = $this->render_shortcode('account/form', $user);
         return $output;
+
     }
 
     /**
@@ -332,27 +341,11 @@ class Mashery {
     /**
      */
     public function applications_shortcode () {
-        $output = "applications_shortcode";
-        $output = $this->render_shortcode('applications/index');
-        // $applications = new Applications();
-        // $path_only = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        // $path_parts = explode('/', trim($path_only, '/'));
-        // if (is_numeric($path_parts[count($path_parts)-1])) {
-        //     // $applications = $applications->fetch($path_parts[count($path_parts)-1]);
-        //     if(is_wp_error($applications)) {
-        //         $output = $this->render_shortcode('errors/view', $applications);
-        //     } else {
-        //         $output = $this->render_shortcode('applications/view', $applications);
-        //     }
-        // } else {
-        //     $applications = $applications->fetch(null);
-        //     if(is_wp_error($applications)) {
-        //         $output = $this->render_shortcode('errors/view', $applications);
-        //     } else {
-        //         $output = $this->render_shortcode('applications/index', $applications);
-        //     }
-        // }
+
+        $applications = $this->mashery->applications();
+        $output = $this->render_shortcode('applications/index', $applications);
         return $output;
+
     }
 
     /**
@@ -377,44 +370,10 @@ class Mashery {
      */
     public function keys_shortcode () {
 
-        $area_id   = "425";
-        $area_uuid = "acbb134e-c2f4-4203-b15b-9343e9ad031c";
-        $apikey    = "sbub7dmvheh4gw8dusx8a38d";
-        $secret    = "MBxqKP8wfs";
-        $username  = "demo3_jpollock";
-        $password  = "mashery2015";
-        $user      = "jpollock";
-
-        $mashery = new API(
-            $area_id,
-            $area_uuid,
-            $apikey,
-            $secret,
-            $username,
-            $password,
-            $user
-        );
-
-        // $response = $mashery->V2('package_keys', '*') . "\n";
-
-        $keys = $mashery->keys();
-        // foreach ($keys as $index => $key) {
-        //     echo "ID  : " . $key["id"] . "\n";
-        //     echo "KEY : " . $key["apikey"] . "\n\n";
-        // }
-
+        $keys = $this->mashery->keys();
         $output = $this->render_shortcode('keys/index', $keys);
-        // $output = "KEYS GO HERE";
-
-        // $keys = new Keys();
-        // $path_only = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        // $path_parts = explode('/', trim($path_only, '/'));
-        // if (is_numeric($path_parts[count($path_parts)-1])) {
-        //     $output = $this->render('keys/view', $keys->fetch($path_parts[count($path_parts)-1]));
-        // } else {
-        //     $output = $this->render('keys/index', $keys->fetch(null));
-        // }
         return $output;
+
     }
 
     /**

@@ -35,7 +35,34 @@ class API {
     }
 
     /**
-     * Get all roles
+     * Get plans
+     *
+     * @access public
+     */
+    public function user() {
+
+        $mql = "SELECT * FROM members WHERE username = '$this->user'";
+        return $this->V2($mql)["result"]["items"][0];
+
+        // return array(
+        //     "name" => array(
+        //         "first" => "John",
+        //         "last" => "Smith"
+        //     ),
+        //     "username" => "jsmith",
+        //     "web" => "http://www.mashery.com",
+        //     "blog" => "http://www.mashery.com/blog",
+        //     "phone" => "(415) 555-1212",
+        //     "email" => "jsmith@mashery.com",
+        //     "twitter" => "@j",
+        //     "company" => "Mashery, Inc.",
+        //     "password" => ""
+        // );
+
+    }
+
+    /**
+     * Get plans
      *
      * @access public
      */
@@ -47,7 +74,7 @@ class API {
     }
 
     /**
-     * Get all roles
+     * Get roles
      *
      * @access public
      */
@@ -59,26 +86,26 @@ class API {
     }
 
     /**
-     * Get all applications
+     * Get applications
      *
      * @access public
      */
     public function applications() {
 
         $mql = "SELECT *, package_keys FROM applications WHERE username = '$this->user'";
-        return $this->V2($mql);
+        return $this->V2($mql)["result"]["items"];
 
     }
 
     /**
-     * Get application details
+     * Get application
      *
      * @access public
      */
     public function application($application_id) {
 
         $mql = "SELECT *, package_keys FROM applications WHERE id = '$application_id'";
-        return $this->V2($mql);
+        return $this->V2($mql)["result"]["items"][0];
 
     }
 
@@ -95,7 +122,7 @@ class API {
     }
 
     /**
-     * Get key details
+     * Get key
      *
      * @access public
      */
@@ -107,34 +134,13 @@ class API {
     }
 
     /**
-     * Get a resource
-     *
-     * @access public
-     * @param $resource: Valid resource/object name
-     * @param $select  : Fields to return
-     */
-    public function get($resource, $select) {
-
-        $limit = 1;
-        $v2 = array("members", "applications", "package_keys");
-        if (in_array($resource, $v2)) {
-            $mql = "SELECT $select FROM $resource PAGE 1 ITEMS $limit";
-            $response = $this->V2($mql);
-        } else {
-            $response = $this->V3($resource, $select);
-        }
-        return $response;
-
-    }
-
-    /**
      * Call API V2
      *
      * @access private
      * @param $mql   : Fully composed Mashery Query Language statement
      * @param $method: RPC method
      */
-    public function V2($mql, $method = 'object.query') {
+    private function V2($mql, $method = 'object.query') {
 
         $sig = hash('md5', $this->apikey . $this->secret . time());
         $url = self::V2_ENDPOINT . '/' . $this->area_id;
@@ -167,7 +173,7 @@ class API {
      * @param $resource: Valid resource name
      * @param $select  : Fields to return
      */
-    public function V3($resource, $fields) {
+    private function V3($resource, $fields) {
 
         $url = self::V3_ENDPOINT.$resource;
         $headers = array(
@@ -201,13 +207,13 @@ class API {
             "password"   => $this->password,
             "scope"      => $this->area_uuid
         ));
-        $json = $this->call(array(
+        $response = $this->call(array(
             "url"     => $url,
             "payload" => $payload,
             "method"  => "POST"
         ));
 
-        return json_decode($json, true)['access_token'];
+        return $response['access_token'];
 
     }
 
@@ -240,9 +246,20 @@ class API {
         if ($merged["url"] == self::TOKEN_ENDPOINT) {
             curl_setopt($curl, CURLOPT_USERPWD, $this->apikey. ':' . $this->secret);
         }
-        $response = curl_exec($curl);
+        $json = curl_exec($curl);
 
-        return json_decode($response, true);
+        $response = json_decode($json, true);
+
+        // if ($response['error'] != null) {
+        //     $data = new WP_Error( 'ERROR', __( $result['error']['data']) );
+        // }
+        //
+        // $items = $response['result']['items'];
+        // if (count($items) == 1) {
+        //     $items = $items[0];
+        // }
+
+        return $response;
 
     }
 }

@@ -158,6 +158,14 @@ class Mashery_Settings {
                     'type'			=> 'password',
                     'default'		=> '',
                     'placeholder'	=> __( 'Admin Password', 'mashery' )
+                ),
+                array(
+                    'id' 			=> 'test_user',
+                    'label'			=> __( 'Force Mashery User', 'mashery' ),
+                    'description'	=> __( 'Use to load user\'s Mashery data.', 'mashery' ),
+                    'type'			=> 'select',
+                    'options'		=> array( 'jpollock' => 'Jeremy Pollock', 'luisgo' => 'Luis Gomez', 'fake' => 'Non-existent User' ),
+                    'default'		=> 'wordpress'
                 )
                 // array(
                 //     'id' 			=> 'password_field',

@@ -38,29 +38,34 @@ $mashery = new API(
 // $response = $mashery->get('applications', '*,package_keys') . "\n";
 // echo $response . "\n";
 
-// echo "\nRequesting all user keys [V2]...\n";
-// $keys = $mashery->keys();
+echo "\nRequesting all user keys [V2]...\n";
+$keys = $mashery->keys();
 // foreach ($keys as $index => $key) {
 //     echo "ID  : " . $key["id"] . "\n";
 //     echo "KEY : " . $key["apikey"] . "\n";
 // }
-// // var_dump($keys);
+var_dump($keys);
 
 // echo "\nRequesting key " . $keys[0]["id"] . " [V2]...\n";
 // $key = $mashery->key($keys[0]["id"]);
 // echo "ID  : " . $key["id"] . "\n";
 // echo "KEY : " . $key["apikey"] . "\n\n";
 
-echo "\nRequesting applications [V2]...\n";
-$applications = $mashery->applications();
-// foreach ($applications as $index => $application) {
-//     echo "ID  : " . $application["id"] . "\n";
-//     echo "KEY : " . $application["apikey"] . "\n";
-// }
-var_dump($applications);
+// echo "\nRequesting applications [V2]...\n";
+// $applications = $mashery->applications();
+// // foreach ($applications as $index => $application) {
+// //     echo "ID  : " . $application["id"] . "\n";
+// //     echo "KEY : " . $application["apikey"] . "\n";
+// // }
+// var_dump($applications);
 
 // echo "\nRequesting application [V2]...\n";
 // $response = $mashery->application("256382");
+// echo $response . "\n";
+
+// echo "\nRequesting user [V2]...\n";
+// $response = $mashery->user();
+// var_dump($response);
 // echo $response . "\n";
 
 ?>

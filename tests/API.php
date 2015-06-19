@@ -1,71 +1,78 @@
 <?php
+/**
+ * Run test: `phpunit tests/API.php`
+ */
 
-echo "Requiring Mashery.php\n";
-require dirname(__FILE__) . '/../lib/Mashery/API.php';
-
-echo "Using \Mashery\API\n";
+require dirname(__FILE__) . '/../Mashery/API.php';
 use \Mashery\API;
 
-echo "Declaring variables\n";
-$area_id   = "425";
-$area_uuid = "acbb134e-c2f4-4203-b15b-9343e9ad031c";
-$apikey    = "sbub7dmvheh4gw8dusx8a38d";
-$secret    = "MBxqKP8wfs";
-$username  = "demo3_jpollock";
-$password  = "mashery2015";
-$user      = "jpollock";
+class APITest extends PHPUnit_Framework_TestCase
+{
 
-echo "Instantiating...\n";
-$mashery = new API(
-    $area_id,
-    $area_uuid,
-    $apikey,
-    $secret,
-    $username,
-    $password,
-    $user
-);
+    protected static $mashery;
 
-// echo "\nRequesting packages [V3]...\n";
-// $response = $mashery->get('packages', 'id,name,plans,plans.roles') . "\n";
-// echo $response . "\n";
-//
-// echo "\nRequesting members [V2]...\n";
-// $response = $mashery->get('members', '*') . "\n";
-// echo $response . "\n";
-//
-// echo "\nRequesting applications [V2]...\n";
-// $response = $mashery->get('applications', '*,package_keys') . "\n";
-// echo $response . "\n";
+    public static function setUpBeforeClass() {
+        self::$mashery = new API(
+            getenv('AREA_ID'),
+            getenv('AREA_UUID'),
+            getenv('APIKEY'),
+            getenv('SECRET'),
+            getenv('USERNAME'),
+            getenv('PASSWORD'),
+            getenv('ASUSER')
+        );
+    }
 
-echo "\nRequesting all user keys [V2]...\n";
-$keys = $mashery->keys();
-// foreach ($keys as $index => $key) {
-//     echo "ID  : " . $key["id"] . "\n";
-//     echo "KEY : " . $key["apikey"] . "\n";
-// }
-var_dump($keys);
+    public function testAPIs() {
+        $this->markTestIncomplete();
+    }
 
-// echo "\nRequesting key " . $keys[0]["id"] . " [V2]...\n";
-// $key = $mashery->key($keys[0]["id"]);
-// echo "ID  : " . $key["id"] . "\n";
-// echo "KEY : " . $key["apikey"] . "\n\n";
+    public function testUser() {
+        $item  = self::$mashery->user();
+        $this->assertArrayHasKey('username', $item);
+        $this->assertEquals($item['username'], self::$mashery->user, "Incorrect username");
+        $this->assertArrayHasKey('email', $item);
+        $this->assertArrayHasKey('display_name', $item);
+        $this->assertArrayHasKey('object_type', $item);
+        $this->assertEquals($item['object_type'], "member", "incorrect object_type");
+    }
 
-// echo "\nRequesting applications [V2]...\n";
-// $applications = $mashery->applications();
-// // foreach ($applications as $index => $application) {
-// //     echo "ID  : " . $application["id"] . "\n";
-// //     echo "KEY : " . $application["apikey"] . "\n";
-// // }
-// var_dump($applications);
+    public function testPlans() {
+        $this->markTestIncomplete();
+    }
 
-// echo "\nRequesting application [V2]...\n";
-// $response = $mashery->application("256382");
-// echo $response . "\n";
+    public function testRoles() {
+        $this->markTestIncomplete();
+    }
 
-// echo "\nRequesting user [V2]...\n";
-// $response = $mashery->user();
-// var_dump($response);
-// echo $response . "\n";
+    public function testApplications() {
+        $collection = self::$mashery->applications();
+        $this->assertInternalType('array', $collection);
+    }
+
+    public function testApplication() {
+        $collection = self::$mashery->applications();
+        $item  = self::$mashery->application($collection[0]['id']);
+        $this->assertArrayHasKey('id', $item);
+        $this->assertArrayHasKey('username', $item);
+        $this->assertEquals($item['username'], self::$mashery->user, "Incorrect username");
+        $this->assertArrayHasKey('object_type', $item);
+        $this->assertEquals($item['object_type'], "application", "incorrect object_type");
+    }
+
+    public function testKeys() {
+        $collection = self::$mashery->keys();
+        $this->assertInternalType('array', $collection);
+    }
+
+    public function testKey() {
+        $collection = self::$mashery->keys();
+        $item = self::$mashery->key($collection[0]['id']);
+        $this->assertArrayHasKey('id', $item);
+        $this->assertArrayHasKey('apikey', $item);
+        $this->assertArrayHasKey('secret', $item);
+    }
+
+}
 
 ?>

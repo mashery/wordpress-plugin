@@ -1,0 +1,11 @@
+<phpunit>
+    <php>
+        <env name="AREA_ID" value=""/>
+        <env name="AREA_UUID" value=""/>
+        <env name="APIKEY" value=""/>
+        <env name="SECRET" value=""/>
+        <env name="USERNAME" value=""/>
+        <env name="PASSWORD" value=""/>
+        <env name="ASUSER" value=""/> <!-- Set the user on behalf of whom you are making the calls for -->
+    </php>
+</phpunit>

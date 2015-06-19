@@ -21,7 +21,7 @@ class API {
      * @param  $password
      * @param  $user
      */
-    public function __construct($area_id, $area_uuid, $apikey, $secret, $username, $password, $user) {
+    public function __construct($area_id, $area_uuid, $apikey, $secret, $username, $password, $user=NULL) {
 
         $this->host      = 'https://api.mashery.com';
         $this->area_id   = $area_id;
@@ -43,33 +43,6 @@ class API {
 
         // $mql = "SELECT * FROM members WHERE username = '$this->user'";
         // return $this->V2($mql)["result"]["items"][0];
-
-        return array(
-            array(
-                "name" => "DemoPapi Package: DemoPapi Plan",
-                "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
-                "limits" => array(
-                    "cps" => 2,
-                    "cpd" => 5000
-                )
-            ),
-            array(
-                "name" => "Informatica Package1: Test Plan1",
-                "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r",
-                "limits" => array(
-                    "cps" => 2,
-                    "cpd" => 5000
-                )
-            ),
-            array(
-                "name" => "Internal Business Applications: Architect",
-                "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d",
-                "limits" => array(
-                    "cps" => 2,
-                    "cpd" => 5000
-                )
-            )
-        );
 
     }
 

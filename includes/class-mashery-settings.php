@@ -107,7 +107,7 @@ class Mashery_Settings {
      */
     private function settings_fields () {
 
-        $settings['standard'] = array(
+        $settings['account'] = array(
             'title'					=> __( 'Account', 'mashery' ),
             'description'			=> __( 'These are fairly standard form input fields.', 'mashery' ),
             'fields'				=> array(
@@ -225,85 +225,18 @@ class Mashery_Settings {
             )
         );
 
-        $settings['pages'] = array(
-            'title'					=> __( 'Pages', 'mashery' ),
-            'description'			=> __( 'Automatically generate a number of recommended pages.', 'mashery' ),
-            'fields'				=> array(
-                array(
-                    'id' 			=> 'account_page',
-                    'label'			=> __( 'Account', 'mashery' ),
-                    'description'	=> __( 'User\'s account details page.', 'mashery' ),
-                    'type'			=> 'checkbox',
-                    'default'		=> ''
-                ),
-                array(
-                    'id' 			=> 'apis_page',
-                    'label'			=> __( 'APIs', 'mashery' ),
-                    'description'	=> __( 'User\'s APIs page.', 'mashery' ),
-                    'type'			=> 'checkbox',
-                    'default'		=> ''
-                ),
-                array(
-                    'id' 			=> 'apis_request_page',
-                    'label'			=> __( 'APIs Request', 'mashery' ),
-                    'description'	=> __( 'APIs Request page.', 'mashery' ),
-                    'type'			=> 'checkbox',
-                    'default'		=> ''
-                ),
-                array(
-                    'id' 			=> 'applications_page',
-                    'label'			=> __( 'Applications', 'mashery' ),
-                    'description'	=> __( 'User\'s applications page.', 'mashery' ),
-                    'type'			=> 'checkbox',
-                    'default'		=> ''
-                ),
-                array(
-                    'id' 			=> 'applications_new_page',
-                    'label'			=> __( 'New Application', 'mashery' ),
-                    'description'	=> __( 'User\'s New Application page.', 'mashery' ),
-                    'type'			=> 'checkbox',
-                    'default'		=> ''
-                ),
-                array(
-                    'id' 			=> 'keys_page',
-                    'label'			=> __( 'Keys', 'mashery' ),
-                    'description'	=> __( 'User\'s Keys page.', 'mashery' ),
-                    'type'			=> 'checkbox',
-                    'default'		=> ''
-                )
-                // array(
-                //     'id' 			=> 'number_field',
-                //     'label'			=> __( 'A Number' , 'mashery' ),
-                //     'description'	=> __( 'This is a standard number field - if this field contains anything other than numbers then the form will not be submitted.', 'mashery' ),
-                //     'type'			=> 'text',
-                //     'default'		=> '',
-                //     'placeholder'	=> __( '42', 'mashery' )
-                // ),
-                // array(
-                //     'id' 			=> 'colour_picker',
-                //     'label'			=> __( 'Pick a colour', 'mashery' ),
-                //     'description'	=> __( 'This uses WordPress\' built-in colour picker - the option is stored as the colour\'s hex code.', 'mashery' ),
-                //     'type'			=> 'color',
-                //     'default'		=> '#21759B'
-                // ),
-                // array(
-                //     'id' 			=> 'an_image',
-                //     'label'			=> __( 'An Image' , 'mashery' ),
-                //     'description'	=> __( 'This will upload an image to your media library and store the attachment ID in the option field. Once you have uploaded an imge the thumbnail will display above these buttons.', 'mashery' ),
-                //     'type'			=> 'image',
-                //     'default'		=> '',
-                //     'placeholder'	=> ''
-                // ),
-                // array(
-                //     'id' 			=> 'multi_select_box',
-                //     'label'			=> __( 'A Multi-Select Box', 'mashery' ),
-                //     'description'	=> __( 'A standard multi-select box - the saved data is stored as an array.', 'mashery' ),
-                //     'type'			=> 'select_multi',
-                //     'options'		=> array( 'linux' => 'Linux', 'mac' => 'Mac', 'windows' => 'Windows' ),
-                //     'default'		=> array( 'linux' )
-                // )
-            )
+        $mashery_pages = array(
+            '' => 'Not Set'
         );
+        $pages = get_pages();
+        foreach ($pages as $key => $page) {
+            $mashery_pages[$page->ID] = $page->post_title;
+        }
+        // $mashery_pages = array(
+        //     '' => 'Not Set',
+        //     'account_page' => 'Account',
+        //     'keys_page' => 'Keys'
+        // );
 
         $settings = apply_filters( $this->parent->_token . '_settings_fields', $settings );
 

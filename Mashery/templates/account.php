@@ -1,19 +1,5 @@
 <form action="" id="account" name="account" class="uk-form">
 
-    <style media="screen">
-        fieldset {
-            margin-bottom: 20px;
-        }
-        legend {
-            font-weight: bold;
-            margin: 20px 0;
-        }
-        label {
-            width: 250px;
-            display: inline-block;
-        }
-    </style>
-
     <fieldset form="account" name="info">
 
         <legend>Info:</legend>
@@ -54,4 +40,5 @@
 
     <input type="submit" value="Delete Membership">
     <input type="submit" value="Save Changes">
+
 </form>

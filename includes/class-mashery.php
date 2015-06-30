@@ -116,7 +116,7 @@ class Mashery {
         $this->load_plugin_textdomain();
         add_action( 'init', array( $this, 'load_localisation' ), 0 );
 
-        $this->shortcodes = array('account', 'apis', 'apis_request', 'applications', 'applications_new', 'keys');
+        $this->shortcodes = array('account', 'keys', 'key', 'new_key');
 
         foreach ($this->shortcodes as $shortcode) {
             add_shortcode( $this->_token . ':' . $shortcode, array($this, $shortcode . '_shortcode') );
@@ -141,14 +141,19 @@ class Mashery {
         register_activation_hook( $this->file, array( $this, 'generate_pages' ) );
         register_deactivation_hook( $this->file, array( $this, 'trash_pages' ) );
 
-        // register_nav_menus( array(
-        //     'primary-logged-in' => __( 'Primary Logged-in Menu', 'alexandria' ),
-        // ) );
+        add_filter( 'query_vars', array( $this, 'register_variables' ), 10, 1 );
 
-        // add_action( 'register_post', array( $this, 'register_user' ));
-        // add_action( 'delete_user', array( $this, 'delete_user' ));
+        add_action('template_redirect', array( $this, 'router' ), 10, 1 );
 
     } // End __construct ()
+
+    /**
+     */
+    public function register_variables($vars) {
+        $vars[] = 'key';
+        $vars[] = 'mashery_action';
+        return $vars;
+    }
 
     /**
      */
@@ -173,16 +178,13 @@ class Mashery {
     /**
      */
     public function trash_pages (){
-        $this->trash_page("developer");
         $this->trash_page("account");
-        $this->trash_page("apis");
         $this->trash_page("keys");
     }
 
     /**
      */
     public function generate_pages (){
-        $developer = $this->generate_page("Developer", "developer");
         $account   = $this->generate_page("Account", "account", "[" . $this->_token . ":account]", $developer);
         $keys      = $this->generate_page("Keys", "keys", "[" . $this->_token . ":keys]", $developer);
 
@@ -234,8 +236,36 @@ class Mashery {
 
     /**
      */
+    public function router ($name){
+
+        $page = NULL;
+
+        switch (get_query_var('mashery_action')) {
+            case 'keys':
+                $page = '/keys/';
+                break;
+            case 'key':
+                $page = '/keys/001/';
+                break;
+            case 'new_key':
+                $page = '/keys/new/';
+                break;
+            case 'account':
+                $page = '/keys/new/';
+                break;
+        }
+
+        if($page != NULL) {
+            wp_redirect( home_url( $page ) );
+            die();
+        }
+
+    }
+
+    /**
+     */
     public function render_shortcode ( $template, $data = array() ) {
-        $templatefile = $this->dir . "/Mashery/shortcodes/" . $template . ".php";
+        $templatefile = $this->dir . "/Mashery/templates/" . $template . ".php";
         $data = $data;
         $output = '';
         if(file_exists($templatefile)){
@@ -260,91 +290,33 @@ class Mashery {
 
     /**
      */
-    public function apis_shortcode () {
-
-        $apis = $this->mashery->apis();
-        $output = $this->render_shortcode('apis/index', $apis);
-        return $output;
-
-    }
-
-    /**
-     */
-    public function apis_request_shortcode () {
-        $output = "apis_request_shortcode";
-        // return $this->render_shortcode('apis/request', array(
-        //     "account" => array(
-        //         array(
-        //             "name" => "DemoPapi Package: DemoPapi Plan",
-        //             "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
-        //             "limits" => array(
-        //                 "cps" => 2,
-        //                 "cpd" => 5000
-        //             )
-        //         ),
-        //         array(
-        //             "name" => "Informatica Package1: Test Plan1",
-        //             "key" => "hrydht84g6bdr4t85rd41tg6rs4g56r",
-        //             "limits" => array(
-        //                 "cps" => 2,
-        //                 "cpd" => 5000
-        //             )
-        //         ),
-        //         array(
-        //             "name" => "Internal Business Applications: Architect",
-        //             "key" => "87946t4hdr8y6h4td5y4dt8y4dyt6yh84d",
-        //             "limits" => array(
-        //                 "cps" => 2,
-        //                 "cpd" => 5000
-        //             )
-        //         )
-        //     ),
-        //     "api" => array(
-        //         "name" => "DemoPapi Package: DemoPapi Plan",
-        //         "key" => "765rfgi8765rdfg8765rtdfgh76rdtcf",
-        //         "limits" => array(
-        //             "cps" => 2,
-        //             "cpd" => 5000
-        //         )
-        //     )
-        // ));
-        return $output;
-    }
-
-    /**
-     */
-    public function applications_shortcode () {
-
-        $applications = $this->mashery->applications();
-        $output = $this->render_shortcode('applications/index', $applications);
-        return $output;
-
-    }
-
-    /**
-     */
-    public function applications_new_shortcode () {
-        $output = "applications_new_shortcode";
-        // if ( sizeof($_POST) > 0) {
-        //     $applications = new Applications();
-        //     $application = $applications->create($_POST);
-        //     if(is_wp_error($application)) {
-        //         $output = $this->render('errors/view', $applications);
-        //     } else {
-        //         $output = $this->render('applications/view', $application);
-        //     }
-        // }
-        // $apiPlans = new ApiPlans();
-        // $output = $this->render('applications/new', $apiPlans->fetch(null));
-        return $output;
-    }
-
-    /**
-     */
     public function keys_shortcode () {
 
-        $keys = $this->mashery->keys();
-        $output = $this->render_shortcode('keys/index', $keys);
+        update_option( $this->_token . '_keys_page', get_the_ID(), true );
+        $data = $this->mashery->keys();
+        $output = $this->render_shortcode('keys/list', $data);
+        return $output;
+
+    }
+
+    /**
+     */
+    public function key_shortcode () {
+
+        update_option( $this->_token . '_key_page', get_the_ID(), true );
+        $key = get_query_var('key');
+        $data = $this->mashery->key($key);
+        $output = $this->render_shortcode('keys/details', $data);
+        return $output;
+
+    }
+
+    /**
+     */
+    public function new_key_shortcode () {
+
+        update_option( $this->_token . '_new_key_page', get_the_ID(), true );
+        $output = $this->render_shortcode('keys/form');
         return $output;
 
     }

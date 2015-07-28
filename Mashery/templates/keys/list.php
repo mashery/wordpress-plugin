@@ -24,7 +24,9 @@
             </td>
             <td class="uk-text-center"><div class="uk-badge uk-badge-<?= ($key["status"] == 'active') ? 'success' : 'danger' ?>"><?= $key["status"] ?></div></td>
             <td class="uk-text-right">
-                <button class="uk-button uk-button-mini uk-button-danger" type="button">Delete</button>
+                <a class="uk-button uk-button-mini uk-button-danger mash-key-delete-btn" href="<?= add_query_arg( 'action', 'delete', add_query_arg( 'key', $key["id"], get_permalink( get_the_ID() ) ) ) ?>">
+                    Delete
+                </a>
             </td>
         </tr>
         <?php endforeach; ?>

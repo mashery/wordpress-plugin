@@ -73,6 +73,11 @@ class APITest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('secret', $item);
     }
 
+    public function testKeyDelete() {
+        $item = self::$mashery->key_delete(224061);
+        var_dump($item);
+    }
+
 }
 
 ?>

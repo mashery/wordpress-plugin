@@ -131,6 +131,19 @@ class API {
     }
 
     /**
+     * Delete key
+     *
+     * @access public
+     */
+    public function key_delete($key_id) {
+
+        $mql = $key_id;
+        var_dump($mql);
+        return $this->V2($mql)["result"];
+
+    }
+
+    /**
      * Call API V2
      *
      * @access private

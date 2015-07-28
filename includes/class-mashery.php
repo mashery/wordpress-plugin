@@ -101,7 +101,7 @@ class Mashery {
 
         // Load frontend JS & CSS
         // add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ), 10 );
-        // add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10 );
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10 );
 
         // Load admin JS & CSS
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 10, 1 );
@@ -241,23 +241,9 @@ class Mashery {
         $page = NULL;
 
         switch (get_query_var('mashery_action')) {
-            case 'keys':
-                $page = '/keys/';
+            case 'delete':
+                $this->mashery->key_delete(get_query_var('key'));
                 break;
-            case 'key':
-                $page = '/keys/001/';
-                break;
-            case 'new_key':
-                $page = '/keys/new/';
-                break;
-            case 'account':
-                $page = '/keys/new/';
-                break;
-        }
-
-        if($page != NULL) {
-            wp_redirect( home_url( $page ) );
-            die();
         }
 
     }
@@ -376,10 +362,10 @@ class Mashery {
      * @return  void
      */
     public function enqueue_scripts () {
-        wp_register_script( $this->_token . '-uikit', esc_url( $this->assets_url ) . 'js/uikit.min.js', array( 'jquery' ), $this->_version );
-        wp_enqueue_script( $this->_token . '-uikit' );
+        // wp_register_script( $this->_token . '-uikit', esc_url( $this->assets_url ) . 'js/uikit.min.js', array( 'jquery' ), $this->_version );
+        // wp_enqueue_script( $this->_token . '-uikit' );
 
-        wp_register_script( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'js/frontend' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version );
+        wp_register_script( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'js/frontend.js', array( 'jquery' ), $this->_version );
         wp_enqueue_script( $this->_token . '-frontend' );
     } // End enqueue_scripts ()
 

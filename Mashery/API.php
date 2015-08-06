@@ -21,9 +21,9 @@ class API {
      * @param  $password
      * @param  $user
      */
-    public function __construct($area_id, $area_uuid, $apikey, $secret, $username, $password, $user=NULL) {
+    public function __construct($host, $area_id, $area_uuid, $apikey, $secret, $username, $password, $user=NULL) {
 
-        $this->host      = 'https://api.mashery.com';
+        $this->host      = $host;
         $this->area_id   = $area_id;
         $this->area_uuid = $area_uuid;
         $this->apikey    = $apikey;
@@ -131,16 +131,56 @@ class API {
     }
 
     /**
+     * Creates a new package key.
+     *
+     * @param integer $packageId the ID for the related package
+     * @param integer $planId the ID for the related plan
+     * @param integer $applicationId the ID for the related application
+     * @param string $username the username of the application owner
+     *
+     * @return array|mixed
+     */
+    public function key_create($packageId, $planId, $applicationId, $username) {
+        $params = array(
+            'package' => array(
+                'id' => $packageId
+            ),
+            'plan' => array(
+                'id' => $planId
+            ),
+            'application' => array(
+                'id' => $applicationId
+            ),
+            'member' => array(
+                'username' => $username
+            )
+        );
+
+        return $this->V2($params, 'package_key.create');
+    }
+
+    /**
+     * Updates an existing package key.
+     *
+     * @param array $key the package key data to be used for the update
+     *
+     * @return array|mixed
+     */
+    public function key_update($key) {
+        return $this->V2($key, 'package_key.update');
+    }
+
+    /**
      * Delete key
      *
      * @access public
      */
     public function key_delete($key_id) {
+        $params = array(
+            'id' => $key_id
+        );
 
-        $mql = $key_id;
-        var_dump($mql);
-        return $this->V2($mql)["result"];
-
+        return $this->V2($params, 'package_key.delete')["result"];
     }
 
     /**
@@ -150,17 +190,23 @@ class API {
      * @param $mql   : Fully composed Mashery Query Language statement
      * @param $method: RPC method
      */
-    private function V2($mql, $method = 'object.query') {
+    private function V2($params, $method = 'object.query') {
+        if(is_string($params)) {
+            $params = array($params);
+        }
+        else {
+            $params = json_encode($params);
+        }
 
         $sig = hash('md5', $this->apikey . $this->secret . time());
-        $url = self::V2_ENDPOINT . '/' . $this->area_id;
+        $url = self::V2_ENDPOINT . $this->area_id;
         $query = array(
             "apikey" => $this->apikey,
             "sig"    => $sig
         );
         $payload = json_encode(array(
             'method' => $method,
-            'params' => array ($mql),
+            'params' => $params,
             'id' => 1
         ));
         $headers = array(
@@ -239,7 +285,7 @@ class API {
         $merged["query"]   = isset($options["query"])   ? $options["query"] : array();
         $merged["payload"] = isset($options["payload"]) ? $options["payload"] : array();
         $merged["headers"] = isset($options["headers"]) ? array_merge(array("Content-Type: application/json"), $options["headers"]) : array();
-        $merged["method"]  = isset($options["method"])  ? $options["method"] : "GET";
+        $merged["method"]  = isset($options["method"])  ? $options["method"] : "POST";
 
         $url = $this->host . $merged["url"];
 
@@ -252,12 +298,15 @@ class API {
         curl_setopt($curl, CURLOPT_HTTPHEADER, $merged["headers"]);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $merged["method"]);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        if ($merged['method'] == 'POST') {
+            curl_setopt($curl, CURLOPT_POST, true);
+        }
         curl_setopt($curl, CURLOPT_POSTFIELDS, $merged["payload"]);
         if ($merged["url"] == self::TOKEN_ENDPOINT) {
             curl_setopt($curl, CURLOPT_USERPWD, $this->apikey. ':' . $this->secret);
         }
         $json = curl_exec($curl);
-
         $response = json_decode($json, true);
 
         // if ($response['error'] != null) {

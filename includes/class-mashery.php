@@ -128,6 +128,7 @@ class Mashery {
         $current_user = wp_get_current_user();
 
         $this->mashery = new API(
+            get_option($this->_token . '_apihost'),     // "https://api.mashery.com"
             get_option($this->_token . '_areaid'),      // "425";
             get_option($this->_token . '_areauuid'),    // "acbb134e-c2f4-4203-b15b-9343e9ad031c";
             get_option($this->_token . '_apikey'),      // "sbub7dmvheh4gw8dusx8a38d";

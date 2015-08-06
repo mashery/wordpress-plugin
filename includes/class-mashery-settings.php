@@ -128,6 +128,14 @@ class Mashery_Settings {
                     'placeholder'	=> __( 'Area UUID', 'mashery' )
                 ),
                 array(
+                    'id'            => 'apihost',
+                    'label'         => __( 'Admin API Host', 'mashery' ),
+                    'description'   => __( 'Admin API Host', 'mashery' ),
+                    'type'          => 'text',
+                    'default'       => 'https://api.mashery.com',
+                    'placeholder'   => __( 'Admin API Host', 'mashery' )
+                ),
+                array(
                     'id' 			=> 'apikey',
                     'label'			=> __( 'Admin API Key' , 'mashery' ),
                     'description'	=> __( 'Admin API Key.', 'mashery' ),
@@ -164,7 +172,7 @@ class Mashery_Settings {
                     'label'			=> __( 'Force Mashery User', 'mashery' ),
                     'description'	=> __( 'Use to load user\'s Mashery data.', 'mashery' ),
                     'type'			=> 'select',
-                    'options'		=> array( 'jpollock' => 'Jeremy Pollock', 'luisgo' => 'Luis Gomez', 'fake' => 'Non-existent User' ),
+                    'options'		=> array( 'jpollock' => 'Jeremy Pollock', 'luisgo' => 'Luis Gomez', 'localdevuser' => 'Localdev User', 'fake' => 'Non-existent User' ),
                     'default'		=> 'wordpress'
                 )
                 // array(

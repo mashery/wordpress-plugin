@@ -116,7 +116,7 @@ class Mashery {
         $this->load_plugin_textdomain();
         add_action( 'init', array( $this, 'load_localisation' ), 0 );
 
-        $this->shortcodes = array('account', 'keys', 'key', 'new_key');
+        $this->shortcodes = array('account', 'apis', 'keys', 'key', 'new_key');
 
         foreach ($this->shortcodes as $shortcode) {
             add_shortcode( $this->_token . ':' . $shortcode, array($this, $shortcode . '_shortcode') );
@@ -271,6 +271,17 @@ class Mashery {
 
         $user = $this->mashery->user();
         $output = $this->render_shortcode('account', $user);
+        return $output;
+
+    }
+
+    /**
+     */
+    public function apis_shortcode () {
+
+        update_option( $this->_token . '_apis_page', get_the_ID(), true );
+        $data = $this->mashery->apis();
+        $output = $this->render_shortcode('apis/list', $data);
         return $output;
 
     }

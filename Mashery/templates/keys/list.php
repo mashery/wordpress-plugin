@@ -33,6 +33,8 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+<?php } else { ?>
+    <div class="uk-alert uk-alert-warning">We could not find any keys in your account. Add a key below or contact us if this is not correct.</div>
 <?php } ?>
 
 <a class="uk-button uk-button-small uk-button-success" href="<?= get_permalink( get_option( 'mashery_new_key_page' ) ) ?>">Add a New Key</a>

@@ -43,6 +43,15 @@ class API {
 
         // $mql = "SELECT * FROM members WHERE username = '$this->user'";
         // return $this->V2($mql)["result"]["items"][0];
+        $data = array(array(
+            "id" => "001",
+            "name" => "My Awesome API",
+            "created" => "0",
+            "package" => "Some Package Name",
+            "plan" => "Some Plan Name",
+            "status" => "active"
+        ));
+        return $data;
 
     }
 

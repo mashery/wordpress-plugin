@@ -116,7 +116,7 @@ class Mashery {
         $this->load_plugin_textdomain();
         add_action( 'init', array( $this, 'load_localisation' ), 0 );
 
-        $this->shortcodes = array('account', 'keys', 'key', 'new_key');
+        $this->shortcodes = array('account', 'password', 'keys', 'key', 'new_key');
 
         foreach ($this->shortcodes as $shortcode) {
             add_shortcode( $this->_token . ':' . $shortcode, array($this, $shortcode . '_shortcode') );
@@ -271,6 +271,16 @@ class Mashery {
 
         $user = $this->mashery->user();
         $output = $this->render_shortcode('account', $user);
+        return $output;
+
+    }
+
+    /**
+     */
+    public function password_shortcode () {
+
+        $user = $this->mashery->user();
+        $output = $this->render_shortcode('password', $user);
         return $output;
 
     }

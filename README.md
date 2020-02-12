@@ -1,9 +1,13 @@
-# WARNING
+# Deprecation Notice
+
+This was an experimental plugin that never got fully developed, and is missing key integrations required for it to actually be useful.
+
+## WARNING
 
 This is a work in progress with no guarantees and no support. Use at your own
 risk!
 
-# Wordpress Plugin
+## Wordpress Plugin
 > Mashery Developer Portal integration plugin for Wordpress.
 
 Plugin for integrating some Mashery Developer Portal features into a
